@@ -1,35 +1,87 @@
-# Compiler and Flags
-CC = gcc
-CFLAGS = -Iinclude -Wall -Wextra -std=c11
+CC ?= gcc
 
 # Directories
-SRC_DIR = src
-INCLUDE_DIR = include
-LIB_DIR = lib
-BIN_DIR = bin
+SRCDIR := src
+INCDIR := include
+LIBDIR := lib
+BINDIR := bin
+OBJDIR := build
 
-# Targets
-LIB_NAME = libmylib.a
-EXEC_NAME = myprogram
+# Names
+LIB_NAME := libmylib.a
+LIB_FILE := $(LIBDIR)/$(LIB_NAME)
+EXEC_NAME := myprogram
+TARGET := $(BINDIR)/$(EXEC_NAME)
 
-SRC_FILES = \$(wildcard \$(SRC_DIR)/*.c)
-OBJ_FILES = \$(SRC_FILES:.c=.o)
-LIB_FILE = \$(LIB_DIR)/\$(LIB_NAME)
+# Sources / objects
+SOURCES := $(wildcard $(SRCDIR)/*.c)
+OBJECTS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
 
-all: \$(BIN_DIR)/\$(EXEC_NAME)
+# Compiler flags
+CPPFLAGS := -I$(INCDIR)
+CFLAGS ?= -std=c11 -Wall -Wextra -g -O0
+LDFLAGS ?=
 
-\$(LIB_FILE): \$(SRC_DIR)/mylib.o
-	mkdir -p \$(LIB_DIR)
-	ar rcs \$@ \$^
+# Optionally enable sanitizers:
+SANITIZE ?= 0
+ifeq ($(SANITIZE),1)
+CFLAGS += -fsanitize=address,undefined
+LDFLAGS += -fsanitize=address,undefined
+endif
 
-\$(BIN_DIR)/\$(EXEC_NAME): \$(LIB_FILE) \$(SRC_DIR)/main.o
-	mkdir -p \$(BIN_DIR)
-	\$(CC) \$(CFLAGS) -o \$@ \$(SRC_DIR)/main.o -L\$(LIB_DIR) -lmylib
+.PHONY: all debug release clean run perft help dirs
 
-\$(SRC_DIR)/%.o: \$(SRC_DIR)/%.c
-	\$(CC) \$(CFLAGS) -c \$< -o \$@
+all: debug
+
+debug: CFLAGS += -g -O0
+debug: dirs $(TARGET)
+
+release: CFLAGS := -std=c11 -O2 -DNDEBUG -Wall -Wextra
+release: dirs $(TARGET)
+
+# Exclude main.o from the static lib archive
+LIB_OBJECTS := $(filter-out $(OBJDIR)/main.o,$(OBJECTS))
+
+# Link final executable (link main.o with the static library)
+$(TARGET): $(LIB_FILE) $(OBJDIR)/main.o | $(BINDIR)
+	@echo "Linking $@"
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $(OBJDIR)/main.o -L$(LIBDIR) -lmylib $(LDFLAGS)
+
+# Create static library from library objects
+$(LIB_FILE): $(LIB_OBJECTS) | $(LIBDIR)
+	@echo "Archiving $@"
+	ar rcs $@ $(LIB_OBJECTS)
+
+# Compile .c -> .o into OBJDIR
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	@echo "Compiling $<"
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+# Ensure directories exist
+dirs: $(BINDIR) $(OBJDIR) $(LIBDIR)
+
+$(BINDIR) $(OBJDIR) $(LIBDIR):
+	@mkdir -p $@
+
+# Run the program
+run: debug
+	@echo "Running $(TARGET) $(ARGS)"
+	$(TARGET) $(ARGS)
+
+# Perft convenience (your program should implement a --perft / similar)
+perft: debug
+	@echo "Running perft: $(TARGET) $(PERFT_ARGS)"
+	$(TARGET) $(PERFT_ARGS)
 
 clean:
-	rm -f \$(SRC_DIR)/*.o \$(LIB_DIR)/*.a \$(BIN_DIR)/*
+	@echo "Cleaning..."
+	@rm -rf $(OBJDIR) $(BINDIR) $(LIBDIR)
 
-.PHONY: all clean
+help:
+	@printf "Makefile targets:\n"
+	@printf "  make (or make debug)    - build debug binary\n"
+	@printf "  make release            - build optimized release binary\n"
+	@printf "  make SANITIZE=1 debug   - build with ASan/UBSan\n"
+	@printf "  make run ARGS=\"...\"    - run binary with ARGS\n"
+	@printf "  make perft PERFT_ARGS=\"...\" - run perft (if supported)\n"
+	@printf "  make clean              - remove build artifacts\n\n"
