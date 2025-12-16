@@ -1,0 +1,144 @@
+# Chess Engine Development Roadmap
+
+Phase 1 — Board representation, FEN loader, printing (1–2 weeks)
+----------------------------------------------------------------
+
+**Why:** A correct, unambiguous position representation and FEN I/O are foundational.
+
+**Tasks**
+- Choose initial board representation (recommend start with 8x8 array or 0x88 mailbox for clarity).
+- Define `Position` structure: piece array, side to move, castling rights, en-passant square, halfmove clock, fullmove number.
+- Implement FEN parser (FEN → `Position`) and serializer (`Position` → FEN).
+- Implement ASCII/CLI board printer for debugging.
+
+**Acceptance criteria**
+- FEN round-trip: parse → serialize produces a semantically equivalent FEN for multiple test cases.
+- Manual verification: visual board printout matches the input FEN for canonical positions.
+
+**Common pitfalls**
+- Forgetting to parse/serialize all FEN fields (castling, en-passant, clocks).
+- Off-by-one or indexing errors when converting between file/rank and array indexes.
+
+Phase 2 — Move representation and make/unmake (1–2 weeks)
+----------------------------------------------------------
+
+**Why:** Reliable make/unmake is essential for correct search behaviour.
+
+**Tasks**
+- Design a compact `Move` representation: `from`, `to`, promotion piece (if any), flags (capture, castling, en-passant).
+- Implement:
+  - `generate_pseudolegal_moves(position)` — produces pseudo-legal moves (may leave king in check).
+  - `make_move(position, move, move_stack_entry)` — perform the move and store state needed to unmake.
+  - `unmake_move(position, move_stack_entry)` — restore previous position exactly.
+- Handle special moves: castling, en-passant, promotions, captures (store captured piece), update castling rights and en-passant correctly.
+
+**Acceptance criteria**
+- For any generated pseudo-legal move, `make` → `unmake` returns the position to bytewise equivalence (or identical FEN).
+- Stable invariants: exactly one king of each color, piece counts conserved modulo captures.
+
+**Common pitfalls**
+- Not saving/restoring en-passant target or castling rights correctly.
+- Missing information needed to unmake (e.g., captured piece identity, previous halfmove clock).
+
+Phase 3 — Legal move filtering and perft (2 weeks)
+---------------------------------------------------
+
+**Why:** Perft is the canonical test suite for move-generation correctness, including edge cases.
+
+**Tasks**
+- Implement `is_in_check(position, side)` and a filter to convert pseudo-legal to legal moves (exclude moves leaving own king in check).
+- Implement a perft routine: `perft(position, depth)` that returns node count.
+- Build a perft test harness that runs standard positions and compares counts to reference values.
+
+**Acceptance criteria**
+- Perft counts match reference values for standard positions (starting position, Kiwipete, etc.) at several depths.
+- Tests pass locally and in CI (run debug for correctness, release for speed).
+
+**Common pitfalls**
+- Incorrectly handling en-passant or castling in pseudo-legal generation, causing perft mismatches.
+- Performance of perft is not critical initially, but correctness is.
+
+Phase 4 — Search: minimax → alpha-beta → iterative deepening (3–6 weeks)
+---------------------------------------------------------------------------
+
+**Why:** Implement search to select moves; start simple and add optimizations later.
+
+**Tasks**
+- Implement simple minimax search with fixed depth and a static evaluation.
+- Replace with alpha-beta pruning for efficiency.
+- Add iterative deepening (iteratively increase depth and use prior results to improve move ordering).
+- Implement a simple static evaluation: material balance + piece-square tables.
+- Add a transposition table using Zobrist hashing (cache nodes to speed up search).
+
+**Acceptance criteria**
+- Engine can search to modest depths (4–6 plies) and return legal moves.
+- Search is deterministic & reproducible given same inputs and hash seeds.
+
+**Common pitfalls**
+- Incorrect hash updating on make/unmake leading to wrong TT hits.
+- Evaluation instability (non-deterministic results) due to uninitialized fields.
+
+Phase 5 — Search improvements & time control (4–8 weeks)
+---------------------------------------------------------
+
+**Why:** Improve playing strength and make engine usable under time constraints.
+
+**Tasks**
+- Add quiescence search to reduce horizon effects.
+- Improve move ordering (captures first, MVV-LVA, killer moves, history heuristic).
+- Implement pruning enhancements (late move reductions, null move pruning where appropriate).
+- Implement aspiration windows and iterative-deepening budgeting.
+- Create a time manager: allocate time, handle increments, and stop search reliably.
+
+**Acceptance criteria**
+- Engine selects stronger, more coherent moves and respects time controls in tests.
+- Quiescence reduces tactical blunders in search tests.
+
+**Common pitfalls**
+- Over-aggressive pruning causing tactical losses; always validate with tests.
+- Time-management races or failure to stop search cleanly — ensure safe interruption points.
+
+Phase 6 — Protocol & Online play (2–4 weeks)
+--------------------------------------------
+
+**Why:** Expose engine to GUIs and online platforms or run as a server for players.
+
+**Options**
+- Implement UCI (recommended) to interoperate with GUIs and bot platforms.
+- Alternatively, write a small server wrapper (HTTP or socket) that spawns the engine and mediates games.
+
+**Tasks**
+- Implement a command loop supporting:
+  - load position (FEN)
+  - set startpos
+  - go (with time controls)
+  - stop, ponder, isready, `uci`/`newgame` (if UCI)
+- Ensure engine can be launched, given time limits, and return moves.
+- For server hosting: create process isolation and per-game engine instances; record PGNs and handle concurrency.
+
+**Acceptance criteria**
+- Engine responds correctly to protocol commands and can play a full game via a GUI or under a bot framework.
+- If deployed, it can handle multiple game requests safely.
+
+**Common pitfalls**
+- Blocking reads/writes causing UI/arena stalls — design non-blocking or well-structured I/O handling.
+- Security: launching engines on public servers requires sandboxing and resource limits.
+
+Phase 7 — Deployment & polishing (ongoing)
+------------------------------------------
+
+**Why:** Make the engine stable, usable, and maintainable for real users.
+
+**Tasks**
+- Add logging, PGN export, game persistence, and user/session management if hosting.
+- Add regression tests and CI that run perft and a small set of search-based sanity checks.
+- Profile and optimize hotspots: consider converting to bitboards if move-generation/search bottlenecks warrant it.
+- Containerize or otherwise package engine for deployment; set up monitoring and limits.
+
+**Acceptance criteria**
+- Stable under multiple games, with reproducible logs and the ability to reproduce/regress bugs.
+- Reasonable performance and scaling under expected load.
+
+**Common pitfalls**
+- Premature low-level optimization before correctness; always profile first.
+- Not having enough automated tests to catch regressions after refactors.
