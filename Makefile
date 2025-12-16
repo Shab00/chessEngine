@@ -1,3 +1,17 @@
+# Practical Makefile for your C chess engine project
+# - src/*.c -> build/*.o
+# - lib/libmylib.a created from all objects except main.o
+# - bin/myprogram produced by linking main.o with -Llib -lmylib
+#
+# Usage:
+#   make                 # build debug
+#   make release         # build optimized release
+#   make SANITIZE=1      # enable ASan/UBSan when building (e.g. make SANITIZE=1 debug)
+#   make run ARGS="..."  # run binary
+#   make perft PERFT_ARGS="..."  # run perft (if implemented)
+#   make clean           # remove build artifacts (keep dirs)
+#   make distclean       # remove build directories entirely
+#
 CC ?= gcc
 
 # Directories
@@ -29,7 +43,7 @@ CFLAGS += -fsanitize=address,undefined
 LDFLAGS += -fsanitize=address,undefined
 endif
 
-.PHONY: all debug release clean run perft help dirs
+.PHONY: all debug release clean distclean run perft help dirs
 
 all: debug
 
@@ -73,9 +87,17 @@ perft: debug
 	@echo "Running perft: $(TARGET) $(PERFT_ARGS)"
 	$(TARGET) $(PERFT_ARGS)
 
+# Safe clean: remove build artifacts but keep directory structure
 clean:
-	@echo "Cleaning..."
-	@rm -rf $(OBJDIR) $(BINDIR) $(LIBDIR)
+	@echo "Cleaning build artifacts (keeping directories)..."
+	@rm -f $(OBJDIR)/*.o || true
+	@rm -f $(LIBDIR)/*.a || true
+	@rm -f $(BINDIR)/* || true
+
+# Full cleanup: remove the build directories entirely (use with caution)
+distclean:
+	@echo "Removing build directories (distclean)..."
+	@rm -rf $(OBJDIR) $(LIBDIR) $(BINDIR)
 
 help:
 	@printf "Makefile targets:\n"
@@ -84,4 +106,5 @@ help:
 	@printf "  make SANITIZE=1 debug   - build with ASan/UBSan\n"
 	@printf "  make run ARGS=\"...\"    - run binary with ARGS\n"
 	@printf "  make perft PERFT_ARGS=\"...\" - run perft (if supported)\n"
-	@printf "  make clean              - remove build artifacts\n\n"
+	@printf "  make clean              - remove build artifacts but keep directories\n"
+	@printf "  make distclean          - remove build directories entirely\n\n"
