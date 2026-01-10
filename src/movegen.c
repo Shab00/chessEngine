@@ -8,34 +8,40 @@
 static inline int file_of(int sq) { return SQ_FILE(sq); }
 static inline int rank_of(int sq) { return SQ_RANK(sq); }
 
+
 int is_square_attacked(const Position *pos, int sq, int by)
 {
     if (sq < 0 || sq >= 64) return 0;
     int f = file_of(sq);
     int r = rank_of(sq);
+
+    /* Pawn attacks: check squares where an attacking pawn would sit */
     if (by == COLOR_WHITE) {
-        if (r < 7) {
+        /* A white pawn that attacks (f,r) must be on (f-1,r-1) or (f+1,r-1) */
+        if (r > 0) {
             if (f > 0) {
-                int s = SQ_INDEX(f - 1, r + 1);
+                int s = SQ_INDEX(f - 1, r - 1);
                 if (pos->board[s] == PIECE_PAWN) return 1;
             }
             if (f < 7) {
-                int s = SQ_INDEX(f + 1, r + 1);
+                int s = SQ_INDEX(f + 1, r - 1);
                 if (pos->board[s] == PIECE_PAWN) return 1;
             }
         }
     } else {
-        if (r > 0) {
+        /* A black pawn that attacks (f,r) must be on (f-1,r+1) or (f+1,r+1) */
+        if (r < 7) {
             if (f > 0) {
-                int s = SQ_INDEX(f - 1, r - 1);
+                int s = SQ_INDEX(f - 1, r + 1);
                 if (pos->board[s] == -PIECE_PAWN) return 1;
             }
             if (f < 7) {
-                int s = SQ_INDEX(f + 1, r - 1);
+                int s = SQ_INDEX(f + 1, r + 1);
                 if (pos->board[s] == -PIECE_PAWN) return 1;
             }
         }
     }
+
     const int knight_deltas[8][2] = { {2,1},{1,2},{-1,2},{-2,1},{-2,-1},{-1,-2},{1,-2},{2,-1} };
     for (int i = 0; i < 8; ++i) {
         int ff = f + knight_deltas[i][0];
@@ -47,6 +53,8 @@ int is_square_attacked(const Position *pos, int sq, int by)
         if (by == COLOR_WHITE && v == PIECE_KNIGHT) return 1;
         if (by == COLOR_BLACK && v == -PIECE_KNIGHT) return 1;
     }
+
+    /* adjacent king checks */
     for (int df = -1; df <= 1; ++df) {
         for (int dr = -1; dr <= 1; ++dr) {
             if (df == 0 && dr == 0) continue;
@@ -59,6 +67,8 @@ int is_square_attacked(const Position *pos, int sq, int by)
             if (by == COLOR_BLACK && v == -PIECE_KING) return 1;
         }
     }
+
+    /* sliding pieces: rook/queen on orthogonals, bishop/queen on diagonals */
     const int dirs[8][2] = { {1,0},{-1,0},{0,1},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1} };
     for (int d = 0; d < 8; ++d) {
         int df = dirs[d][0], dr = dirs[d][1];
@@ -86,7 +96,6 @@ int is_square_attacked(const Position *pos, int sq, int by)
     }
     return 0;
 }
-
 static int find_king_sq(const Position *pos, int color)
 {
     for (int i = 0; i < 64; ++i) {
