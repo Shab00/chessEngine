@@ -1,0 +1,46 @@
+name: Perft regression tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  perft-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential gcc make python3 python3-pip
+
+      - name: Install python deps
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --user chess
+          export PATH="$HOME/.local/bin:$PATH"
+
+      - name: Build tests
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          SRC_FILES=$(grep -L "int main" src/*.c | tr '\n' ' ')
+          echo "Using source files: $SRC_FILES"
+          for f in tests/*.c; do
+            out="build/$(basename "$f" .c)"
+            echo "Compiling $f -> $out"
+            gcc -Iinclude -std=c11 -Wall -Wextra -O2 $SRC_FILES "$f" -o "$out"
+          done
+
+      - name: Run perft tests
+        run: |
+          set -euo pipefail
+          chmod +x ./tests/run_perft_tests.sh
+          ./tests/run_perft_tests.sh
