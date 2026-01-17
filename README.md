@@ -1,5 +1,7 @@
 # c-chess-engine
 
+[![Perft tests](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml/badge.svg)](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml)
+
 A small chess engine written in C.
 
 Goals
