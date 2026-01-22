@@ -14,7 +14,7 @@ OBJS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS_NO_MAIN))
 TEST_SRCS := $(wildcard $(TESTDIR)/*.c)
 TEST_BINS := $(patsubst $(TESTDIR)/%.c,$(BUILDDIR)/%,$(TEST_SRCS))
 
-.PHONY: all tests run-tests clean help
+.PHONY: all tests run-tests clean help sanitize
 
 all: $(TEST_BINS)
 
@@ -37,8 +37,8 @@ $(BUILDDIR)/%: $(TESTDIR)/%.c $(OBJS) | $(BUILDDIR)
 tests: all
 
 run-tests: tests
-	chmod +x $(TESTDIR)/run_perft_tests.sh
-	$(TESTDIR)/run_perft_tests.sh
+	# Run the verified perft runner against tests/perft_tests.txt
+	./build/perft_runner runfile
 
 clean:
 	rm -rf $(BUILDDIR)
@@ -46,5 +46,8 @@ clean:
 help:
 	@echo "Usage:"
 	@echo "  make            # build all test binaries into build/"
-	@echo "  make run-tests  # build and run tests/run_perft_tests.sh"
+	@echo "  make run-tests  # build and run ./build/perft_runner runfile"
 	@echo "  make clean      # remove build/"
+
+sanitize:
+	$(MAKE) CFLAGS='-Iinclude -std=c11 -g -O0 -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra' all
