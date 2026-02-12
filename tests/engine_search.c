@@ -1,5 +1,7 @@
 #include "position.h"
 #include "search.h"
+#include "hash.h"
+#include "tt.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,10 +19,15 @@ int main(int argc, char **argv)
         fprintf(stderr, "bad fen: %s\n", err);
         return 2;
     }
+
+    zobrist_init(0xC0FFEE123456789ULL);
+    tt_init(16); /* 16 MB TT to start */
+
     int from, to, promo;
-    int ok = search_root(&pos, depth, &from, &to, &promo);
+    int ok = search_iterative_deepening(&pos, depth, &from, &to, &promo);
     if (!ok) {
         fprintf(stdout, "no legal move found\n");
+        tt_free();
         return 0;
     }
     char from_s[4], to_s[4];
@@ -31,5 +38,7 @@ int main(int argc, char **argv)
     } else {
         printf("best: %s->%s\n", from_s, to_s);
     }
+
+    tt_free();
     return 0;
 }

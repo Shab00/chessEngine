@@ -7,11 +7,9 @@
 extern "C" {
 #endif
 
-/* Search API:
-   - search_root: run fixed-depth alpha-beta and return best move via pointers.
-     Returns 1 if a move was found, 0 if no legal moves.
-*/
 int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion);
+
+int search_iterative_deepening(Position *pos, int max_depth, int *out_from, int *out_to, int *out_promotion);
 
 #ifdef __cplusplus
 }
