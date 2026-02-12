@@ -2,6 +2,8 @@
 #include "eval.h"
 #include "movegen.h"
 #include "position.h"
+#include "hash.h"
+#include "tt.h"
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,13 +23,21 @@ static int find_king(const Position *pos, int color)
 #define MATE_SCORE 100000
 #define INF 1000000000
 
+void reorder_moves(int *froms, int *tos, int *promos, int n, const Position *pos);
+
 static int search_ab(Position *pos, int depth, int alpha, int beta)
 {
     if (depth <= 0) {
         return evaluate(pos);
     }
 
-    /* generate moves */
+    uint64_t key = position_hash(pos);
+
+    int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
+    if (tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo)) {
+        return tt_val;
+    }
+
     int capacity = 1024;
     int *froms = malloc(sizeof(int) * capacity);
     int *tos = malloc(sizeof(int) * capacity);
@@ -38,6 +48,21 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
     }
 
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
+    reorder_moves(froms, tos, promos, n, pos);
+
+    if (tt_from >= 0 && n > 0) {
+        for (int i = 0; i < n; ++i) {
+            if (froms[i] == tt_from && tos[i] == tt_to && promos[i] == tt_promo) {
+                if (i != 0) {
+                    int tf = froms[0], tt = tos[0], tp = promos[0];
+                    froms[0] = froms[i]; tos[0] = tos[i]; promos[0] = promos[i];
+                    froms[i] = tf; tos[i] = tt; promos[i] = tp;
+                }
+                break;
+            }
+        }
+    }
+
     if (n == 0) {
         int king_sq = find_king(pos, pos->side_to_move);
         int in_check = 0;
@@ -49,12 +74,14 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
         if (in_check) {
             return (pos->side_to_move == COLOR_WHITE) ? -MATE_SCORE : MATE_SCORE;
         } else {
-            /* stalemate */
             return 0;
         }
     }
 
-    int best = (pos->side_to_move == COLOR_WHITE) ? -INF : INF;
+    int best_value = (pos->side_to_move == COLOR_WHITE) ? -INF : INF;
+    int best_from = -1, best_to = -1, best_promo = 0;
+    int alpha_orig = alpha;
+    int beta_orig = beta;
 
     for (int i = 0; i < n; ++i) {
         MoveUndo undo;
@@ -62,39 +89,19 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
         int val = search_ab(pos, depth - 1, alpha, beta);
         unmake_move(pos, &undo);
 
-        if (pos->side_to_move == COLOR_WHITE) {
-            /* After unmake, side_to_move is restored to original side; but previous call
-               made a move and toggled it, we evaluate from current position's perspective.
-               We'll treat the search value as White-perspective always. */
-        }
-
-        /* value is White-perspective; maximize for White, minimize for Black */
-        if (pos->side_to_move == COLOR_WHITE) {
-            /* when we generated moves, pos->side_to_move was the side to move BEFORE making the move.
-               The variable pos->side_to_move after unmake is same as before; we need to determine
-               which side made the move to know whether to maximize or minimize. Simpler: use the
-               sign of value relative to White and perform conventional alpha-beta: at root we
-               maximize for side that was to move at call site. For internal nodes, we can flip logic
-               by tracking side_to_move before making moves, but simpler approach:
-               We'll implement search to always treat the calling side as side to move by reading pos->side_to_move
-               BEFORE making moves. To avoid confusion, restructure by checking the side variable at the top.
-            */
-        }
-
-        /* For correctness we should have known side_to_move at the node where moves were generated.
-           To do this simply: compute side variable as the side that was to move when moves were generated.
-        */
-        /* Actually we can compute that by looking at undo.moved_piece sign: moved_piece >0 means white moved */
         int mover = (undo.moved_piece > 0) ? COLOR_WHITE : COLOR_BLACK;
 
-        /* If mover was WHITE then after the move, the search evaluated the position where side_to_move is BLACK.
-           The returned val is White-perspective; updating best for root node: since the side that moved was mover,
-           we want to maximize if mover==WHITE (White made the move), minimize if mover==BLACK. */
         if (mover == COLOR_WHITE) {
-            if (val > best) best = val;
+            if (val > best_value) {
+                best_value = val;
+                best_from = froms[i]; best_to = tos[i]; best_promo = promos[i];
+            }
             if (val > alpha) alpha = val;
         } else {
-            if (val < best) best = val;
+            if (val < best_value) {
+                best_value = val;
+                best_from = froms[i]; best_to = tos[i]; best_promo = promos[i];
+            }
             if (val < beta) beta = val;
         }
 
@@ -103,14 +110,23 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
         }
     }
 
+    tt_flag_t flag = TT_FLAG_EXACT;
+    if (best_value <= alpha_orig) flag = TT_FLAG_UPPER;
+    else if (best_value >= beta_orig) flag = TT_FLAG_LOWER;
+
+    tt_store(key, best_value, depth, flag, best_from, best_to, best_promo);
+
     free(froms); free(tos); free(promos);
-    return best;
+    return best_value;
 }
 
-/* Root search: iterate moves at root to pick best move */
 int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion)
 {
     if (depth <= 0) return 0;
+
+    uint64_t key = position_hash(pos);
+    int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
+    (void)tt_probe(key, depth, -INF, INF, &tt_val, &tt_from, &tt_to, &tt_promo);
 
     int capacity = 4096;
     int *froms = malloc(sizeof(int) * capacity);
@@ -119,6 +135,21 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
     if (!froms || !tos || !promos) { free(froms); free(tos); free(promos); return 0; }
 
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
+    reorder_moves(froms, tos, promos, n, pos);
+
+    if (tt_from >= 0 && n > 0) {
+        for (int i = 0; i < n; ++i) {
+            if (froms[i] == tt_from && tos[i] == tt_to && promos[i] == tt_promo) {
+                if (i != 0) {
+                    int tf = froms[0], tt = tos[0], tp = promos[0];
+                    froms[0] = froms[i]; tos[0] = tos[i]; promos[0] = promos[i];
+                    froms[i] = tf; tos[i] = tt; promos[i] = tp;
+                }
+                break;
+            }
+        }
+    }
+
     if (n == 0) {
         free(froms); free(tos); free(promos);
         return 0;
@@ -134,9 +165,6 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
         int val = search_ab(pos, depth - 1, alpha, beta);
         unmake_move(pos, &undo);
 
-        if (pos->side_to_move == COLOR_WHITE) {
-            /* same note as in search_ab: determine mover from undo.moved_piece sign */
-        }
         int mover = (undo.moved_piece > 0) ? COLOR_WHITE : COLOR_BLACK;
         if (mover == COLOR_WHITE) {
             if (val > best_score) {
@@ -157,6 +185,8 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
         }
         if (alpha >= beta) break;
     }
+
+    tt_store(key, best_score, depth, TT_FLAG_EXACT, best_from, best_to, best_promo);
 
     free(froms); free(tos); free(promos);
 
