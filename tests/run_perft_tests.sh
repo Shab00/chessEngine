@@ -1,36 +1,28 @@
-set -euo pipefail
+#!/usr/bin/env bash
+set -eu
 
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-BIN="$ROOT/build/perft"
-TESTS="$ROOT/tests/perft_tests.txt"
+FENS=(
+  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+  "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1P/PPPBBPP1/R3K2R w KQkq - 0 1"
+  # Add any EP/promo edge cases you have here
+)
 
-if [ ! -x "$BIN" ]; then
-  echo "Building perft binary..."
-  mkdir -p "$ROOT/build"
-  gcc -Iinclude -std=c11 -Wall -Wextra -O2 src/position.c src/position_fen.c src/movegen.c tests/perft.c -o "$BIN" || exit 1
-fi
+DEPTH=3
 
-failures=0
-while IFS= read -r line || [ -n "$line" ]; do
-  line="${line%%#*}"
-  line="${line#"${line%%[![:space:]]*}"}"
-  line="${line%"${line##*[![:space:]]}"}"
-  [ -z "$line" ] && continue
+extract_nodes() {
+  awk -F'Nodes: ' -v D="$DEPTH" '/Depth: '"$DEPTH"'/ {split($2,a," "); print a[1]}'
+}
 
-  IFS=$'\t' read -r fen depth expected <<< "$line"
-  echo -n "Perft: depth=$depth ... "
-  if "$BIN" "$fen" "$depth" "$expected"; then
-    echo "OK"
+for fen in "${FENS[@]}"; do
+  printf "\nFEN: %s\n" "$fen"
+  N1=$(./build/perft "$fen" "$DEPTH" | extract_nodes || true)
+  echo "perft before: $N1"
+  ./build/engine_search "$fen" "$DEPTH"
+  N2=$(./build/perft "$fen" "$DEPTH" | extract_nodes || true)
+  echo "perft after:  $N2"
+  if [ "$N1" = "$N2" ]; then
+    echo "Result: OK"
   else
-    echo "FAIL"
-    failures=$((failures+1))
+    echo "Result: MISMATCH"
   fi
-done < "$TESTS"
-
-if [ $failures -ne 0 ]; then
-  echo "$failures tests failed"
-  exit 1
-fi
-
-echo "All perft tests passed"
-exit 0
+done

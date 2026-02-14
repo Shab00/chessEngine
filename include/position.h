@@ -45,6 +45,9 @@ typedef struct {
     int8_t en_passant;
     uint16_t halfmove_clock;
     uint32_t fullmove_number;
+
+    /* Zobrist key for the position (kept updated by make/unmake) */
+    uint64_t hash;
 } Position;
 
 #define SQ_INDEX(file, rank)  ((rank) * 8 + (file))
