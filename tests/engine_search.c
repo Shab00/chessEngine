@@ -1,4 +1,5 @@
 #include "position.h"
+#include "hash.h"
 #include "search.h"
 #include "hash.h"
 #include "tt.h"

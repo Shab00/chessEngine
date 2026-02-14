@@ -1,4 +1,5 @@
 #include "movegen.h"
+#include "hash.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -15,9 +16,7 @@ int is_square_attacked(const Position *pos, int sq, int by)
     int f = file_of(sq);
     int r = rank_of(sq);
 
-    /* Pawn attacks: check squares where an attacking pawn would sit */
     if (by == COLOR_WHITE) {
-        /* A white pawn that attacks (f,r) must be on (f-1,r-1) or (f+1,r-1) */
         if (r > 0) {
             if (f > 0) {
                 int s = SQ_INDEX(f - 1, r - 1);
@@ -29,7 +28,6 @@ int is_square_attacked(const Position *pos, int sq, int by)
             }
         }
     } else {
-        /* A black pawn that attacks (f,r) must be on (f-1,r+1) or (f+1,r+1) */
         if (r < 7) {
             if (f > 0) {
                 int s = SQ_INDEX(f - 1, r + 1);
@@ -54,7 +52,6 @@ int is_square_attacked(const Position *pos, int sq, int by)
         if (by == COLOR_BLACK && v == -PIECE_KNIGHT) return 1;
     }
 
-    /* adjacent king checks */
     for (int df = -1; df <= 1; ++df) {
         for (int dr = -1; dr <= 1; ++dr) {
             if (df == 0 && dr == 0) continue;
@@ -68,7 +65,6 @@ int is_square_attacked(const Position *pos, int sq, int by)
         }
     }
 
-    /* sliding pieces: rook/queen on orthogonals, bishop/queen on diagonals */
     const int dirs[8][2] = { {1,0},{-1,0},{0,1},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1} };
     for (int d = 0; d < 8; ++d) {
         int df = dirs[d][0], dr = dirs[d][1];
@@ -201,7 +197,21 @@ static void make_move_raw(Position *pos, int from, int to, int promotion, Undo *
     }
     pos->side_to_move = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
     if (pos->side_to_move == COLOR_WHITE) pos->fullmove_number++;
+
+    pos->hash = position_hash(pos);
+
+#ifdef DEBUG
+    {
+        uint64_t recomputed = position_hash(pos);
+        if (recomputed != pos->hash) {
+            fprintf(stderr, "hash mismatch after make_move_raw: recomputed=0x%016llx stored=0x%016llx\n",
+                    (unsigned long long)recomputed, (unsigned long long)pos->hash);
+            abort();
+        }
+    }
+#endif
 }
+
 
 static void unmake_move_raw(Position *pos, const Undo *undo)
 {
@@ -233,6 +243,19 @@ static void unmake_move_raw(Position *pos, const Undo *undo)
             }
         }
     }
+
+    pos->hash = position_hash(pos);
+
+#ifdef DEBUG
+    {
+        uint64_t recomputed = position_hash(pos);
+        if (recomputed != pos->hash) {
+            fprintf(stderr, "hash mismatch after unmake_move_raw: recomputed=0x%016llx stored=0x%016llx\n",
+                    (unsigned long long)recomputed, (unsigned long long)pos->hash);
+            abort();
+        }
+    }
+#endif
 }
 
 static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_out, int capacity)
