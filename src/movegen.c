@@ -102,6 +102,8 @@ static int find_king_sq(const Position *pos, int color)
     return POS_NO_SQUARE;
 }
 
+/* name=src/movegen.c */
+/* --- Replace the previous Undo typedef with this --- */
 typedef struct {
     int from, to;
     int8_t moved_piece;
@@ -111,11 +113,17 @@ typedef struct {
     uint16_t prev_halfmove;
     uint32_t prev_fullmove;
     int ep_capture_sq;
+
+    /* saved zobrist hash before the move */
+    uint64_t prev_hash;
 } Undo;
 
+/* --- make_move_raw (use same function header as before) --- */
 static void make_move_raw(Position *pos, int from, int to, int promotion, Undo *undo)
 {
     assert(from >= 0 && from < 64 && to >= 0 && to < 64);
+
+    /* Save previous state including the previous full zobrist hash */
     undo->from = from;
     undo->to = to;
     undo->moved_piece = pos->board[from];
@@ -125,6 +133,11 @@ static void make_move_raw(Position *pos, int from, int to, int promotion, Undo *
     undo->prev_halfmove = pos->halfmove_clock;
     undo->prev_fullmove = pos->fullmove_number;
     undo->ep_capture_sq = POS_NO_SQUARE;
+
+    /* NEW: save previous full Zobrist hash */
+    undo->prev_hash = pos->hash;
+
+    /* Perform board updates (same as original) */
     pos->board[to] = pos->board[from];
     pos->board[from] = PIECE_EMPTY;
     if (promotion != 0) {
@@ -198,7 +211,67 @@ static void make_move_raw(Position *pos, int from, int to, int promotion, Undo *
     pos->side_to_move = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
     if (pos->side_to_move == COLOR_WHITE) pos->fullmove_number++;
 
-    pos->hash = position_hash(pos);
+    /* ---------------------------
+       Incremental Zobrist update
+       --------------------------- */
+    {
+        uint64_t h = undo->prev_hash;
+
+        /* 1) XOR out the moved piece from its origin */
+        if (undo->moved_piece != PIECE_EMPTY) {
+            zobrist_xor_piece(&h, undo->from, undo->moved_piece);
+        }
+
+        /* 2) Handle capture XOR-out (en-passant or normal) */
+        if (undo->ep_capture_sq != POS_NO_SQUARE) {
+            /* en-passant captured pawn was on ep_capture_sq */
+            if (undo->captured_piece != PIECE_EMPTY) {
+                zobrist_xor_piece(&h, undo->ep_capture_sq, undo->captured_piece);
+            }
+        } else if (undo->captured_piece != PIECE_EMPTY) {
+            /* normal capture at 'to' */
+            zobrist_xor_piece(&h, undo->to, undo->captured_piece);
+        }
+
+        /* 3) XOR in moved / promoted piece at destination */
+        if (promotion != 0) {
+            int8_t sign = (undo->moved_piece > 0) ? 1 : -1;
+            int8_t prom_val = (int8_t)(sign * promotion);
+            zobrist_xor_piece(&h, undo->to, prom_val);
+        } else {
+            if (undo->moved_piece != PIECE_EMPTY) {
+                zobrist_xor_piece(&h, undo->to, undo->moved_piece);
+            }
+        }
+
+        /* 4) Castling rook movement: if king moved two files, move rook keys */
+        if (piece_abs(undo->moved_piece) == PIECE_KING) {
+            int ffile = file_of(undo->from), tfile = file_of(undo->to), frank = rank_of(undo->from);
+            if (abs(tfile - ffile) == 2) {
+                int rook_from = -1, rook_to = -1;
+                if (tfile > ffile) { rook_from = SQ_INDEX(7, frank); rook_to = SQ_INDEX(5, frank); }
+                else               { rook_from = SQ_INDEX(0, frank); rook_to = SQ_INDEX(3, frank); }
+                /* rook value sign matches the king's color */
+                int8_t rook_val = (undo->moved_piece > 0) ? PIECE_ROOK : -PIECE_ROOK;
+                zobrist_xor_piece(&h, rook_from, rook_val); /* remove rook from old */
+                zobrist_xor_piece(&h, rook_to,   rook_val); /* add rook at new */
+            }
+        }
+
+        /* 5) En-passant key: remove old ep and add new ep (pos->en_passant is new) */
+        if (undo->prev_en_passant != POS_NO_SQUARE) zobrist_xor_ep(&h, undo->prev_en_passant);
+        if (pos->en_passant != POS_NO_SQUARE) zobrist_xor_ep(&h, pos->en_passant);
+
+        /* 6) Castling rights: remove old castling mask key then add new */
+        zobrist_xor_castle(&h, (int)undo->prev_castling);
+        zobrist_xor_castle(&h, (int)pos->castling);
+
+        /* 7) Toggle side-to-move key */
+        zobrist_xor_side(&h);
+
+        /* 8) Store the updated hash */
+        pos->hash = h;
+    }
 
 #ifdef DEBUG
     {
@@ -212,7 +285,7 @@ static void make_move_raw(Position *pos, int from, int to, int promotion, Undo *
 #endif
 }
 
-
+/* --- unmake_move_raw: restore previous state and restore prev_hash --- */
 static void unmake_move_raw(Position *pos, const Undo *undo)
 {
     pos->side_to_move = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
@@ -244,7 +317,8 @@ static void unmake_move_raw(Position *pos, const Undo *undo)
         }
     }
 
-    pos->hash = position_hash(pos);
+    /* Restore previous zobrist hash saved in undo */
+    pos->hash = undo->prev_hash;
 
 #ifdef DEBUG
     {
@@ -257,7 +331,6 @@ static void unmake_move_raw(Position *pos, const Undo *undo)
     }
 #endif
 }
-
 static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_out, int capacity)
 {
     int n = 0;
