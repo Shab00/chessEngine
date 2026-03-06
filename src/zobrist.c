@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 static uint64_t zob_piece[64][12];
 static uint64_t zob_side;
 static uint64_t zob_castle[16];
@@ -62,4 +61,42 @@ uint64_t position_hash(const Position *pos)
     }
 
     return h;
+}
+
+/* ------------------------------------------------------------------
+   Zobrist incremental helper functions (externally visible)
+   These must be non-static so movegen.c can call them and the linker
+   will find them in this object file.
+   ------------------------------------------------------------------ */
+
+/* XOR the zobrist key for the given piece on square 'sq' into *h.
+   piece is the same int8_t encoding used in Position->board (0 means empty). */
+void zobrist_xor_piece(uint64_t *h, int sq, int8_t piece)
+{
+    int idx = piece_index_from_piece_value(piece);
+    if (idx >= 0 && sq >= 0 && sq < 64) {
+        *h ^= zob_piece[sq][idx];
+    }
+}
+
+/* XOR the side-to-move key */
+void zobrist_xor_side(uint64_t *h)
+{
+    *h ^= zob_side;
+}
+
+/* XOR castling key for a castling mask (0..15) */
+void zobrist_xor_castle(uint64_t *h, int castling_mask)
+{
+    *h ^= zob_castle[castling_mask & 0xF];
+}
+
+/* XOR en-passant key for an en-passant square (POS_NO_SQUARE means no-op).
+   enp_sq should encode file as (sq & 7). */
+void zobrist_xor_ep(uint64_t *h, int enp_sq)
+{
+    if (enp_sq != POS_NO_SQUARE) {
+        int file = enp_sq & 7;
+        if (file >= 0 && file < 8) *h ^= zob_ep[file];
+    }
 }

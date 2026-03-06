@@ -13,6 +13,7 @@ typedef struct {
     uint16_t prev_halfmove;
     uint32_t prev_fullmove;
     int ep_capture_sq;
+    uint64_t prev_hash;
 } MoveUndo;
 
 uint64_t perft(Position *pos, int depth);
