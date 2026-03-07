@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-
+#include <stdatomic.h>
+#include <inttypes.h>
+#include <stdio.h>
 
 typedef struct {
     uint64_t key;
@@ -16,6 +18,49 @@ typedef struct {
 
 static TTEntry *tt_table = NULL;
 static size_t tt_count = 0;
+
+static _Atomic uint64_t tt_probes = 0;
+static _Atomic uint64_t tt_hits = 0;
+static _Atomic uint64_t tt_stores = 0;
+static _Atomic uint64_t tt_overwrites = 0;
+
+void tt_stats_reset(void)
+{
+    atomic_store(&tt_probes, 0);
+    atomic_store(&tt_hits, 0);
+    atomic_store(&tt_stores, 0);
+    atomic_store(&tt_overwrites, 0);
+}
+
+tt_stats_t tt_stats_get(void)
+{
+    tt_stats_t s;
+    s.probes = (uint64_t)atomic_load(&tt_probes);
+    s.hits = (uint64_t)atomic_load(&tt_hits);
+    s.stores = (uint64_t)atomic_load(&tt_stores);
+    s.overwrites = (uint64_t)atomic_load(&tt_overwrites);
+    return s;
+}
+
+void tt_stats_print(FILE *out)
+{
+    tt_stats_t s = tt_stats_get();
+    fprintf(out, "TT stats: probes=%" PRIu64 " hits=%" PRIu64 " stores=%" PRIu64 " overwrites=%" PRIu64 "\n",
+            s.probes, s.hits, s.stores, s.overwrites);
+}
+
+void tt_instrument_probe(int hit)
+{
+    atomic_fetch_add(&tt_probes, 1);
+    if (hit) atomic_fetch_add(&tt_hits, 1);
+}
+
+void tt_instrument_store(int overwrite)
+{
+    atomic_fetch_add(&tt_stores, 1);
+    if (overwrite) atomic_fetch_add(&tt_overwrites, 1);
+}
+
 
 void tt_init(size_t size_mb)
 {
@@ -45,29 +90,39 @@ int tt_probe(uint64_t key, int depth, int alpha, int beta,
              int *out_value, int *out_from, int *out_to, int *out_promo)
 {
     TTEntry *e = entry_for_key(key);
-    if (!e) return 0;
-    if (e->key != key) return 0;
+    if (!e) {
+        tt_instrument_probe(0);
+        return 0;
+    }
+    if (e->key != key) {
+        tt_instrument_probe(0);
+        return 0;
+    }
+
+    int usable = 0;
+    int val = e->value;
+
     if ((int)e->depth < depth) {
         if (out_from) *out_from = e->from;
         if (out_to) *out_to = e->to;
         if (out_promo) *out_promo = e->promo;
+        tt_instrument_probe(0);
         return 0;
     }
 
-    int val = e->value;
     if (e->flag == TT_FLAG_EXACT) {
         if (out_value) *out_value = val;
         if (out_from) *out_from = e->from;
         if (out_to) *out_to = e->to;
         if (out_promo) *out_promo = e->promo;
-        return 1;
+        usable = 1;
     } else if (e->flag == TT_FLAG_LOWER) {
         if (val >= beta) {
             if (out_value) *out_value = val;
             if (out_from) *out_from = e->from;
             if (out_to) *out_to = e->to;
             if (out_promo) *out_promo = e->promo;
-            return 1;
+            usable = 1;
         }
     } else if (e->flag == TT_FLAG_UPPER) {
         if (val <= alpha) {
@@ -75,13 +130,18 @@ int tt_probe(uint64_t key, int depth, int alpha, int beta,
             if (out_from) *out_from = e->from;
             if (out_to) *out_to = e->to;
             if (out_promo) *out_promo = e->promo;
-            return 1;
+            usable = 1;
         }
     }
-    if (out_from) *out_from = e->from;
-    if (out_to) *out_to = e->to;
-    if (out_promo) *out_promo = e->promo;
-    return 0;
+
+    if (!usable) {
+        if (out_from) *out_from = e->from;
+        if (out_to) *out_to = e->to;
+        if (out_promo) *out_promo = e->promo;
+    }
+
+    tt_instrument_probe(usable ? 1 : 0);
+    return usable;
 }
 
 void tt_store(uint64_t key, int value, int depth, tt_flag_t flag,
@@ -89,6 +149,9 @@ void tt_store(uint64_t key, int value, int depth, tt_flag_t flag,
 {
     TTEntry *e = entry_for_key(key);
     if (!e) return;
+
+    int overwrite = (e->key != 0) ? 1 : 0;
+
     if (e->key == 0 || depth >= e->depth) {
         e->key = key;
         e->value = value;
@@ -97,5 +160,7 @@ void tt_store(uint64_t key, int value, int depth, tt_flag_t flag,
         e->promo = (int8_t)promo;
         e->depth = (int8_t)depth;
         e->flag = (uint8_t)flag;
+        tt_instrument_store(overwrite);
+    } else {
     }
 }

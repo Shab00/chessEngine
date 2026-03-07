@@ -36,8 +36,10 @@ int main(int argc, char **argv)
     position_square_to_coords(to, to_s, sizeof to_s);
     if (promo != 0) {
         printf("best: %s->%s promote=%d\n", from_s, to_s, promo);
+tt_stats_print(stdout);
     } else {
         printf("best: %s->%s\n", from_s, to_s);
+tt_stats_print(stdout);
     }
 
     tt_free();

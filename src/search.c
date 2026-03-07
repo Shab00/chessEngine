@@ -4,6 +4,7 @@
 #include "position.h"
 #include "hash.h"
 #include "tt.h"
+#include "search_order.h"
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +24,26 @@ static int find_king(const Position *pos, int color)
 #define MATE_SCORE 100000
 #define INF 1000000000
 
-void reorder_moves(int *froms, int *tos, int *promos, int n, const Position *pos);
+static void reorder_moves(int *froms, int *tos, int *promos, int n, const Position *pos)
+{
+    if (!froms || n <= 1 || !pos) return;
+    int *scores = malloc(sizeof(int) * n);
+    if (!scores) return;
+    score_moves_from(pos, froms, tos, promos, n, 0, scores);
+    for (int i = 0; i < n; ++i) {
+        int best = i;
+        for (int j = i + 1; j < n; ++j) {
+            if (scores[j] > scores[best]) best = j;
+        }
+        if (best != i) {
+            int tmp = scores[i]; scores[i] = scores[best]; scores[best] = tmp;
+            int tf = froms[i]; froms[i] = froms[best]; froms[best] = tf;
+            int tt = tos[i];   tos[i]   = tos[best];   tos[best]   = tt;
+            if (promos) { int tp = promos[i]; promos[i] = promos[best]; promos[best] = tp; }
+        }
+    }
+    free(scores);
+}
 
 static int search_ab(Position *pos, int depth, int alpha, int beta)
 {
@@ -95,17 +115,26 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
             if (val > best_value) {
                 best_value = val;
                 best_from = froms[i]; best_to = tos[i]; best_promo = promos[i];
+                if (undo.captured_piece == PIECE_EMPTY) {
+                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                }
             }
             if (val > alpha) alpha = val;
         } else {
             if (val < best_value) {
                 best_value = val;
                 best_from = froms[i]; best_to = tos[i]; best_promo = promos[i];
+                if (undo.captured_piece == PIECE_EMPTY) {
+                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                }
             }
             if (val < beta) beta = val;
         }
 
         if (alpha >= beta) {
+            if (undo.captured_piece == PIECE_EMPTY) {
+                update_killers_from(depth, froms[i], tos[i], promos[i]);
+            }
             break;
         }
     }
@@ -172,6 +201,9 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
                 best_from = froms[i];
                 best_to = tos[i];
                 best_promo = promos[i];
+                if (undo.captured_piece == PIECE_EMPTY) {
+                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                }
             }
             if (val > alpha) alpha = val;
         } else {
@@ -180,6 +212,9 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
                 best_from = froms[i];
                 best_to = tos[i];
                 best_promo = promos[i];
+                if (undo.captured_piece == PIECE_EMPTY) {
+                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                }
             }
             if (val < beta) beta = val;
         }
