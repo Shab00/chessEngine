@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,6 +20,23 @@ void tt_store(uint64_t key, int value, int depth, tt_flag_t flag,
               int from, int to, int promo);
 
 void tt_free(void);
+
+
+typedef struct {
+    uint64_t probes;
+    uint64_t hits;
+    uint64_t stores;
+    uint64_t overwrites;
+} tt_stats_t;
+
+void tt_stats_reset(void);
+
+tt_stats_t tt_stats_get(void);
+
+void tt_stats_print(FILE *out);
+
+void tt_instrument_probe(int hit);
+void tt_instrument_store(int overwrite);
 
 #ifdef __cplusplus
 }
