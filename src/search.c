@@ -149,23 +149,19 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
     return best_value;
 }
 
-int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion)
+static int search_root_once(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion)
 {
     if (depth <= 0) return 0;
-
     uint64_t key = position_hash(pos);
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
     (void)tt_probe(key, depth, -INF, INF, &tt_val, &tt_from, &tt_to, &tt_promo);
-
     int capacity = 4096;
     int *froms = malloc(sizeof(int) * capacity);
     int *tos = malloc(sizeof(int) * capacity);
     int *promos = malloc(sizeof(int) * capacity);
     if (!froms || !tos || !promos) { free(froms); free(tos); free(promos); return 0; }
-
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
     reorder_moves(froms, tos, promos, n, pos);
-
     if (tt_from >= 0 && n > 0) {
         for (int i = 0; i < n; ++i) {
             if (froms[i] == tt_from && tos[i] == tt_to && promos[i] == tt_promo) {
@@ -178,22 +174,15 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
             }
         }
     }
-
-    if (n == 0) {
-        free(froms); free(tos); free(promos);
-        return 0;
-    }
-
+    if (n == 0) { free(froms); free(tos); free(promos); return 0; }
     int best_from = -1, best_to = -1, best_promo = 0;
     int best_score = (pos->side_to_move == COLOR_WHITE) ? -INF : INF;
     int alpha = -INF, beta = INF;
-
     for (int i = 0; i < n; ++i) {
         MoveUndo undo;
         make_move(pos, froms[i], tos[i], promos[i], &undo);
         int val = search_ab(pos, depth - 1, alpha, beta);
         unmake_move(pos, &undo);
-
         int mover = (undo.moved_piece > 0) ? COLOR_WHITE : COLOR_BLACK;
         if (mover == COLOR_WHITE) {
             if (val > best_score) {
@@ -220,11 +209,8 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
         }
         if (alpha >= beta) break;
     }
-
     tt_store(key, best_score, depth, TT_FLAG_EXACT, best_from, best_to, best_promo);
-
     free(froms); free(tos); free(promos);
-
     if (best_from >= 0) {
         if (out_from) *out_from = best_from;
         if (out_to) *out_to = best_to;
@@ -232,4 +218,25 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_p
         return 1;
     }
     return 0;
+}
+
+int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion)
+{
+    if (depth <= 0) return 0;
+    order_init(depth + 8);
+    int final_from = -1, final_to = -1, final_promo = 0;
+    for (int d = 1; d <= depth; ++d) {
+        int tmp_from = -1, tmp_to = -1, tmp_promo = 0;
+        int ok = search_root_once(pos, d, &tmp_from, &tmp_to, &tmp_promo);
+        if (ok) {
+            final_from = tmp_from;
+            final_to = tmp_to;
+            final_promo = tmp_promo;
+        }
+    }
+    order_free();
+    if (out_from) *out_from = final_from;
+    if (out_to) *out_to = final_to;
+    if (out_promotion) *out_promotion = final_promo;
+    return (final_from >= 0) ? 1 : 0;
 }
