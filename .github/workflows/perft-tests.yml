@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '0 3 * * *'   # nightly at 03:00 UTC (adjust if you want)
+    - cron: '0 3 * * *'
 
 jobs:
   test:
@@ -14,6 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Make test scripts executable
+        run: chmod +x tests/run_perft_tests.sh tests/run_fen_tests.sh
+
       - name: Install build dependencies
         run: |
           sudo apt-get update
@@ -22,8 +25,18 @@ jobs:
       - name: Build
         run: make
 
-      - name: Run perft tests
-        run: ./build/perft_runner runfile
+      - name: Run perft + fen tests (release)
+        run: |
+          ./tests/run_perft_tests.sh
+          ./tests/run_fen_tests.sh
+
+      - name: Build (DEBUG) and run tests
+        run: |
+          CFLAGS="-DDEBUG -g" make clean
+          CFLAGS="-DDEBUG -g" make
+          chmod +x tests/run_perft_tests.sh tests/run_fen_tests.sh
+          ./tests/run_perft_tests.sh
+          ./tests/run_fen_tests.sh
 
   sanitize:
     name: perft tests (sanitized, nightly)
@@ -43,4 +56,6 @@ jobs:
           make CFLAGS='-Iinclude -std=c11 -g -O0 -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra' all
 
       - name: Run perft tests (sanitized)
-        run: ./build/perft_runner runfile
+        run: |
+          chmod +x tests/run_perft_tests.sh
+          ./tests/run_perft_tests.sh
