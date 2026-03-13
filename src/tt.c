@@ -24,12 +24,23 @@ static _Atomic uint64_t tt_hits = 0;
 static _Atomic uint64_t tt_stores = 0;
 static _Atomic uint64_t tt_overwrites = 0;
 
+static _Atomic uint64_t tt_probe_by_depth[64];
+static _Atomic uint64_t tt_hit_by_depth[64];
+static _Atomic uint64_t tt_store_by_depth[64];
+static _Atomic uint64_t tt_overwrite_by_depth[64];
+
 void tt_stats_reset(void)
 {
     atomic_store(&tt_probes, 0);
     atomic_store(&tt_hits, 0);
     atomic_store(&tt_stores, 0);
     atomic_store(&tt_overwrites, 0);
+    for (int i = 0; i < 64; ++i) {
+        atomic_store(&tt_probe_by_depth[i], 0);
+        atomic_store(&tt_hit_by_depth[i], 0);
+        atomic_store(&tt_store_by_depth[i], 0);
+        atomic_store(&tt_overwrite_by_depth[i], 0);
+    }
 }
 
 tt_stats_t tt_stats_get(void)
@@ -39,28 +50,63 @@ tt_stats_t tt_stats_get(void)
     s.hits = (uint64_t)atomic_load(&tt_hits);
     s.stores = (uint64_t)atomic_load(&tt_stores);
     s.overwrites = (uint64_t)atomic_load(&tt_overwrites);
+    for (int i = 0; i < 64; ++i) {
+        s.probe_by_depth[i] = (uint64_t)atomic_load(&tt_probe_by_depth[i]);
+        s.hit_by_depth[i]   = (uint64_t)atomic_load(&tt_hit_by_depth[i]);
+        s.store_by_depth[i] = (uint64_t)atomic_load(&tt_store_by_depth[i]);
+        s.overwrite_by_depth[i] = (uint64_t)atomic_load(&tt_overwrite_by_depth[i]);
+    }
     return s;
 }
 
 void tt_stats_print(FILE *out)
 {
+    if (!out) out = stdout;
     tt_stats_t s = tt_stats_get();
     fprintf(out, "TT stats: probes=%" PRIu64 " hits=%" PRIu64 " stores=%" PRIu64 " overwrites=%" PRIu64 "\n",
             s.probes, s.hits, s.stores, s.overwrites);
+
+    fprintf(out, "Per-depth (depth: probes hits stores overwrites hit_rate%%)\n");
+    for (int d = 0; d < 64; ++d) {
+        uint64_t p = s.probe_by_depth[d];
+        if (p == 0) continue;
+        uint64_t h = s.hit_by_depth[d];
+        uint64_t st = s.store_by_depth[d];
+        uint64_t ow = s.overwrite_by_depth[d];
+        double rate = (p > 0) ? (100.0 * ((double)h / (double)p)) : 0.0;
+        fprintf(out, " %2d: %" PRIu64 " %" PRIu64 " %" PRIu64 " %" PRIu64 "  %.1f%%\n",
+                d, p, h, st, ow, rate);
+    }
 }
 
-void tt_instrument_probe(int hit)
+static inline int clamp_depth_bucket(int depth)
+{
+    if (depth < 0) return 0;
+    if (depth >= 64) return 63;
+    return depth;
+}
+
+void tt_instrument_probe(int depth, int hit)
 {
     atomic_fetch_add(&tt_probes, 1);
-    if (hit) atomic_fetch_add(&tt_hits, 1);
+    int d = clamp_depth_bucket(depth);
+    atomic_fetch_add(&tt_probe_by_depth[d], 1);
+    if (hit) {
+        atomic_fetch_add(&tt_hits, 1);
+        atomic_fetch_add(&tt_hit_by_depth[d], 1);
+    }
 }
 
-void tt_instrument_store(int overwrite)
+void tt_instrument_store(int depth, int overwrite)
 {
     atomic_fetch_add(&tt_stores, 1);
-    if (overwrite) atomic_fetch_add(&tt_overwrites, 1);
+    int d = clamp_depth_bucket(depth);
+    atomic_fetch_add(&tt_store_by_depth[d], 1);
+    if (overwrite) {
+        atomic_fetch_add(&tt_overwrites, 1);
+        atomic_fetch_add(&tt_overwrite_by_depth[d], 1);
+    }
 }
-
 
 void tt_init(size_t size_mb)
 {
@@ -91,11 +137,11 @@ int tt_probe(uint64_t key, int depth, int alpha, int beta,
 {
     TTEntry *e = entry_for_key(key);
     if (!e) {
-        tt_instrument_probe(0);
+        tt_instrument_probe(depth, 0);
         return 0;
     }
     if (e->key != key) {
-        tt_instrument_probe(0);
+        tt_instrument_probe(depth, 0);
         return 0;
     }
 
@@ -106,7 +152,7 @@ int tt_probe(uint64_t key, int depth, int alpha, int beta,
         if (out_from) *out_from = e->from;
         if (out_to) *out_to = e->to;
         if (out_promo) *out_promo = e->promo;
-        tt_instrument_probe(0);
+        tt_instrument_probe(depth, 0);
         return 0;
     }
 
@@ -140,7 +186,7 @@ int tt_probe(uint64_t key, int depth, int alpha, int beta,
         if (out_promo) *out_promo = e->promo;
     }
 
-    tt_instrument_probe(usable ? 1 : 0);
+    tt_instrument_probe(depth, usable ? 1 : 0);
     return usable;
 }
 
@@ -160,7 +206,8 @@ void tt_store(uint64_t key, int value, int depth, tt_flag_t flag,
         e->promo = (int8_t)promo;
         e->depth = (int8_t)depth;
         e->flag = (uint8_t)flag;
-        tt_instrument_store(overwrite);
+        tt_instrument_store(depth, overwrite);
     } else {
+        /* no store performed (deeper entry already present) */
     }
 }

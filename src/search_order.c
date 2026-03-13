@@ -68,14 +68,6 @@ static inline int8_t get_captured_piece(const Position *pos, int from, int to)
     return pos->board[to];
 }
 
-static inline int is_capture_move(const Position *pos, int from, int to)
-{
-    (void)from;
-    if (!pos) return 0;
-    int8_t victim = get_captured_piece(pos, from, to);
-    return (victim != PIECE_EMPTY);
-}
-
 int score_move_from(const Position *pos, int from, int to, int promo, int ply)
 {
     int score = 0;
