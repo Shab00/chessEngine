@@ -20,5 +20,7 @@ void assert_zobrist_consistent(const Position *pos)
                 recomputed, cached);
         abort();
     }
+#else
+    (void)pos;
 #endif
 }

@@ -24,24 +24,48 @@ static int find_king(const Position *pos, int color)
 #define MATE_SCORE 100000
 #define INF 1000000000
 
-static void reorder_moves(int *froms, int *tos, int *promos, int n, const Position *pos)
+typedef struct {
+    int from;
+    int to;
+    int promo;
+    int score;
+} MoveScore;
+
+static int cmp_moves_desc(const void *a, const void *b)
+{
+    const MoveScore *A = a;
+    const MoveScore *B = b;
+    return (B->score - A->score);
+}
+
+static void reorder_moves(int *froms, int *tos, int *promos, int n, const Position *pos, int ply)
 {
     if (!froms || n <= 1 || !pos) return;
+
+    MoveScore *arr = malloc(sizeof(MoveScore) * n);
+    if (!arr) return;
+
     int *scores = malloc(sizeof(int) * n);
-    if (!scores) return;
-    score_moves_from(pos, froms, tos, promos, n, 0, scores);
+    if (!scores) { free(arr); return; }
+
+    score_moves_from(pos, froms, tos, promos, n, ply, scores);
+
     for (int i = 0; i < n; ++i) {
-        int best = i;
-        for (int j = i + 1; j < n; ++j) {
-            if (scores[j] > scores[best]) best = j;
-        }
-        if (best != i) {
-            int tmp = scores[i]; scores[i] = scores[best]; scores[best] = tmp;
-            int tf = froms[i]; froms[i] = froms[best]; froms[best] = tf;
-            int tt = tos[i];   tos[i]   = tos[best];   tos[best]   = tt;
-            if (promos) { int tp = promos[i]; promos[i] = promos[best]; promos[best] = tp; }
-        }
+        arr[i].from = froms[i];
+        arr[i].to = tos[i];
+        arr[i].promo = promos ? promos[i] : 0;
+        arr[i].score = scores[i];
     }
+
+    qsort(arr, n, sizeof(MoveScore), cmp_moves_desc);
+
+    for (int i = 0; i < n; ++i) {
+        froms[i] = arr[i].from;
+        tos[i]   = arr[i].to;
+        if (promos) promos[i] = arr[i].promo;
+    }
+
+    free(arr);
     free(scores);
 }
 
@@ -51,8 +75,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
         return evaluate(pos);
     }
 
-    uint64_t key = position_hash(pos);
-
+    uint64_t key = pos->hash;
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
     if (tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo)) {
         return tt_val;
@@ -68,7 +91,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
     }
 
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
-    reorder_moves(froms, tos, promos, n, pos);
+    reorder_moves(froms, tos, promos, n, pos, depth);
 
     if (tt_from >= 0 && n > 0) {
         for (int i = 0; i < n; ++i) {
@@ -152,7 +175,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
 static int search_root_once(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion)
 {
     if (depth <= 0) return 0;
-    uint64_t key = position_hash(pos);
+    uint64_t key = pos->hash;
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
     (void)tt_probe(key, depth, -INF, INF, &tt_val, &tt_from, &tt_to, &tt_promo);
     int capacity = 4096;
@@ -161,7 +184,7 @@ static int search_root_once(Position *pos, int depth, int *out_from, int *out_to
     int *promos = malloc(sizeof(int) * capacity);
     if (!froms || !tos || !promos) { free(froms); free(tos); free(promos); return 0; }
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
-    reorder_moves(froms, tos, promos, n, pos);
+    reorder_moves(froms, tos, promos, n, pos, depth);
     if (tt_from >= 0 && n > 0) {
         for (int i = 0; i < n; ++i) {
             if (froms[i] == tt_from && tos[i] == tt_to && promos[i] == tt_promo) {
