@@ -47,11 +47,32 @@ void order_free(void)
     killer_max_depth = 0;
 }
 
+/* Return the captured piece for a move (handles en-passant).
+   Returns PIECE_EMPTY if there is no capture. */
+static inline int8_t get_captured_piece(const Position *pos, int from, int to)
+{
+    if (!pos) return PIECE_EMPTY;
+
+    /* en-passant: captured pawn is not on 'to' square but behind it */
+    if (pos->en_passant != POS_NO_SQUARE && to == pos->en_passant) {
+        int8_t mover = pos->board[from];
+        /* only pawns can capture en-passant */
+        if (piece_abs(mover) != PIECE_PAWN) return PIECE_EMPTY;
+        int dir = (mover > 0) ? -1 : 1; /* white pawn captures upward (rank+1), but we use index layout consistent with movegen */
+        int cap_sq = to + dir * 8;
+        if (cap_sq >= 0 && cap_sq < 64) return pos->board[cap_sq];
+        return PIECE_EMPTY;
+    }
+
+    /* normal capture is just the piece on 'to' */
+    return pos->board[to];
+}
+
 static inline int is_capture_move(const Position *pos, int from, int to)
 {
     (void)from;
     if (!pos) return 0;
-    int victim = pos->board[to];
+    int8_t victim = get_captured_piece(pos, from, to);
     return (victim != PIECE_EMPTY);
 }
 
@@ -59,8 +80,9 @@ int score_move_from(const Position *pos, int from, int to, int promo, int ply)
 {
     int score = 0;
 
-    if (is_capture_move(pos, from, to)) {
-        int victim_abs = piece_abs(pos->board[to]);
+    int8_t captured_piece = get_captured_piece(pos, from, to);
+    if (captured_piece != PIECE_EMPTY) {
+        int victim_abs = piece_abs(captured_piece);
         int attacker_abs = piece_abs(pos->board[from]);
         if (victim_abs >= 1 && victim_abs <= 6 && attacker_abs >= 1 && attacker_abs <= 6) {
             score = 1000000 + mvv_lva[victim_abs][attacker_abs]; /* captures dominate */
