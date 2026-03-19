@@ -8,90 +8,81 @@
 
 static inline int file_of(int sq) { return SQ_FILE(sq); }
 static inline int rank_of(int sq) { return SQ_RANK(sq); }
+void sq_to_coord(int sq, char *buf);
 
+void sq_to_coord(int sq, char *buf) {
+    buf[0] = 'a' + (sq % 8);
+    buf[1] = '1' + (sq / 8);
+    buf[2] = '\0';
+}
 
-int is_square_attacked(const Position *pos, int sq, int by)
-{
-    if (sq < 0 || sq >= 64) return 0;
-    int f = file_of(sq);
-    int r = rank_of(sq);
+int is_square_attacked(const Position *pos, int sq, int by) {
+    int f = sq % 8, r = sq / 8;
 
-    if (by == COLOR_WHITE) {
-        if (r > 0) {
-            if (f > 0) {
-                int s = SQ_INDEX(f - 1, r - 1);
-                if (pos->board[s] == PIECE_PAWN) return 1;
-            }
-            if (f < 7) {
-                int s = SQ_INDEX(f + 1, r - 1);
-                if (pos->board[s] == PIECE_PAWN) return 1;
-            }
-        }
-    } else {
-        if (r < 7) {
-            if (f > 0) {
-                int s = SQ_INDEX(f - 1, r + 1);
-                if (pos->board[s] == -PIECE_PAWN) return 1;
-            }
-            if (f < 7) {
-                int s = SQ_INDEX(f + 1, r + 1);
-                if (pos->board[s] == -PIECE_PAWN) return 1;
-            }
-        }
+    // Pawn attacks
+    if (by == COLOR_WHITE && r > 0) {
+        if (f > 0 && pos->board[sq - 9] == PIECE_PAWN) return 1;
+        if (f < 7 && pos->board[sq - 7] == PIECE_PAWN) return 1;
+    }
+    if (by == COLOR_BLACK && r < 7) {
+        if (f > 0 && pos->board[sq + 7] == -PIECE_PAWN) return 1;
+        if (f < 7 && pos->board[sq + 9] == -PIECE_PAWN) return 1;
     }
 
-    const int knight_deltas[8][2] = { {2,1},{1,2},{-1,2},{-2,1},{-2,-1},{-1,-2},{1,-2},{2,-1} };
+    // Knight attacks
+    static const int kd[8] = {17, 15, 10, 6, -17, -15, -10, -6};
     for (int i = 0; i < 8; ++i) {
-        int ff = f + knight_deltas[i][0];
-        int rr = r + knight_deltas[i][1];
-        if (ff < 0 || ff > 7 || rr < 0 || rr > 7) continue;
-        int s = SQ_INDEX(ff, rr);
-        int8_t v = pos->board[s];
-        if (v == PIECE_EMPTY) continue;
+        int to = sq + kd[i];
+        // Make sure knight move stays on board
+        if (to < 0 || to >= 64 || abs((to % 8) - f) > 2 || abs((to / 8) - r) > 2) continue;
+        int v = pos->board[to];
         if (by == COLOR_WHITE && v == PIECE_KNIGHT) return 1;
         if (by == COLOR_BLACK && v == -PIECE_KNIGHT) return 1;
     }
 
-    for (int df = -1; df <= 1; ++df) {
-        for (int dr = -1; dr <= 1; ++dr) {
-            if (df == 0 && dr == 0) continue;
-            int ff = f + df, rr = r + dr;
-            if (ff < 0 || ff > 7 || rr < 0 || rr > 7) continue;
-            int s = SQ_INDEX(ff, rr);
-            int8_t v = pos->board[s];
+    // King attacks (adjacent squares)
+    static const int kdeltas[8] = {1, -1, 8, -8, 9, -9, 7, -7};
+    for (int i = 0; i < 8; ++i) {
+        int to = sq + kdeltas[i];
+        if (to < 0 || to >= 64 || abs((to % 8) - f) > 1 || abs((to / 8) - r) > 1) continue;
+        int v = pos->board[to];
+        if (by == COLOR_WHITE && v == PIECE_KING) return 1;
+        if (by == COLOR_BLACK && v == -PIECE_KING) return 1;
+    }
+
+    // Sliding pieces: rook, bishop, queen
+    static const int dd[8] = {1, -1, 8, -8, 9, -9, 7, -7};
+    for (int d = 0; d < 8; ++d) {
+        int to = sq;
+        for (;;) {
+            int tf = (to % 8) + (dd[d] % 8);
+            int tr = (to / 8) + (dd[d] / 8);
+            if (tf < 0 || tf > 7 || tr < 0 || tr > 7) break;
+            to += dd[d];
+            int v = pos->board[to];
             if (v == PIECE_EMPTY) continue;
-            if (by == COLOR_WHITE && v == PIECE_KING) return 1;
-            if (by == COLOR_BLACK && v == -PIECE_KING) return 1;
+            // Now decide which piece type can attack in this direction
+            int abs_v = abs(v);
+            if (by == COLOR_WHITE && v > 0) {
+                // Only rooks/queens attack along rank/file (d < 4)
+                if (d < 4 && abs_v == PIECE_ROOK) return 1;
+                // Only bishops/queens attack along diagonals (d >= 4)
+                if (d >= 4 && abs_v == PIECE_BISHOP) return 1;
+                // Queens everywhere
+                if (abs_v == PIECE_QUEEN) return 1;
+            }
+            if (by == COLOR_BLACK && v < 0) {
+                if (d < 4 && abs_v == PIECE_ROOK) return 1;
+                if (d >= 4 && abs_v == PIECE_BISHOP) return 1;
+                if (abs_v == PIECE_QUEEN) return 1;
+            }
+            break; // stop after hitting any piece
         }
     }
 
-    const int dirs[8][2] = { {1,0},{-1,0},{0,1},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1} };
-    for (int d = 0; d < 8; ++d) {
-        int df = dirs[d][0], dr = dirs[d][1];
-        int ff = f + df, rr = r + dr;
-        for (; ff >= 0 && ff < 8 && rr >= 0 && rr < 8; ff += df, rr += dr) {
-            int s = SQ_INDEX(ff, rr);
-            int8_t v = pos->board[s];
-            if (v == PIECE_EMPTY) continue;
-            int a = piece_abs(v);
-            if (by == COLOR_WHITE && v > 0) {
-                if (d < 4) {
-                    if (a == PIECE_ROOK || a == PIECE_QUEEN) return 1;
-                } else {
-                    if (a == PIECE_BISHOP || a == PIECE_QUEEN) return 1;
-                }
-            } else if (by == COLOR_BLACK && v < 0) {
-                if (d < 4) {
-                    if (a == PIECE_ROOK || a == PIECE_QUEEN) return 1;
-                } else {
-                    if (a == PIECE_BISHOP || a == PIECE_QUEEN) return 1;
-                }
-            }
-            break;
-        }
-    }
     return 0;
 }
+
 static int find_king_sq(const Position *pos, int color)
 {
     for (int i = 0; i < 64; ++i) {
@@ -331,6 +322,7 @@ static void unmake_move_raw(Position *pos, const Undo *undo)
     }
 #endif
 }
+
 static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_out, int capacity)
 {
     int n = 0;
@@ -342,6 +334,7 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
         if (color != stm) continue;
         int abs_v = piece_abs(v);
         int f = file_of(sq), r = rank_of(sq);
+
         if (abs_v == PIECE_PAWN) {
             int dir = (color == COLOR_WHITE) ? 1 : -1;
             int tr = r + dir;
@@ -365,6 +358,7 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
                     }
                 }
             }
+            // Pawn captures
             for (int df = -1; df <= 1; df += 2) {
                 int ff = f + df;
                 int rr = r + dir;
@@ -414,44 +408,40 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
                         if ((t>0)!=(v>0)) {
                             if (n < capacity) { from_out[n]=sq; to_out[n]=tsq; promo_out[n]=0; n++; }
                         }
-                        break;
+                        break; // Stop after any piece!
                     }
                     ff += df; rr += dr;
                 }
             }
         } else if (abs_v == PIECE_KING) {
-            for (int df=-1; df<=1; ++df) for (int dr=-1; dr<=1; ++dr) {
-                if (df==0 && dr==0) continue;
-                int ff=f+df, rr=r+dr;
-                if (ff<0||ff>7||rr<0||rr>7) continue;
+            // Standard king moves: only to adjacent squares!
+            for (int df = -1; df <= 1; ++df) for (int dr = -1; dr <= 1; ++dr) {
+                if (df == 0 && dr == 0) continue;
+                int ff = f + df, rr = r + dr;
+                if (ff < 0 || ff > 7 || rr < 0 || rr > 7) continue;
                 int tsq = SQ_INDEX(ff, rr);
                 int8_t t = pos->board[tsq];
-                if (t == PIECE_EMPTY || ((t>0)!=(v>0))) {
-                    if (n < capacity) { from_out[n]=sq; to_out[n]=tsq; promo_out[n]=0; n++; }
+                if (t == PIECE_EMPTY || ((t > 0) != (v > 0))) {
+                    if (n < capacity) { 
+                        from_out[n] = sq; to_out[n] = tsq; promo_out[n] = 0; n++; 
+                    }
                 }
             }
+            // Castling moves - **NO king-in-check or attacked square checks here!**
             if (v > 0) {
                 int e1 = SQ_INDEX(4,0), f1 = SQ_INDEX(5,0), g1 = SQ_INDEX(6,0), d1 = SQ_INDEX(3,0), c1 = SQ_INDEX(2,0), b1 = SQ_INDEX(1,0);
                 if (pos->castling & CASTLE_WHITE_K) {
                     int rook_from = SQ_INDEX(7,0);
                     if (pos->board[rook_from] == PIECE_ROOK &&
                         pos->board[f1]==PIECE_EMPTY && pos->board[g1]==PIECE_EMPTY) {
-                        if (!is_square_attacked(pos, e1, COLOR_BLACK) &&
-                            !is_square_attacked(pos, f1, COLOR_BLACK) &&
-                            !is_square_attacked(pos, g1, COLOR_BLACK)) {
-                            if (n < capacity) { from_out[n]=sq; to_out[n]=g1; promo_out[n]=0; n++; }
-                        }
+                        if (n < capacity) { from_out[n]=sq; to_out[n]=g1; promo_out[n]=0; n++; }
                     }
                 }
                 if (pos->castling & CASTLE_WHITE_Q) {
                     int rook_from = SQ_INDEX(0,0);
                     if (pos->board[rook_from] == PIECE_ROOK &&
                         pos->board[b1]==PIECE_EMPTY && pos->board[c1]==PIECE_EMPTY && pos->board[d1]==PIECE_EMPTY) {
-                        if (!is_square_attacked(pos, e1, COLOR_BLACK) &&
-                            !is_square_attacked(pos, d1, COLOR_BLACK) &&
-                            !is_square_attacked(pos, c1, COLOR_BLACK)) {
-                            if (n < capacity) { from_out[n]=sq; to_out[n]=c1; promo_out[n]=0; n++; }
-                        }
+                        if (n < capacity) { from_out[n]=sq; to_out[n]=c1; promo_out[n]=0; n++; }
                     }
                 }
             } else {
@@ -460,22 +450,14 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
                     int rook_from = SQ_INDEX(7,7);
                     if (pos->board[rook_from] == -PIECE_ROOK &&
                         pos->board[f8]==PIECE_EMPTY && pos->board[g8]==PIECE_EMPTY) {
-                        if (!is_square_attacked(pos, e8, COLOR_WHITE) &&
-                            !is_square_attacked(pos, f8, COLOR_WHITE) &&
-                            !is_square_attacked(pos, g8, COLOR_WHITE)) {
-                            if (n < capacity) { from_out[n]=sq; to_out[n]=g8; promo_out[n]=0; n++; }
-                        }
+                        if (n < capacity) { from_out[n]=sq; to_out[n]=g8; promo_out[n]=0; n++; }
                     }
                 }
                 if (pos->castling & CASTLE_BLACK_Q) {
                     int rook_from = SQ_INDEX(0,7);
                     if (pos->board[rook_from] == -PIECE_ROOK &&
                         pos->board[b8]==PIECE_EMPTY && pos->board[c8]==PIECE_EMPTY && pos->board[d8]==PIECE_EMPTY) {
-                        if (!is_square_attacked(pos, e8, COLOR_WHITE) &&
-                            !is_square_attacked(pos, d8, COLOR_WHITE) &&
-                            !is_square_attacked(pos, c8, COLOR_WHITE)) {
-                            if (n < capacity) { from_out[n]=sq; to_out[n]=c8; promo_out[n]=0; n++; }
-                        }
+                        if (n < capacity) { from_out[n]=sq; to_out[n]=c8; promo_out[n]=0; n++; }
                     }
                 }
             }
@@ -483,41 +465,53 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
     }
     return n;
 }
-
 int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *promotions, int capacity)
 {
     int tmp_cap = 512;
-    int *from = (int*)malloc(sizeof(int)*tmp_cap);
-    int *to   = (int*)malloc(sizeof(int)*tmp_cap);
-    int *prom = (int*)malloc(sizeof(int)*tmp_cap);
+    int *from = malloc(sizeof(int) * tmp_cap);
+    int *to   = malloc(sizeof(int) * tmp_cap);
+    int *prom = malloc(sizeof(int) * tmp_cap);
     if (!from || !to || !prom) { free(from); free(to); free(prom); return 0; }
     int cnt = generate_pseudo_moves(pos, from, to, prom, tmp_cap);
-    int out = 0;
+
+    int nlegal = 0;
     Undo undo;
+
     for (int i = 0; i < cnt; ++i) {
         make_move_raw(pos, from[i], to[i], prom[i], &undo);
-        int moved_color = (undo.moved_piece > 0) ? COLOR_WHITE : COLOR_BLACK;
-        int king_sq = find_king_sq(pos, moved_color);
-        int illegal = 0;
-        if (king_sq == POS_NO_SQUARE) illegal = 1;
-        else {
-            int attacker = (moved_color == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
-            if (is_square_attacked(pos, king_sq, attacker)) illegal = 1;
+
+        int mover = pos->side_to_move ^ 1;
+        int king_sq = find_king_sq(pos, mover);
+
+        int is_illegal = 0;
+        if (king_sq == POS_NO_SQUARE) {
+            is_illegal = 1;
+        } else if (is_square_attacked(pos, king_sq, pos->side_to_move)) {
+            is_illegal = 1;
         }
+
         unmake_move_raw(pos, &undo);
-        if (!illegal) {
-            if (out < capacity) {
-                moves_from[out] = from[i];
-                moves_to[out] = to[i];
-                promotions[out] = prom[i];
-            }
-            out++;
+
+        if (!is_illegal && nlegal < capacity) {
+            // Diagnostic print for each legal move
+            char fromsq[4], tosq[4];
+            sq_to_coord(from[i], fromsq);
+            sq_to_coord(to[i], tosq);
+            printf("[LEGAL] %s%s\n", fromsq, tosq);
+
+            moves_from[nlegal] = from[i];
+            moves_to[nlegal] = to[i];
+            promotions[nlegal] = prom[i];
+            nlegal++;
         }
     }
-    free(from); free(to); free(prom);
-    return out;
-}
 
+    free(from);
+    free(to);
+    free(prom);
+
+    return nlegal;
+}
 uint64_t perft(Position *pos, int depth)
 {
     if (depth == 0) return 1ULL;

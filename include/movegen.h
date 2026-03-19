@@ -3,6 +3,7 @@
 
 #include "position.h"
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct {
     int from, to;
@@ -23,4 +24,7 @@ int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *pro
 void make_move(Position *pos, int from, int to, int promotion, MoveUndo *undo);
 void unmake_move(Position *pos, const MoveUndo *undo);
 
-#endif 
+bool position_king_in_check(const Position *pos, int color);
+bool position_is_square_attacked(const Position *pos, int sq, int attacker_color);
+
+#endif

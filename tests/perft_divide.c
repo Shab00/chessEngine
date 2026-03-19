@@ -11,11 +11,11 @@ static void sq_to_coord(int sq, char *buf) {
 
 static char promo_letter(int p) {
     switch (p) {
-    case PIECE_QUEEN: return 'q';
-    case PIECE_ROOK:  return 'r';
+    case PIECE_QUEEN:  return 'q';
+    case PIECE_ROOK:   return 'r';
     case PIECE_BISHOP: return 'b';
     case PIECE_KNIGHT: return 'n';
-    default: return '?';
+    default:           return '\0';
     }
 }
 
@@ -34,32 +34,58 @@ int main(int argc, char **argv)
         return 3;
     }
 
+    // Display the board after FEN parse for debugging
+    position_print_ascii(&pos, stdout);
+
     int max_moves = 512;
-    int *from = malloc(sizeof(int)*max_moves);
-    int *to   = malloc(sizeof(int)*max_moves);
-    int *prom = malloc(sizeof(int)*max_moves);
-    if (!from || !to || !prom) { fprintf(stderr,"alloc failed\n"); return 4; }
+    int *from = malloc(sizeof(int) * max_moves);
+    int *to   = malloc(sizeof(int) * max_moves);
+    int *prom = malloc(sizeof(int) * max_moves);
+    if (!from || !to || !prom) { fprintf(stderr, "alloc failed\n"); return 4; }
 
     int n = generate_legal_moves(&pos, from, to, prom, max_moves);
-    printf("Perft divide for depth=%d, moves=%d\n", depth, n);
+
+    // Debug: Print each move with its type
+    printf("Legal root moves (should match perft reference, e.g. 30 for Kiwipete): %d\n", n);
+    for (int i = 0; i < n; ++i) {
+        char a[4], b[4];
+        sq_to_coord(from[i], a);
+        sq_to_coord(to[i], b);
+        int moved = pos.board[from[i]];
+        char pc = '?';
+        switch (abs(moved)) {
+          case PIECE_PAWN:   pc = 'P'; break;
+          case PIECE_KNIGHT: pc = 'N'; break;
+          case PIECE_BISHOP: pc = 'B'; break;
+          case PIECE_ROOK:   pc = 'R'; break;
+          case PIECE_QUEEN:  pc = 'Q'; break;
+          case PIECE_KING:   pc = 'K'; break;
+        }
+        if (moved < 0) pc += 'a' - 'A';  // to lowercase for black
+        printf("%2d: %s%s  %c  prom:%d\n", i+1, a, b, pc, prom[i]);
+    }
+
+    printf("\nPerft divide for depth=%d:\n", depth);
     uint64_t total = 0;
     for (int i = 0; i < n; ++i) {
         Position copy;
         memcpy(&copy, &pos, sizeof(Position));
         MoveUndo undo;
         make_move(&copy, from[i], to[i], prom[i], &undo);
+
         uint64_t nodes = perft(&copy, depth-1);
-        total += nodes;
         char a[4], b[4];
         sq_to_coord(from[i], a);
         sq_to_coord(to[i], b);
         if (prom[i] != 0) {
-            printf("%2d: %s%s%c -> %llu\n", i+1, a, b, promo_letter(prom[i]), (unsigned long long)nodes);
+            printf("%s%s%c: %llu\n", a, b, promo_letter(prom[i]), (unsigned long long)nodes);
         } else {
-            printf("%2d: %s%s -> %llu\n", i+1, a, b, (unsigned long long)nodes);
+            printf("%s%s: %llu\n", a, b, (unsigned long long)nodes);
         }
+        total += nodes;
     }
     printf("Total nodes: %llu\n", (unsigned long long)total);
+    printf("Root moves output: %d\n", n);
 
     free(from); free(to); free(prom);
     return 0;

@@ -18,6 +18,7 @@ static int piece_type_from_letter(char c)
     }
 }
 
+
 static pos_error_t parse_placement_field(Position *pos,
                                         const char *s,
                                         const char **out,
@@ -146,6 +147,9 @@ pos_error_t position_from_fen(Position *pos, const char *fen,
     }
 
     position_init(pos);
+
+    for (int i = 0; i < 64; ++i)
+        pos->board[i] = PIECE_EMPTY;
 
     const char *p = fen;
     pos_error_t r = parse_placement_field(pos, p, &p, errbuf, errbuf_size);
