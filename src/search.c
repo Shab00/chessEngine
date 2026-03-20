@@ -11,6 +11,40 @@
 
 int is_square_attacked(const Position *pos, int sq, int by);
 
+static int quiescence(Position *pos, int alpha, int beta)
+{
+    int stand_pat = evaluate(pos);
+    if (stand_pat >= beta)
+        return beta;
+    if (alpha < stand_pat)
+        alpha = stand_pat;
+
+    int capacity = 128;
+    int *froms = malloc(sizeof(int) * capacity);
+    int *tos = malloc(sizeof(int) * capacity);
+    int *promos = malloc(sizeof(int) * capacity);
+    if (!froms || !tos || !promos) { free(froms); free(tos); free(promos); return stand_pat; }
+    int n = generate_legal_moves(pos, froms, tos, promos, capacity);
+
+    for (int i = 0; i < n; ++i) {
+        if (!(score_move_from(pos, froms[i], tos[i], promos[i], -1) >= 1000000) && promos[i]==0)
+            continue;
+        MoveUndo undo;
+        make_move(pos, froms[i], tos[i], promos[i], &undo);
+        int score = -quiescence(pos, -beta, -alpha);
+        unmake_move(pos, &undo);
+
+        if (score >= beta) {
+            free(froms); free(tos); free(promos);
+            return beta;
+        }
+        if (score > alpha)
+            alpha = score;
+    }
+    free(froms); free(tos); free(promos);
+    return alpha;
+}
+
 static int find_king(const Position *pos, int color)
 {
     for (int i = 0; i < 64; ++i) {
@@ -69,12 +103,11 @@ static void reorder_moves(int *froms, int *tos, int *promos, int n, const Positi
     free(scores);
 }
 
-static int search_ab(Position *pos, int depth, int alpha, int beta)
+static int search_ab(Position *pos, int depth, int ply, int alpha, int beta)
 {
     if (depth <= 0) {
-        return evaluate(pos);
+        return quiescence(pos, alpha, beta);
     }
-
     uint64_t key = pos->hash;
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
     if (tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo)) {
@@ -91,7 +124,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
     }
 
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
-    reorder_moves(froms, tos, promos, n, pos, depth);
+    reorder_moves(froms, tos, promos, n, pos, ply);
 
     if (tt_from >= 0 && n > 0) {
         for (int i = 0; i < n; ++i) {
@@ -129,7 +162,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
     for (int i = 0; i < n; ++i) {
         MoveUndo undo;
         make_move(pos, froms[i], tos[i], promos[i], &undo);
-        int val = search_ab(pos, depth - 1, alpha, beta);
+        int val = search_ab(pos, depth - 1, ply + 1, alpha, beta);
         unmake_move(pos, &undo);
 
         int mover = (undo.moved_piece > 0) ? COLOR_WHITE : COLOR_BLACK;
@@ -139,7 +172,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
                 best_value = val;
                 best_from = froms[i]; best_to = tos[i]; best_promo = promos[i];
                 if (undo.captured_piece == PIECE_EMPTY) {
-                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                    update_history_from(pos, froms[i], tos[i], promos[i], ply);
                 }
             }
             if (val > alpha) alpha = val;
@@ -148,7 +181,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
                 best_value = val;
                 best_from = froms[i]; best_to = tos[i]; best_promo = promos[i];
                 if (undo.captured_piece == PIECE_EMPTY) {
-                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                    update_history_from(pos, froms[i], tos[i], promos[i], ply);
                 }
             }
             if (val < beta) beta = val;
@@ -156,7 +189,7 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
 
         if (alpha >= beta) {
             if (undo.captured_piece == PIECE_EMPTY) {
-                update_killers_from(depth, froms[i], tos[i], promos[i]);
+                update_killers_from(ply, froms[i], tos[i], promos[i]);
             }
             break;
         }
@@ -172,19 +205,19 @@ static int search_ab(Position *pos, int depth, int alpha, int beta)
     return best_value;
 }
 
-static int search_root_once(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion)
+static int search_root_once(Position *pos, int depth, int alpha, int beta, int *out_from, int *out_to, int *out_promotion)
 {
     if (depth <= 0) return 0;
     uint64_t key = pos->hash;
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
-    (void)tt_probe(key, depth, -INF, INF, &tt_val, &tt_from, &tt_to, &tt_promo);
+    (void)tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo);
     int capacity = 4096;
     int *froms = malloc(sizeof(int) * capacity);
     int *tos = malloc(sizeof(int) * capacity);
     int *promos = malloc(sizeof(int) * capacity);
-    if (!froms || !tos || !promos) { free(froms); free(tos); free(promos); return 0; }
+    if (!froms || !tos || !promos) { free(froms); free(tos); free(promos); return -INF; }
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
-    reorder_moves(froms, tos, promos, n, pos, depth);
+    reorder_moves(froms, tos, promos, n, pos, 0);
     if (tt_from >= 0 && n > 0) {
         for (int i = 0; i < n; ++i) {
             if (froms[i] == tt_from && tos[i] == tt_to && promos[i] == tt_promo) {
@@ -197,14 +230,14 @@ static int search_root_once(Position *pos, int depth, int *out_from, int *out_to
             }
         }
     }
-    if (n == 0) { free(froms); free(tos); free(promos); return 0; }
+    if (n == 0) { free(froms); free(tos); free(promos); return -INF; }
     int best_from = -1, best_to = -1, best_promo = 0;
     int best_score = (pos->side_to_move == COLOR_WHITE) ? -INF : INF;
-    int alpha = -INF, beta = INF;
+
     for (int i = 0; i < n; ++i) {
         MoveUndo undo;
         make_move(pos, froms[i], tos[i], promos[i], &undo);
-        int val = search_ab(pos, depth - 1, alpha, beta);
+        int val = search_ab(pos, depth - 1, 1, alpha, beta);
         unmake_move(pos, &undo);
         int mover = (undo.moved_piece > 0) ? COLOR_WHITE : COLOR_BLACK;
         if (mover == COLOR_WHITE) {
@@ -214,7 +247,7 @@ static int search_root_once(Position *pos, int depth, int *out_from, int *out_to
                 best_to = tos[i];
                 best_promo = promos[i];
                 if (undo.captured_piece == PIECE_EMPTY) {
-                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                    update_history_from(pos, froms[i], tos[i], promos[i], 0);
                 }
             }
             if (val > alpha) alpha = val;
@@ -225,7 +258,7 @@ static int search_root_once(Position *pos, int depth, int *out_from, int *out_to
                 best_to = tos[i];
                 best_promo = promos[i];
                 if (undo.captured_piece == PIECE_EMPTY) {
-                    update_history_from(pos, froms[i], tos[i], promos[i], depth);
+                    update_history_from(pos, froms[i], tos[i], promos[i], 0);
                 }
             }
             if (val < beta) beta = val;
@@ -238,25 +271,40 @@ static int search_root_once(Position *pos, int depth, int *out_from, int *out_to
         if (out_from) *out_from = best_from;
         if (out_to) *out_to = best_to;
         if (out_promotion) *out_promotion = best_promo;
-        return 1;
     }
-    return 0;
+    return best_score;
 }
 
 int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion)
 {
     if (depth <= 0) return 0;
     order_init(depth + 8);
+
     int final_from = -1, final_to = -1, final_promo = 0;
+    int prev_score = 0;
+    const int ASP_WINDOW = 50;
+
     for (int d = 1; d <= depth; ++d) {
         int tmp_from = -1, tmp_to = -1, tmp_promo = 0;
-        int ok = search_root_once(pos, d, &tmp_from, &tmp_to, &tmp_promo);
-        if (ok) {
+
+        int alpha = prev_score - ASP_WINDOW;
+        int beta  = prev_score + ASP_WINDOW;
+
+        int score = search_root_once(pos, d, alpha, beta, &tmp_from, &tmp_to, &tmp_promo);
+
+        if (score <= alpha || score >= beta) {
+            score = search_root_once(pos, d, -INF, INF, &tmp_from, &tmp_to, &tmp_promo);
+        }
+
+        prev_score = score;
+
+        if (tmp_from != -1 && tmp_to != -1) {
             final_from = tmp_from;
             final_to = tmp_to;
             final_promo = tmp_promo;
         }
     }
+
     order_free();
     if (out_from) *out_from = final_from;
     if (out_to) *out_to = final_to;

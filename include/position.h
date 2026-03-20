@@ -12,17 +12,17 @@ extern "C" {
 
 #define POS_NO_SQUARE  (-1)
 
-#define PIECE_EMPTY  0
-#define PIECE_PAWN   1
-#define PIECE_KNIGHT 2
-#define PIECE_BISHOP 3
-#define PIECE_ROOK   4
-#define PIECE_QUEEN 5
-#define PIECE_KING   6
+#define PIECE_EMPTY   0
+#define PIECE_PAWN    1
+#define PIECE_KNIGHT  2
+#define PIECE_BISHOP  3
+#define PIECE_ROOK    4
+#define PIECE_QUEEN   5
+#define PIECE_KING    6
 
-#define COLOR_WHITE 0
-#define COLOR_BLACK 1
-#define COLOR_NONE  -1
+#define COLOR_WHITE   0
+#define COLOR_BLACK   1
+#define COLOR_NONE   -1
 
 #define CASTLE_WHITE_K (1u << 0)
 #define CASTLE_WHITE_Q (1u << 1)
@@ -70,6 +70,13 @@ pos_error_t position_validate(const Position *pos, char *errbuf, size_t errbuf_s
 
 int position_square_from_coords(char file_char, char rank_char);
 void position_square_to_coords(int sq, char *buf, size_t buf_size);
+
+// ************** ADDED LEGALITY HELPERS **************
+// Returns true if 'color''s king is in check in the given position
+bool position_king_in_check(const Position *pos, int color);
+// Returns true if 'sq' is attacked by 'attacker_color' in this position
+bool position_is_square_attacked(const Position *pos, int sq, int attacker_color);
+// *****************************************************
 
 #ifdef __cplusplus
 }

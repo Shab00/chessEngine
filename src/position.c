@@ -3,8 +3,12 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <stdbool.h>
 #include <ctype.h>
 #include <stdlib.h>
+
+static const int knight_moves[8] = {17, 15, 10, 6, -17, -15, -10, -6};
+static const int king_moves[8]   = {1, -1, 8, -8, 9, -9, 7, -7};
 
 static int buf_appendf(char **dst, size_t *rem, const char *fmt, ...)
 {
@@ -194,3 +198,83 @@ void position_square_to_coords(int sq, char *buf, size_t buf_size)
     buf[1] = (char)('1' + rank);
     buf[2] = '\0';
 }
+
+bool position_is_square_attacked(const Position *pos, int sq, int attacker_color) {
+    int their_pawn   = attacker_color == COLOR_WHITE ? PIECE_PAWN : -PIECE_PAWN;
+    int their_knight = attacker_color == COLOR_WHITE ? PIECE_KNIGHT : -PIECE_KNIGHT;
+    int their_bishop = attacker_color == COLOR_WHITE ? PIECE_BISHOP : -PIECE_BISHOP;
+    int their_rook   = attacker_color == COLOR_WHITE ? PIECE_ROOK   : -PIECE_ROOK;
+    int their_queen  = attacker_color == COLOR_WHITE ? PIECE_QUEEN  : -PIECE_QUEEN;
+    int their_king   = attacker_color == COLOR_WHITE ? PIECE_KING   : -PIECE_KING;
+
+    int sf = SQ_FILE(sq), sr = SQ_RANK(sq);
+
+    // Pawn attacks
+    if (attacker_color == COLOR_WHITE) {
+        if (sf > 0 && sr < 7 && pos->board[sq+7] == their_pawn) return true;
+        if (sf < 7 && sr < 7 && pos->board[sq+9] == their_pawn) return true;
+    } else {
+        if (sf > 0 && sr > 0 && pos->board[sq-9] == their_pawn) return true;
+        if (sf < 7 && sr > 0 && pos->board[sq-7] == their_pawn) return true;
+    }
+
+    // Knight attacks
+    for (int i = 0; i < 8; ++i) {
+        int to = sq + knight_moves[i];
+        if (to < 0 || to >= 64) continue;
+        int df = abs(SQ_FILE(to) - sf), dr = abs(SQ_RANK(to) - sr);
+        if ((df == 1 && dr == 2) || (df == 2 && dr == 1)) {
+            if (pos->board[to] == their_knight) return true;
+        }
+    }
+
+    // Bishop/Queen attacks (diagonals)
+    for (int df = -1; df <= 1; df += 2)
+        for (int dr = -1; dr <= 1; dr += 2)
+            for (int n = 1; ; ++n) {
+                int f = sf + n*df, r = sr + n*dr;
+                if (f < 0 || f > 7 || r < 0 || r > 7) break;
+                int idx = SQ_INDEX(f, r);
+                int v = pos->board[idx];
+                if (v == PIECE_EMPTY) continue;
+                if (v == their_bishop || v == their_queen) return true;
+                break;
+            }
+
+    // Rook/Queen attacks (straight)
+    for (int df = -1; df <= 1; ++df)
+        for (int dr = -1; dr <= 1; ++dr) {
+            if ((df == 0) == (dr == 0)) continue; // skip (0,0) and diagonals
+            for (int n = 1; ; ++n) {
+                int f = sf + n*df, r = sr + n*dr;
+                if (f < 0 || f > 7 || r < 0 || r > 7) break;
+                int idx = SQ_INDEX(f, r);
+                int v = pos->board[idx];
+                if (v == PIECE_EMPTY) continue;
+                if (v == their_rook || v == their_queen) return true;
+                break;
+            }
+        }
+
+    // King attacks: one square away
+    for (int i = 0; i < 8; ++i) {
+        int to = sq + king_moves[i];
+        if (to < 0 || to >= 64) continue;
+        int df = abs(SQ_FILE(to) - sf), dr = abs(SQ_RANK(to) - sr);
+        if (df <= 1 && dr <= 1) {
+            if (pos->board[to] == their_king) return true;
+        }
+    }
+    return false;
+}
+
+bool position_king_in_check(const Position *pos, int color) {
+    int king = (color == COLOR_WHITE) ? PIECE_KING : -PIECE_KING;
+    for (int sq = 0; sq < 64; ++sq) {
+        if (pos->board[sq] == king)
+            return position_is_square_attacked(pos, sq, color ^ 1); // attacked by the enemy
+    }
+    // King missing: treat as "in check"
+    return true;
+}
+
