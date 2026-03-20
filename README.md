@@ -1,5 +1,15 @@
 # c-chess-engine
 
+## Recent improvements
+
+- **Quiescence search:** Added and called at leaf nodes for more accurate search extensions and leaf evaluation. Thoroughly tested with suite.
+- **Move ordering using real ply, killer/history indexing & MVV-LVA:** Refactored move scoring to use ply, implemented multi-killer slots, and ensured proper indexing for killer/history tables; improved pruning and search reliability.
+- **Aspiration windows:** Integrated aspiration windows into iterative deepening for faster pruning and better root move selection.
+- **Perft divide & in-depth perft debugging:** Added a perft divide harness to compare root move node counts against reference results. Used this to debug and fix castling, en-passant, and underpromotion handling.
+- **Refactored perft tests:** Updated canonical FENs and reference node counts to match established suite. Perft harness and shell scripts print clear PASS/FAIL and help diagnose errors quickly.
+- **FEN roundtrip tester:** Created a dedicated utility and suite to ensure all FEN strings can be parsed and serialized with no fidelity loss.
+- **General harness & codebase cleanup:** Deleted deprecated test files (e.g., `perft_debug.c`) and consolidated test logic for easier CI use and maintenance.
+
 [![Perft tests](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml/badge.svg)](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml)
 
 A small, well-tested chess engine written in C — designed as a correctness-first learning project with a clear path toward a playable, UCI‑compatible engine.
