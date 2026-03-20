@@ -27,6 +27,7 @@ int main(int argc, char **argv)
     }
     const char *fen = argv[1];
     int depth = atoi(argv[2]);
+
     Position pos;
     char err[256];
     if (position_from_fen(&pos, fen, err, sizeof err) != POS_OK) {
@@ -34,7 +35,6 @@ int main(int argc, char **argv)
         return 3;
     }
 
-    // Display the board after FEN parse for debugging
     position_print_ascii(&pos, stdout);
 
     int max_moves = 512;
@@ -45,8 +45,7 @@ int main(int argc, char **argv)
 
     int n = generate_legal_moves(&pos, from, to, prom, max_moves);
 
-    // Debug: Print each move with its type
-    printf("Legal root moves (should match perft reference, e.g. 30 for Kiwipete): %d\n", n);
+    printf("Legal root moves: %d\n", n);
     for (int i = 0; i < n; ++i) {
         char a[4], b[4];
         sq_to_coord(from[i], a);
@@ -61,19 +60,19 @@ int main(int argc, char **argv)
           case PIECE_QUEEN:  pc = 'Q'; break;
           case PIECE_KING:   pc = 'K'; break;
         }
-        if (moved < 0) pc += 'a' - 'A';  // to lowercase for black
+        if (moved < 0) pc += 'a' - 'A';
         printf("%2d: %s%s  %c  prom:%d\n", i+1, a, b, pc, prom[i]);
     }
 
     printf("\nPerft divide for depth=%d:\n", depth);
     uint64_t total = 0;
-    for (int i = 0; i < n; ++i) {
-        Position copy;
-        memcpy(&copy, &pos, sizeof(Position));
-        MoveUndo undo;
-        make_move(&copy, from[i], to[i], prom[i], &undo);
 
-        uint64_t nodes = perft(&copy, depth-1);
+    for (int i = 0; i < n; ++i) {
+        MoveUndo undo;
+        make_move(&pos, from[i], to[i], prom[i], &undo);
+        uint64_t nodes = perft(&pos, depth - 1);
+        unmake_move(&pos, &undo);
+
         char a[4], b[4];
         sq_to_coord(from[i], a);
         sq_to_coord(to[i], b);
@@ -84,6 +83,7 @@ int main(int argc, char **argv)
         }
         total += nodes;
     }
+
     printf("Total nodes: %llu\n", (unsigned long long)total);
     printf("Root moves output: %d\n", n);
 
