@@ -1,57 +1,80 @@
 #include "position.h"
-#include "hash.h"
+#include "movegen.h"
 #include "search.h"
 #include "tt.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+static double now_seconds(void) {
+    return (double)clock() / (double)CLOCKS_PER_SEC;
+}
 
 int main(int argc, char **argv)
 {
     if (argc < 3) {
-        fprintf(stderr, "usage: %s <FEN> <depth>\n", argv[0]);
+        fprintf(stderr, "Usage: %s \"<FEN>\" <depth>\n", argv[0]);
+        fprintf(stderr, "Example:\n");
+        fprintf(stderr, "  %s \"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\" 5\n", argv[0]);
         return 2;
     }
-    const char *fen = argv[1];
-    int depth = atoi(argv[2]);
+
+    const char *fen   = argv[1];
+    int         depth = atoi(argv[2]);
+
+    if (depth <= 0) {
+        fprintf(stderr, "depth must be >= 1\n");
+        return 2;
+    }
+
+    /* Load position */
     Position pos;
     char err[256];
     if (position_from_fen(&pos, fen, err, sizeof err) != POS_OK) {
-        fprintf(stderr, "bad fen: %s\n", err);
-        return 2;
+        fprintf(stderr, "FEN parse failed: %s\n", err);
+        return 3;
     }
 
-    zobrist_init(0xC0FFEE123456789ULL);
+    /* Print board so we can verify correct position was loaded */
+    position_print_ascii(&pos, stdout);
+    char loaded_fen[128];
+    position_to_fen(&pos, loaded_fen, sizeof loaded_fen);
+    printf("FEN:   %s\n", loaded_fen);
+    printf("Depth: %d\n\n", depth);
 
-    /* Initialize TT from environment TT_SIZE_MB or use a default (32 MB). */
+    /* Init TT — respect TT_SIZE_MB env var or default to 32 MB */
     const char *tt_env = getenv("TT_SIZE_MB");
-    if (tt_env) {
-        size_t tt_mb = (size_t)atoi(tt_env);
-        if (tt_mb > 0) tt_init(tt_mb);
-        else tt_init(32);
-    } else {
-        tt_init(32);
-    }
-    /* Start with zeroed stats for this run. */
+    size_t tt_mb = tt_env ? (size_t)atoi(tt_env) : 32;
+    if (tt_mb == 0) tt_mb = 32;
+    tt_init(tt_mb);
     tt_stats_reset();
 
-    int from, to, promo;
-    int ok = search_iterative_deepening(&pos, depth, &from, &to, &promo);
-    if (!ok) {
-        fprintf(stdout, "no legal move found\n");
-        tt_stats_print(stdout);
-        tt_free();
-        return 0;
-    }
-    char from_s[4], to_s[4];
-    position_square_to_coords(from, from_s, sizeof from_s);
-    position_square_to_coords(to, to_s, sizeof to_s);
-    if (promo != 0) {
-        printf("best: %s->%s promote=%d\n", from_s, to_s, promo);
-        tt_stats_print(stdout);
+    /* Run search */
+    double t0 = now_seconds();
+    int from = -1, to = -1, promo = 0;
+    int found = search_root(&pos, depth, &from, &to, &promo);
+    double t1 = now_seconds();
+
+    /* Print result */
+    if (!found || from < 0) {
+        printf("Result: no legal move found (checkmate or stalemate)\n");
     } else {
-        printf("best: %s->%s\n", from_s, to_s);
-        tt_stats_print(stdout);
+        char from_s[4], to_s[4];
+        position_square_to_coords(from, from_s, sizeof from_s);
+        position_square_to_coords(to,   to_s,   sizeof to_s);
+
+        if (promo != 0) {
+            const char *pnames[] = { "?", "pawn", "knight", "bishop", "rook", "queen", "king" };
+            printf("Best move: %s%s (promote to %s)\n",
+                   from_s, to_s, pnames[promo < 6 ? promo : 0]);
+        } else {
+            printf("Best move: %s%s\n", from_s, to_s);
+        }
     }
+
+    printf("Time:  %.3fs\n", t1 - t0);
+    printf("\n");
+    tt_stats_print(stdout);
 
     tt_free();
     return 0;
