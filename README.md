@@ -3,7 +3,10 @@
 [![Perft tests](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml/badge.svg)](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml)
 
 ## Recent improvements
-
+- **Negamax search guarantee:** Search.c now implements pure negamax alpha-beta, not minimax; ensures correct sign handling, node values, and mate/stalemate propagation—matches all reference search engines.
+- **Robust TT policy and stats:** Finalized depth-preferential TT replacement with checkable statistics—search makes strong, measurable use of TT, and stats print cleanly after every invocation.
+- **Outstanding regression and sanitizer/UBSan hygiene:** Engine passes the full CPW perft regression test suite and runs clean (no memory/UB errors) under ASan/UBSan. Memory integrity and state maintenance are now validated for all common run modes.
+- **Professional branching and PR flow:** All major upgrades were developed, reviewed, and merged via feature branches and pull requests, using a clean rebase/squash workflow. CI status and test coverage are always available in PR badges.
 - **Quiescence search:** Added and called at leaf nodes for more accurate search extensions and leaf evaluation. Thoroughly tested with suite.
 - **Move ordering using real ply, killer/history indexing & MVV-LVA:** Refactored move scoring to use ply, implemented multi-killer slots, and ensured proper indexing for killer/history tables; improved pruning and search reliability.
 - **Aspiration windows:** Integrated aspiration windows into iterative deepening for faster pruning and better root move selection.
