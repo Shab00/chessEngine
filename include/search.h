@@ -2,17 +2,16 @@
 #define CHESS_SEARCH_H
 
 #include "position.h"
+#include "search_context.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion);
-
-int search_iterative_deepening(Position *pos, int max_depth, int *out_from, int *out_to, int *out_promotion);
+int search_root(Position *pos, int depth, int *out_from, int *out_to, int *out_promotion, SearchContext *ctx);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif /* CHESS_SEARCH_H */

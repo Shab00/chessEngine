@@ -1,6 +1,7 @@
 #include "search.h"
 #include "tt.h"
 #include "position.h"
+#include "search_context.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -51,7 +52,10 @@ int search_iterative_deepening(Position *pos, int max_depth, int *out_from, int 
     for (int depth = 1; depth <= max_depth; ++depth) {
         preferred_from = bf; preferred_to = bt; preferred_promo = bp;
 
-        int ok = search_root(pos, depth, &bf, &bt, &bp);
+        SearchContext ctx;
+        search_context_init(&ctx, depth, 0);
+
+        int ok = search_root(pos, depth, &bf, &bt, &bp, &ctx);
         if (!ok) break;
     }
 
