@@ -3,6 +3,8 @@
 [![Perft tests](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml/badge.svg)](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml)
 
 ## Recent improvements
+- **Timing/timing-budget test harness:** Added `tests/timing_test.c` to verify that the engine's search routine respects wall-clock time controls at a variety of depths and positions. Output shows actual vs. requested move computation time, enabling robust time manager regression checks.
+- **Tactical blunder (sanity/checkmate regression) harness:** Added `tests/tactics_test.c` which loads a suite of FENs with known tactical solutions (mates-in-one, forks, etc) and asserts the engine’s best move matches the correct one. This guards against search/evaluation breakage and enables future CI for tactics.
 - **Negamax search guarantee:** Search.c now implements pure negamax alpha-beta, not minimax; ensures correct sign handling, node values, and mate/stalemate propagation—matches all reference search engines.
 - **Robust TT policy and stats:** Finalized depth-preferential TT replacement with checkable statistics—search makes strong, measurable use of TT, and stats print cleanly after every invocation.
 - **Outstanding regression and sanitizer/UBSan hygiene:** Engine passes the full CPW perft regression test suite and runs clean (no memory/UB errors) under ASan/UBSan. Memory integrity and state maintenance are now validated for all common run modes.
@@ -72,7 +74,8 @@ Project structure (important files)
 - tests/
   - `perft` / `perft` tool — perft harness.
   - `engine_search` — CLI search driver using iterative deepening.
-  - smoke tests and perft integrity scripts.
+  - `tactics_test.c` — FEN-driven tactical regression runner.
+  - `timing_test.c` — Time control adherence/test harness. - smoke tests and perft integrity scripts.
 
 Quick start — build and run
 (Assumes you are in the project root and have a Unix-like toolchain.)
