@@ -1,5 +1,6 @@
 #include "position.h"
 #include "search.h"
+#include "search_context.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,7 +14,11 @@ int main(void)
         return 2;
     }
     int from, to, promo;
-    int ok = search_root(&pos, 1, &from, &to, &promo);
+
+    SearchContext ctx;
+    search_context_init(&ctx, 1, 0);
+
+    int ok = search_root(&pos, 1, &from, &to, &promo, &ctx);
     if (!ok) {
         fprintf(stderr, "search returned no move\n");
         return 1;

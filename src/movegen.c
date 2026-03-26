@@ -541,3 +541,17 @@ void unmake_move(Position *pos, const MoveUndo *undo)
 {
     unmake_move_raw(pos, (const Undo *)undo);
 }
+
+void make_null_move(Position *pos, MoveUndo *undo)
+{
+    undo->side_to_move = pos->side_to_move;
+    undo->en_passant   = pos->en_passant;
+    pos->side_to_move  = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
+    pos->en_passant    = POS_NO_SQUARE;
+}
+
+void unmake_null_move(Position *pos, const MoveUndo *undo)
+{
+    pos->side_to_move  = undo->side_to_move;
+    pos->en_passant    = undo->en_passant;
+}

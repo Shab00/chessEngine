@@ -2,6 +2,7 @@
 #include "movegen.h"
 #include "search.h"
 #include "tt.h"
+#include "search_context.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -27,7 +28,6 @@ int main(int argc, char **argv)
         return 2;
     }
 
-    /* Load position */
     Position pos;
     char err[256];
     if (position_from_fen(&pos, fen, err, sizeof err) != POS_OK) {
@@ -35,27 +35,26 @@ int main(int argc, char **argv)
         return 3;
     }
 
-    /* Print board so we can verify correct position was loaded */
     position_print_ascii(&pos, stdout);
     char loaded_fen[128];
     position_to_fen(&pos, loaded_fen, sizeof loaded_fen);
     printf("FEN:   %s\n", loaded_fen);
     printf("Depth: %d\n\n", depth);
 
-    /* Init TT — respect TT_SIZE_MB env var or default to 32 MB */
     const char *tt_env = getenv("TT_SIZE_MB");
     size_t tt_mb = tt_env ? (size_t)atoi(tt_env) : 32;
     if (tt_mb == 0) tt_mb = 32;
     tt_init(tt_mb);
     tt_stats_reset();
 
-    /* Run search */
+    SearchContext ctx;
+    search_context_init(&ctx, depth, 0);
+
     double t0 = now_seconds();
     int from = -1, to = -1, promo = 0;
-    int found = search_root(&pos, depth, &from, &to, &promo);
+    int found = search_root(&pos, depth, &from, &to, &promo, &ctx);
     double t1 = now_seconds();
 
-    /* Print result */
     if (!found || from < 0) {
         printf("Result: no legal move found (checkmate or stalemate)\n");
     } else {

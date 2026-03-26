@@ -46,7 +46,6 @@ typedef struct {
     uint16_t halfmove_clock;
     uint32_t fullmove_number;
 
-    /* Zobrist key for the position (kept updated by make/unmake) */
     uint64_t hash;
 } Position;
 
@@ -67,6 +66,8 @@ pos_error_t position_to_fen(const Position *pos, char *buf, size_t buf_size);
 void position_print_ascii(const Position *pos, FILE *out);
 
 pos_error_t position_validate(const Position *pos, char *errbuf, size_t errbuf_size);
+
+int position_material(const Position *pos);
 
 int position_square_from_coords(char file_char, char rank_char);
 void position_square_to_coords(int sq, char *buf, size_t buf_size);

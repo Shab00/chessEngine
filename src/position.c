@@ -278,3 +278,19 @@ bool position_king_in_check(const Position *pos, int color) {
     return true;
 }
 
+int position_material(const Position *pos) {
+    int total = 0;
+    for (int i = 0; i < 64; ++i) {
+        int8_t v = pos->board[i];
+        int a = abs(v);
+        switch (a) {
+            case PIECE_PAWN:   total += 1; break;
+            case PIECE_KNIGHT: total += 3; break;
+            case PIECE_BISHOP: total += 3; break;
+            case PIECE_ROOK:   total += 5; break;
+            case PIECE_QUEEN:  total += 9; break;
+            default: break;
+        }
+    }
+    return total;
+}
