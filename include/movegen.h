@@ -23,6 +23,8 @@ uint64_t perft(Position *pos, int depth);
 
 int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *promotions, int capacity);
 
+int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_out, int capacity);
+
 void make_move(Position *pos, int from, int to, int promotion, MoveUndo *undo);
 void unmake_move(Position *pos, const MoveUndo *undo);
 

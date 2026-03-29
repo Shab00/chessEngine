@@ -278,12 +278,28 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
     reorder_moves(froms, tos, promos, n, pos, 0);
 
+    // --- Debug output: print all root moves by index ---
+    printf("Root legal moves (n=%d):\n", n);
+    for (int i = 0; i < n; ++i) {
+        printf("  Root Move: from=%d to=%d promo=%d\n", froms[i], tos[i], promos[i]);
+    }
+    // ---------------------------------------------------
+
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
     tt_probe(pos->hash, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo);
     if (n > 0)
         promote_tt_move_to_front(froms, tos, promos, n, tt_from, tt_to, tt_promo);
 
-    if (n == 0) { free(froms); free(tos); free(promos); return -INF; }
+    if (n == 0) {
+        int king_sq  = find_king(pos, pos->side_to_move);
+        int in_check = 0;
+        if (king_sq != POS_NO_SQUARE) {
+            int opp = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
+            in_check = is_square_attacked(pos, king_sq, opp);
+        }
+        free(froms); free(tos); free(promos);
+        return in_check ? (-MATE_SCORE + 1) : 0; // Checkmate or stalemate at root
+    }
 
     int best_score = -INF;
     int best_from  = -1, best_to = -1, best_promo = 0;

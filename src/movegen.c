@@ -296,10 +296,15 @@ static void unmake_move_raw(Position *pos, const Undo *undo)
 #endif
 }
 
-static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_out, int capacity)
+
+int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_out, int capacity)
 {
-    int n   = 0;
+    int n = 0;
     int stm = pos->side_to_move;
+
+    // Directions for sliding pieces: 8 directions (E, W, N, S, NE, NW, SE, SW)
+    static const int slide_file[8] = { 1, -1, 0, 0, 1, -1, 1, -1 };
+    static const int slide_rank[8] = { 0, 0,  1,-1, 1, -1, -1, 1 };
 
     for (int sq = 0; sq < 64; ++sq) {
         int8_t v = pos->board[sq];
@@ -308,6 +313,9 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
         if (color != stm) continue;
         int abs_v = piece_abs(v);
         int f = file_of(sq), r = rank_of(sq);
+
+        // --- Debug: show pieces and squares being processed ---
+        printf("Piece %d at sq=%d (%c%c)\n", v, sq, 'a'+f, '1'+r);
 
         if (abs_v == PIECE_PAWN) {
             int dir = (color == COLOR_WHITE) ? 1 : -1;
@@ -363,13 +371,18 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
             }
 
         } else if (abs_v == PIECE_BISHOP || abs_v == PIECE_ROOK || abs_v == PIECE_QUEEN) {
-            static const int slide_file[8] = { 1,-1, 0, 0, 1,-1, 1,-1 };
-            static const int slide_rank[8] = { 0, 0, 1,-1, 1,-1,-1, 1 };
-            int start = (abs_v == PIECE_BISHOP) ? 4 : 0;
-            int end   = (abs_v == PIECE_ROOK)   ? 4 : 8;
-            for (int d = start; d < end; ++d) {
-                int ff = f, rr = r;
-                for (;;) {
+            int start_dir, end_dir;
+            if (abs_v == PIECE_BISHOP) {
+                start_dir = 4; end_dir = 8; // diagonals
+            } else if (abs_v == PIECE_ROOK) {
+                start_dir = 0; end_dir = 4; // straight lines
+            } else {
+                start_dir = 0; end_dir = 8; // all 8 directions for queen
+            }
+            for (int d = start_dir; d < end_dir; ++d) {
+                int ff = f;
+                int rr = r;
+                while (1) {
                     ff += slide_file[d];
                     rr += slide_rank[d];
                     if (ff < 0 || ff > 7 || rr < 0 || rr > 7) break;
@@ -384,7 +397,6 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
                     }
                 }
             }
-
         } else if (abs_v == PIECE_KING) {
             for (int df = -1; df <= 1; ++df) for (int dr = -1; dr <= 1; ++dr) {
                 if (df == 0 && dr == 0) continue;
@@ -451,7 +463,6 @@ static int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int 
     }
     return n;
 }
-
 int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *promotions, int capacity)
 {
     int tmp_cap = 512;
