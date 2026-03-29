@@ -315,7 +315,7 @@ int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_
         int f = file_of(sq), r = rank_of(sq);
 
         // --- Debug: show pieces and squares being processed ---
-        printf("Piece %d at sq=%d (%c%c)\n", v, sq, 'a'+f, '1'+r);
+//        printf("Piece %d at sq=%d (%c%c)\n", v, sq, 'a'+f, '1'+r);
 
         if (abs_v == PIECE_PAWN) {
             int dir = (color == COLOR_WHITE) ? 1 : -1;
