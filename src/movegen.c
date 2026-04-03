@@ -314,9 +314,6 @@ int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_
         int abs_v = piece_abs(v);
         int f = file_of(sq), r = rank_of(sq);
 
-        // --- Debug: show pieces and squares being processed ---
-//        printf("Piece %d at sq=%d (%c%c)\n", v, sq, 'a'+f, '1'+r);
-
         if (abs_v == PIECE_PAWN) {
             int dir = (color == COLOR_WHITE) ? 1 : -1;
             int tr  = r + dir;
@@ -485,24 +482,13 @@ int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *pro
         int is_illegal = 0;
         if (king_sq == POS_NO_SQUARE) {
             is_illegal = 1;
-            //printf("[DEBUG] king not found for side %d after move %d->%d\n",
-              //     just_moved, from[i], to[i]);
         } else if (is_square_attacked(pos, king_sq, attacker)) {
             is_illegal = 1;
-            char fs[4], ts[4];
-            sq_to_coord(from[i], fs);
-            sq_to_coord(to[i],   ts);
-            //printf("[DEBUG] move %s%s leaves king in check (side: %d king_sq: %d)\n",
-              //     fs, ts, just_moved, king_sq);
         }
 
         unmake_move_raw(pos, &undo);
 
         if (!is_illegal && nlegal < capacity) {
-            char fs[4], ts[4];
-            sq_to_coord(from[i], fs);
-            sq_to_coord(to[i],   ts);
-            //printf("[LEGAL] %s%s\n", fs, ts);
             moves_from[nlegal] = from[i];
             moves_to[nlegal]   = to[i];
             promotions[nlegal] = prom[i];
@@ -511,7 +497,6 @@ int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *pro
     }
 
     free(from); free(to); free(prom);
-    //printf("[LEGAL-MOVE TOTAL] %d\n", nlegal);
     return nlegal;
 }
 
@@ -557,12 +542,22 @@ void make_null_move(Position *pos, MoveUndo *undo)
 {
     undo->side_to_move = pos->side_to_move;
     undo->en_passant   = pos->en_passant;
+    undo->prev_hash    = pos->hash;
+
+    /* Update hash: XOR out old EP, flip side, XOR in nothing (no new EP) */
+    uint64_t h = pos->hash;
+    if (pos->en_passant != POS_NO_SQUARE)
+        zobrist_xor_ep(&h, pos->en_passant);
+    zobrist_xor_side(&h);
+
     pos->side_to_move  = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
     pos->en_passant    = POS_NO_SQUARE;
+    pos->hash          = h;
 }
 
 void unmake_null_move(Position *pos, const MoveUndo *undo)
 {
-    pos->side_to_move  = undo->side_to_move;
-    pos->en_passant    = undo->en_passant;
+    pos->side_to_move = undo->side_to_move;
+    pos->en_passant   = undo->en_passant;
+    pos->hash         = undo->prev_hash;
 }
