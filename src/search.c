@@ -206,21 +206,36 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
         MoveUndo undo;
         make_move(pos, froms[i], tos[i], promos[i], &undo);
 
-        /* Late move reduction */
+        /* Check extension: does this move give check to the opponent? */
+        int gives_check = 0;
+        {
+            int opp_king_sq = find_king(pos, pos->side_to_move);
+            if (opp_king_sq != POS_NO_SQUARE) {
+                int attacker = (pos->side_to_move == COLOR_WHITE)
+                                   ? COLOR_BLACK : COLOR_WHITE;
+                gives_check = is_square_attacked(pos, opp_king_sq, attacker);
+            }
+        }
+        int extension = gives_check ? 1 : 0;
+
+        /* Late move reduction — never reduce checks or when in check */
         int is_capture = (undo.captured_piece != PIECE_EMPTY);
         int is_promo   = (promos[i] != 0);
         int reduction  = 0;
-        if (depth >= 3 && i >= 4 && !is_capture && !is_promo && !in_check)
+        if (depth >= 3 && i >= 4 && !is_capture && !is_promo
+            && !in_check && !gives_check)
             reduction = 1;
+
+        int new_depth = depth - 1 + extension;
 
         int val;
         if (reduction) {
-            val = -search_ab(pos, depth - 1 - reduction, ply + 1,
+            val = -search_ab(pos, new_depth - reduction, ply + 1,
                              -alpha - 1, -alpha, ctx);
             if (!search_context_should_stop(ctx) && val > alpha)
-                val = -search_ab(pos, depth - 1, ply + 1, -beta, -alpha, ctx);
+                val = -search_ab(pos, new_depth, ply + 1, -beta, -alpha, ctx);
         } else {
-            val = -search_ab(pos, depth - 1, ply + 1, -beta, -alpha, ctx);
+            val = -search_ab(pos, new_depth, ply + 1, -beta, -alpha, ctx);
         }
 
         unmake_move(pos, &undo);
@@ -236,7 +251,7 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
         if (val > alpha) {
             alpha = val;
             if (undo.captured_piece == PIECE_EMPTY)
-                update_history_from(pos, froms[i], tos[i], promos[i], ply);
+                update_history_from(pos, froms[i], tos[i], promos[i], depth);
         }
         if (alpha >= beta) {
             if (undo.captured_piece == PIECE_EMPTY)
@@ -278,13 +293,6 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
     reorder_moves(froms, tos, promos, n, pos, 0);
 
-    // --- Debug output: print all root moves by index ---
-    printf("Root legal moves (n=%d):\n", n);
-    for (int i = 0; i < n; ++i) {
-        printf("  Root Move: from=%d to=%d promo=%d\n", froms[i], tos[i], promos[i]);
-    }
-    // ---------------------------------------------------
-
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
     tt_probe(pos->hash, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo);
     if (n > 0)
@@ -298,7 +306,7 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
             in_check = is_square_attacked(pos, king_sq, opp);
         }
         free(froms); free(tos); free(promos);
-        return in_check ? (-MATE_SCORE + 1) : 0; // Checkmate or stalemate at root
+        return in_check ? (-MATE_SCORE + 1) : 0;
     }
 
     int best_score = -INF;
@@ -319,7 +327,6 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
             best_from  = froms[i];
             best_to    = tos[i];
             best_promo = promos[i];
-            /* Keep ctx up to date so caller has best move even if aborted */
             ctx->best_from  = best_from;
             ctx->best_to    = best_to;
             ctx->best_promo = best_promo;
@@ -328,7 +335,7 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
         if (val > alpha) {
             alpha = val;
             if (undo.captured_piece == PIECE_EMPTY)
-                update_history_from(pos, froms[i], tos[i], promos[i], 0);
+                update_history_from(pos, froms[i], tos[i], promos[i], depth);
         }
         if (alpha >= beta) break;
     }

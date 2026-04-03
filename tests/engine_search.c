@@ -2,6 +2,7 @@
 #include "movegen.h"
 #include "search.h"
 #include "tt.h"
+#include "hash.h"
 #include "search_context.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +28,8 @@ int main(int argc, char **argv)
         fprintf(stderr, "depth must be >= 1\n");
         return 2;
     }
+
+    zobrist_init(0);
 
     Position pos;
     char err[256];
