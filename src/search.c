@@ -10,8 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int is_square_attacked(const Position *pos, int sq, int by);
-
+#define is_square_attacked(pos, sq, by) position_is_square_attacked((pos), (sq), (by))
 #define MATE_SCORE  100000
 #define INF        1000000000
 
@@ -95,20 +94,38 @@ static int quiescence(Position *pos, int alpha, int beta, SearchContext *ctx)
 
     ctx->nodes++;
 
-    int stand_pat = evaluate_for_stm(pos);
-    if (stand_pat >= beta) return beta;
-    if (stand_pat > alpha) alpha = stand_pat;
-
     int capacity = 128;
     int *froms  = malloc(sizeof(int) * capacity);
     int *tos    = malloc(sizeof(int) * capacity);
     int *promos = malloc(sizeof(int) * capacity);
     if (!froms || !tos || !promos) {
         free(froms); free(tos); free(promos);
-        return stand_pat;
+        return evaluate_for_stm(pos);
     }
 
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
+
+    /* Detect checkmate / stalemate */
+    if (n == 0) {
+        free(froms); free(tos); free(promos);
+        int king_sq = -1;
+        int king_val = (pos->side_to_move == COLOR_WHITE) ? PIECE_KING : -PIECE_KING;
+        for (int i = 0; i < 64; i++) {
+            if (pos->board[i] == king_val) { king_sq = i; break; }
+        }
+        if (king_sq >= 0 && position_is_square_attacked(pos, king_sq,
+                pos->side_to_move == COLOR_WHITE ? COLOR_BLACK : COLOR_WHITE)) {
+            return -MATE_SCORE;  /* checkmated */
+        }
+        return 0;  /* stalemate */
+    }
+
+    int stand_pat = evaluate_for_stm(pos);
+    if (stand_pat >= beta) {
+        free(froms); free(tos); free(promos);
+        return beta;
+    }
+    if (stand_pat > alpha) alpha = stand_pat;
 
     for (int i = 0; i < n; ++i) {
         int is_capture = (pos->board[tos[i]] != PIECE_EMPTY);
@@ -135,7 +152,6 @@ static int quiescence(Position *pos, int alpha, int beta, SearchContext *ctx)
     free(froms); free(tos); free(promos);
     return alpha;
 }
-
 /* ------------------------------------------------------------------
  * search_ab
  * ------------------------------------------------------------------ */
@@ -152,9 +168,9 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
     /* TT probe */
     uint64_t key = pos->hash;
     int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
-    if (tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo))
-        return tt_val;
-
+    //if (tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo))
+        //return tt_val;
+    tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo);
     /* In-check detection */
     int king_sq  = find_king(pos, pos->side_to_move);
     int in_check = 0;
@@ -164,7 +180,7 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
     }
 
     /* Null-move pruning */
-    if (!in_check && depth >= 3 && position_material(pos) > 16) {
+    if (!in_check && depth >= 3 && position_material(pos) > 16 && 0) {
         MoveUndo null_undo;
         make_null_move(pos, &null_undo);
         int R = 2;
@@ -381,8 +397,8 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to,
 
         int tmp_from = -1, tmp_to = -1, tmp_promo = 0;
 
-        int alpha = prev_score - ASP_WINDOW;
-        int beta  = prev_score + ASP_WINDOW;
+        int alpha = -INF;
+        int beta  = INF;
 
         int score = search_root_once(pos, d, alpha, beta,
                                      &tmp_from, &tmp_to, &tmp_promo, ctx);
