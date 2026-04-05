@@ -12,6 +12,7 @@ extern "C" {
 typedef enum { TT_FLAG_EXACT = 0, TT_FLAG_LOWER = 1, TT_FLAG_UPPER = 2 } tt_flag_t;
 
 void tt_init(size_t size_mb);
+void tt_clear(void);
 
 int tt_probe(uint64_t key, int depth, int alpha, int beta,
              int *out_value, int *out_from, int *out_to, int *out_promo);

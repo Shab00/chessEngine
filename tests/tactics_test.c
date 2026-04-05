@@ -18,21 +18,43 @@ typedef struct {
 #define SQ(f, r)  (((r) - '1') * 8 + ((f) - 'a'))
 
 TacticTest tests[] = {
-    {"3k4/8/8/8/8/8/8/3QK3 w - - 0 1",
-     SQ('d','1'), SQ('d','8'), 0, "Simple mate in 1: Qd1-d8#"},
+    // WAC.001: Qg3-g6
+    {"2rr3k/pp3pp1/1nnqbN1p/3pN3/2pP4/2P3Q1/PPB4P/R4RK1 w - - 0 1",
+     SQ('g','3'), SQ('g','6'), 0, "WAC.001 bm Qg6"},
 
-    {"7k/5KQ1/8/8/8/8/8/8 w - - 0 1",
-     SQ('g','7'), SQ('h','7'), 0, "Simple mate in 1: Qg7-h7#"},
+    // WAC.002: Rb3xb2
+    {"8/7p/5k2/5p2/p1p2P2/Pr1pPK2/1P1R3P/8 b - - 0 1",
+     SQ('b','3'), SQ('b','2'), 0, "WAC.002 bm Rxb2"},
 
-    {"8/5k1p/1p1pRp2/p2P4/P1P3Pp/1P4bP/6K1/8 w - - 0 49",
-     SQ('c','4'), SQ('c','5'), 0, "White plays c4-c5"},
+    // WAC.003: Re3-g3
+    {"5rk1/1ppb3p/p1pb4/6q1/3P1p1r/2P1R2P/PP1BQ1P1/5RKN w - - 0 1",
+     SQ('e','3'), SQ('g','3'), 0, "WAC.003 bm Rg3"},
 
-    {"1rbq1rk1/p1b1nppp/1p2p3/8/1B1pN3/P2B4/1P3PPP/2RQ1R1K w - - 0 1",
-     SQ('e','4'), SQ('f','6'), 0, "bm Nf6+"},
+    // WAC.004: Qh6xh7+
+    {"r1bq2rk/pp3pbp/2p1p1pQ/7P/3P4/2PB1N2/PP3PPR/2KR4 w - - 0 1",
+     SQ('h','6'), SQ('h','7'), 0, "WAC.004 bm Qxh7+"},
 
-    {"3r2k1/p2r1p1p/1p2p1p1/q4n2/3P4/PQ5P/1P1RNPP1/3R2K1 b - - 0 1",
-     SQ('f','5'), SQ('d','4'), 0, "bm Nxd4"},
+    // WAC.005: Qc6-c4+
+    {"5k2/6pp/p1qN4/1p1p4/3P4/2PKP2Q/PP3r2/3R4 b - - 0 1",
+     SQ('c','6'), SQ('c','4'), 0, "WAC.005 bm Qc4+"},
+
+    // WAC.006: Rb6-b7
+    {"7k/p7/1R5K/6r1/6p1/6P1/8/8 w - - 0 1",
+     SQ('b','6'), SQ('b','7'), 0, "WAC.006 bm Rb7"},
+
+    // WAC.007: Ng4-e3
+    {"rnbqkb1r/pppp1ppp/8/4P3/6n1/7P/PPPNPPP1/R1BQKBNR b KQkq - 0 1",
+     SQ('g','4'), SQ('e','3'), 0, "WAC.007 bm Ne3"},
+
+    // WAC.008: Re7-f7
+    {"r4q1k/p2bR1rp/2p2Q1N/5p2/5p2/2P5/PP3PPP/R5K1 w - - 0 1",
+     SQ('e','7'), SQ('f','7'), 0, "WAC.008 bm Rf7"},
+
+    // WAC.009: Bd6-h2+
+    {"3q1rk1/p4pp1/2pb3p/3p4/6Pr/1PNQ4/P1PB1PP1/4RRK1 b - - 0 1",
+     SQ('d','6'), SQ('h','2'), 0, "WAC.009 bm Bh2+"},
 };
+
 const int NUM_TESTS = sizeof(tests) / sizeof(tests[0]);
 
 void square_to_alg(int sq, char out[3]) {
@@ -57,10 +79,12 @@ int main(void) {
             continue;
         }
 
+        tt_clear();       /* flush all stale TT entries from previous test */
+        tt_stats_reset();
+
         int depth = 6;
         SearchContext ctx;
         search_context_init(&ctx, depth, 10000);
-        tt_stats_reset();
 
         int found_from = -1, found_to = -1, found_promo = 0;
         search_root(&pos, depth, &found_from, &found_to, &found_promo, &ctx);

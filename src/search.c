@@ -232,8 +232,7 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
                 gives_check = is_square_attacked(pos, opp_king_sq, attacker);
             }
         }
-        int extension = gives_check ? 1 : 0;
-
+        int extension = (gives_check && ply < 64) ? 1 : 0;
         /* Late move reduction — never reduce checks or when in check */
         int is_capture = (undo.captured_piece != PIECE_EMPTY);
         int is_promo   = (promos[i] != 0);

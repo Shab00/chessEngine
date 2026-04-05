@@ -118,6 +118,12 @@ void tt_init(size_t size_mb)
     tt_table = calloc(tt_count, sizeof(TTEntry));
 }
 
+void tt_clear(void)
+{
+    if (tt_table && tt_count > 0)
+        memset(tt_table, 0, tt_count * sizeof(TTEntry));
+}
+
 void tt_free(void)
 {
     free(tt_table);
