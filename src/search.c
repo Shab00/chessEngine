@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DEBUG_ROOT_MOVES 0
 #define is_square_attacked(pos, sq, by) position_is_square_attacked((pos), (sq), (by))
 #define MATE_SCORE  100000
 #define INF        1000000000
@@ -374,6 +375,7 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
  * ctx may be NULL — a local context is used in that case so existing
  * callers that don't pass a ctx continue to work unchanged.
  * ------------------------------------------------------------------ */
+
 int search_root(Position *pos, int depth, int *out_from, int *out_to,
                 int *out_promotion, SearchContext *ctx)
 {
@@ -390,6 +392,10 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to,
     int final_from = -1, final_to = -1, final_promo = 0;
     int prev_score = 0;
     const int ASP_WINDOW = 50;
+
+    // We'll store the best move for the final (full) depth for debug
+    int print_root_debug = 0;
+    if (DEBUG_ROOT_MOVES) print_root_debug = 1;
 
     for (int d = 1; d <= depth; ++d) {
         if (search_context_should_stop(ctx)) break;
@@ -414,6 +420,33 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to,
             final_from  = tmp_from;
             final_to    = tmp_to;
             final_promo = tmp_promo;
+        }
+
+        // After the final depth, print root move scores if debugging enabled:
+        if (print_root_debug && d == depth) {
+            printf("\n[Debug] Root moves and scores at depth %d:\n", depth);
+
+            int capacity = 256, n;
+            int froms[256], tos[256], promos[256];
+            n = generate_legal_moves(pos, froms, tos, promos, capacity);
+            for (int j = 0; j < n; ++j) {
+                MoveUndo undo;
+                make_move(pos, froms[j], tos[j], promos[j], &undo);
+                int val = -search_ab(pos, depth - 1, 1, -INF, INF, ctx);
+                unmake_move(pos, &undo);
+
+                char src[3], dst[3];
+                src[0] = 'a' + (froms[j] % 8); src[1] = '1' + (froms[j] / 8); src[2] = 0;
+                dst[0] = 'a' + (tos[j] % 8);   dst[1] = '1' + (tos[j] / 8);   dst[2] = 0;
+
+                printf("    %s%s", src, dst);
+                if (promos[j]) printf("(prom=%d)", promos[j]);
+                printf("  score: %d", val);
+                if (froms[j] == final_from && tos[j] == final_to) printf("  <== engine move");
+                printf("\n");
+            }
+            printf("[Debug] End root move list.\n\n");
+            // Optionally, set print_root_debug = 0; // So it only prints once
         }
     }
 

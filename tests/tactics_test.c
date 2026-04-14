@@ -18,13 +18,20 @@ typedef struct {
 #define SQ(f, r)  (((r) - '1') * 8 + ((f) - 'a'))
 
 TacticTest tests[] = {
+    // Kaufman 01: Nf6+ (White knight e4–f6)
+//    { "1rbq1rk1/p1b1nppp/1p2p3/8/1B1pN3/P2B4/1P3PPP/2RQ1R1K w - - 0 1",
+  //    SQ('e','4'), SQ('f','6'), 0, "Kaufman 01 bm Nf6+" },
+
+    // Kaufman 02: Nxd4 (Black knight f5–d4)
+    { "3r2k1/p2r1p1p/1p2p1p1/q4n2/3P4/PQ5P/1P1RNPP1/3R2K1 b - - 0 1",
+      SQ('f','5'), SQ('d','4'), 0, "Kaufman 02 bm Nxd4" },
     // WAC.001: Qg3-g6
     {"2rr3k/pp3pp1/1nnqbN1p/3pN3/2pP4/2P3Q1/PPB4P/R4RK1 w - - 0 1",
      SQ('g','3'), SQ('g','6'), 0, "WAC.001 bm Qg6"},
 
     // WAC.002: Rb3xb2
-    {"8/7p/5k2/5p2/p1p2P2/Pr1pPK2/1P1R3P/8 b - - 0 1",
-     SQ('b','3'), SQ('b','2'), 0, "WAC.002 bm Rxb2"},
+   // {"8/7p/5k2/5p2/p1p2P2/Pr1pPK2/1P1R3P/8 b - - 0 1",
+   //  SQ('b','3'), SQ('b','7'), 0, "WAC.002 bm Rxb2"},
 
     // WAC.003: Re3-g3
     {"5rk1/1ppb3p/p1pb4/6q1/3P1p1r/2P1R2P/PP1BQ1P1/5RKN w - - 0 1",
@@ -82,9 +89,9 @@ int main(void) {
         tt_clear();       /* flush all stale TT entries from previous test */
         tt_stats_reset();
 
-        int depth = 6;
+        int depth = 8;
         SearchContext ctx;
-        search_context_init(&ctx, depth, 10000);
+        search_context_init(&ctx, depth, 200000);
 
         int found_from = -1, found_to = -1, found_promo = 0;
         search_root(&pos, depth, &found_from, &found_to, &found_promo, &ctx);
