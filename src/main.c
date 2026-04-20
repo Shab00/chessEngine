@@ -1,6 +1,6 @@
-#include "mylib.h"
+#include "uci.h"
 
-int main() {
-    hello();
+int main(void) {
+    uci_loop();
     return 0;
 }
