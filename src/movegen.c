@@ -561,3 +561,4 @@ void unmake_null_move(Position *pos, const MoveUndo *undo)
     pos->en_passant   = undo->en_passant;
     pos->hash         = undo->prev_hash;
 }
+

@@ -107,6 +107,39 @@ FEN='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 ./build/timing_test
 ```
 
+## UCI Protocol Support
+
+The engine now supports the **UCI protocol**, allowing use in any modern chess GUI or for command-line testing.
+
+### Features
+
+- **Full UCI handshake**: `uci`, `isready`, `ucinewgame`, `quit`
+- **Position setup** via `position startpos ...` or `position fen ... [moves ...]`
+- **Apply move sequences**: `position ... moves e2e4 e7e5`
+- On `go`, **outputs a legal move** for the current position using the engine’s move generator
+
+### Command-Line Quick Test
+
+```sh
+printf "uci\nisready\nposition startpos moves e2e4 e7e5\ngo\nquit\n" | ./build/engine
+```
+
+**Example output:**
+```
+id name c-chess-engine
+id author YourName
+uciok
+readyok
+bestmove b1c3
+```
+
+### GUI Usage
+
+Add `build/engine` as a UCI engine in Arena, CuteChess, SCID vs. PC, or Banksia. The engine will handshake, process UCI moves, and always reply with a legal move on `go`.
+
+---
+
+> **Note:** Future releases will add search, time management, and UCI `setoption` support.
 ---
 
 ## Development & Debugging Tips
