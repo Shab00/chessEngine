@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 #include "uci.h"
@@ -45,6 +46,20 @@ void search_for_bestmove(char* move_out) {
     int moves_from[256], moves_to[256], promotions[256];
     int num = generate_legal_moves(&g_position, moves_from, moves_to, promotions, 256);
 
+    printf("info string legal moves:");
+    for (int i = 0; i < num; ++i) {
+        char fbuf[3], tbuf[3];
+        position_square_to_coords(moves_from[i], fbuf, sizeof(fbuf));
+        position_square_to_coords(moves_to[i], tbuf, sizeof(tbuf));
+        if (promotions[i] != PIECE_EMPTY) {
+            printf(" %s%s%c", fbuf, tbuf, " nbrq"[promotions[i]]);
+        } else {
+            printf(" %s%s", fbuf, tbuf);
+        }
+    }
+    printf("\n");
+    fflush(stdout);
+
     if (num > 0) {
         int from = moves_from[0], to = moves_to[0], promo = promotions[0];
         char fbuf[3], tbuf[3];
@@ -66,15 +81,21 @@ void uci_loop(void) {
     while (fgets(buffer, sizeof(buffer), stdin)) {
         buffer[strcspn(buffer, "\r\n")] = 0;
 
+        printf("info string received: %s\n", buffer);
+        fflush(stdout);
+
         if (strcmp(buffer, "uci") == 0) {
             printf("id name c-chess-engine\n");
             printf("id author YourName\n");
             printf("uciok\n");
             fflush(stdout);
+
         } else if (strcmp(buffer, "isready") == 0) {
             printf("readyok\n");
             fflush(stdout);
+
         } else if (strcmp(buffer, "ucinewgame") == 0) {
+
         } else if (strncmp(buffer, "position ", 9) == 0) {
             char *ptr = buffer + 9;
             if (strncmp(ptr, "startpos", 8) == 0) {
@@ -102,7 +123,15 @@ void uci_loop(void) {
                 while (*moves) {
                     char move_str[8];
                     if (sscanf(moves, "%7s", move_str) == 1) {
+                        printf("info string applying move: %s\n", move_str);
+                        fflush(stdout);
+
                         make_move_from_uci(move_str);
+
+                        char fen_str[128];
+                        position_to_fen(&g_position, fen_str, sizeof(fen_str));
+                        printf("info string FEN after move: %s\n", fen_str);
+                        fflush(stdout);
                     }
                     moves = strchr(moves, ' ');
                     if (!moves) break;
@@ -111,10 +140,42 @@ void uci_loop(void) {
             }
 
         } else if (strncmp(buffer, "go", 2) == 0) {
+            int movetime = 0, wtime = 0, btime = 0, winc = 0, binc = 0;
+            char params[256];
+            strncpy(params, buffer + 2, 255);
+            params[255] = '\0';
+            char* token = strtok(params, " ");
+            while (token) {
+                if (strcmp(token, "movetime") == 0) {
+                    token = strtok(NULL, " ");
+                    if (token) movetime = atoi(token);
+                } else if (strcmp(token, "wtime") == 0) {
+                    token = strtok(NULL, " ");
+                    if (token) wtime = atoi(token);
+                } else if (strcmp(token, "btime") == 0) {
+                    token = strtok(NULL, " ");
+                    if (token) btime = atoi(token);
+                } else if (strcmp(token, "winc") == 0) {
+                    token = strtok(NULL, " ");
+                    if (token) winc = atoi(token);
+                } else if (strcmp(token, "binc") == 0) {
+                    token = strtok(NULL, " ");
+                    if (token) binc = atoi(token);
+                } else {
+                    token = strtok(NULL, " ");
+                }
+            }
+            printf("info string movetime=%d wtime=%d btime=%d winc=%d binc=%d\n", movetime, wtime, btime, winc, binc);
+
             char bestmove[8] = "0000";
             search_for_bestmove(bestmove);
             printf("bestmove %s\n", bestmove);
             fflush(stdout);
+
+        } else if (strncmp(buffer, "setoption ", 10) == 0) {
+            printf("info string setoption received: %s\n", buffer + 10);
+            fflush(stdout);
+
         } else if (strcmp(buffer, "quit") == 0) {
             break;
         }
