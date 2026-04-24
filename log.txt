@@ -2265,3 +2265,1839 @@
 19:21:39 testTest> info string received: isready
 19:21:39 testTest> readyok
 19:21:39 testTest> readyok
+19:22:39 testTest< isready
+19:22:39 testTest< isready
+19:22:39 testTest> info string received: isready
+19:22:39 testTest> info string received: isready
+19:22:39 testTest> readyok
+19:22:39 testTest> readyok
+19:23:39 testTest< isready
+19:23:39 testTest< isready
+19:23:39 testTest> info string received: isready
+19:23:39 testTest> info string received: isready
+19:23:39 testTest> readyok
+19:23:39 testTest> readyok
+19:24:39 testTest< isready
+19:24:39 testTest< isready
+19:24:39 testTest> info string received: isready
+19:24:39 testTest> info string received: isready
+19:24:39 testTest> readyok
+19:24:39 testTest> readyok
+19:42:59 testTest< isready
+19:43:00 testTest< isready
+19:43:00 testTest> Error: testTest stalled too long or crashed. Stopped!
+19:43:00 testTest> Error: testTest stalled too long or crashed. Stopped!
+22:52:33 testTest< uci
+22:52:33 testTest< uci
+22:52:33 testTest> info string received: uci
+22:52:33 testTest> info string received: uci
+22:52:33 testTest> id name c-chess-engine
+22:52:33 testTest> id name c-chess-engine
+22:52:33 testTest> id author YourName
+22:52:33 testTest> id author YourName
+22:52:33 testTest> uciok
+22:52:33 testTest< isready
+22:52:33 testTest> uciok
+22:52:33 testTest< isready
+22:52:33 testTest> info string received: isready
+22:52:33 testTest> info string received: isready
+22:52:33 testTest> readyok
+22:52:33 testTest> readyok
+22:52:34 testTest< ucinewgame
+22:52:34 testTest< ucinewgame
+22:52:34 testTest> info string received: ucinewgame
+22:52:34 testTest> info string received: ucinewgame
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3
+22:52:35 testTest< go wtime 305930 btime 305940 winc 1000 binc 1000 movestogo 34
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string received: go wtime 305930 btime 305940 winc 1000 binc 1000 movestogo 34
+22:52:35 testTest> info string movetime=0 wtime=305930 btime=305940 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: a6a5 d6d5 e6e5 f6g8 f6d7 f6d5 f6e4 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 b8c6 b8d7 c8d7 d8d7 d8c7 d8b6 d8a5 d8e7 e8d7 e8e7 f8e7 h8g8
+22:52:35 testTest> bestmove a6a5
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5
+22:52:35 testTest< go wtime 306930 btime 305930 winc 1000 binc 1000 movestogo 33
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string received: go wtime 306930 btime 305930 winc 1000 binc 1000 movestogo 33
+22:52:35 testTest> info string movetime=0 wtime=306930 btime=305930 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: a1b1 a1c1 a1a2 d1c1 d1b1 d1d2 d1d3 d1e2 d1f3 d1g4 d1h5 e1d2 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 a3a4 c3d5 c3b5 c3a4 c3a2 c3b1 c3e2 e3f4 e3g5 e3h6 e3d2 e3c1 d4f5 d4e6 d4c6 d4b5 d4b3 d4e2 d4f3 e4e5
+22:52:35 testTest> bestmove a1b1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1
+22:52:35 testTest< go wtime 306920 btime 306930 winc 1000 binc 1000 movestogo 33
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string received: go wtime 306920 btime 306930 winc 1000 binc 1000 movestogo 33
+22:52:35 testTest> info string movetime=0 wtime=306920 btime=306930 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: a5a4 d6d5 e6e5 f6g8 f6d7 f6d5 f6e4 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 b8a6 b8c6 b8d7 c8d7 d8d7 d8c7 d8b6 d8e7 e8d7 e8e7 f8e7 h8g8
+22:52:35 testTest> bestmove a5a4
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4
+22:52:35 testTest< go wtime 307920 btime 306920 winc 1000 binc 1000 movestogo 32
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string received: go wtime 307920 btime 306920 winc 1000 binc 1000 movestogo 32
+22:52:35 testTest> info string movetime=0 wtime=307920 btime=306920 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b1c1 b1a1 d1c1 d1d2 d1d3 d1e2 d1f3 d1g4 d1h5 e1d2 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3d5 c3b5 c3a4 c3a2 c3e2 e3f4 e3g5 e3h6 e3d2 e3c1 d4f5 d4e6 d4c6 d4b5 d4b3 d4e2 d4f3 e4e5
+22:52:35 testTest> bestmove b1c1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1
+22:52:35 testTest< go wtime 307910 btime 307920 winc 1000 binc 1000 movestogo 32
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string received: go wtime 307910 btime 307920 winc 1000 binc 1000 movestogo 32
+22:52:35 testTest> info string movetime=0 wtime=307910 btime=307920 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: d6d5 e6e5 f6g8 f6d7 f6d5 f6e4 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 d8d7 d8c7 d8b6 d8a5 d8e7 e8d7 e8e7 f8e7 h8g8
+22:52:35 testTest> bestmove d6d5
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5
+22:52:35 testTest< go wtime 308910 btime 307910 winc 1000 binc 1000 movestogo 31
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string received: go wtime 308910 btime 307910 winc 1000 binc 1000 movestogo 31
+22:52:35 testTest> info string movetime=0 wtime=308910 btime=307910 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: c1b1 c1a1 d1d2 d1d3 d1e2 d1f3 d1g4 d1h5 e1d2 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3d5 c3b5 c3a4 c3a2 c3b1 c3e2 e3f4 e3g5 e3h6 e3d2 d4f5 d4e6 d4c6 d4b5 d4b3 d4e2 d4f3 e4e5 e4d5
+22:52:35 testTest> bestmove c1b1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1
+22:52:35 testTest< go wtime 308900 btime 308910 winc 1000 binc 1000 movestogo 31
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string received: go wtime 308900 btime 308910 winc 1000 binc 1000 movestogo 31
+22:52:35 testTest> info string movetime=0 wtime=308900 btime=308910 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: d5e4 e6e5 f6g8 f6d7 f6e4 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 d8d7 d8d6 d8c7 d8b6 d8a5 d8e7 e8d7 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 h8g8
+22:52:35 testTest> bestmove d5e4
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4
+22:52:35 testTest< go wtime 309900 btime 308900 winc 1000 binc 1000 movestogo 30
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string received: go wtime 309900 btime 308900 winc 1000 binc 1000 movestogo 30
+22:52:35 testTest> info string movetime=0 wtime=309900 btime=308900 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b1c1 b1a1 d1c1 d1d2 d1d3 d1e2 d1f3 d1g4 d1h5 e1d2 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3e2 e3f4 e3g5 e3h6 e3d2 e3c1 d4f5 d4e6 d4c6 d4b5 d4b3 d4e2 d4f3
+22:52:35 testTest> bestmove b1c1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1
+22:52:35 testTest< go wtime 309890 btime 309900 winc 1000 binc 1000 movestogo 30
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string received: go wtime 309890 btime 309900 winc 1000 binc 1000 movestogo 30
+22:52:35 testTest> info string movetime=0 wtime=309890 btime=309900 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: e6e5 f6g8 f6d7 f6d5 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 d8d7 d8d6 d8d5 d8d4 d8c7 d8b6 d8a5 d8e7 e8d7 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 h8g8
+22:52:35 testTest> bestmove e6e5
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5
+22:52:35 testTest< go wtime 310890 btime 309890 winc 1000 binc 1000 movestogo 29
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string received: go wtime 310890 btime 309890 winc 1000 binc 1000 movestogo 29
+22:52:35 testTest> info string movetime=0 wtime=310890 btime=309890 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: c1b1 c1a1 d1d2 d1d3 d1e2 d1f3 d1g4 d1h5 e1d2 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3b1 c3e2 e3f4 e3g5 e3h6 e3d2 d4f5 d4e6 d4c6 d4b5 d4b3 d4e2 d4f3
+22:52:35 testTest> bestmove c1b1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1
+22:52:35 testTest< go wtime 310880 btime 310890 winc 1000 binc 1000 movestogo 29
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string received: go wtime 310880 btime 310890 winc 1000 binc 1000 movestogo 29
+22:52:35 testTest> info string movetime=0 wtime=310880 btime=310890 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: e5d4 f6g8 f6d7 f6d5 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8c7 d8b6 d8a5 d8e7 e8d7 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 h8g8
+22:52:35 testTest> bestmove e5d4
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4
+22:52:35 testTest< go wtime 311880 btime 310880 winc 1000 binc 1000 movestogo 28
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string received: go wtime 311880 btime 310880 winc 1000 binc 1000 movestogo 28
+22:52:35 testTest> info string movetime=0 wtime=311880 btime=310880 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b1c1 b1a1 d1c1 d1d2 d1d3 d1d4 d1e2 d1f3 d1g4 d1h5 e1d2 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3e2 e3f4 e3g5 e3h6 e3d2 e3c1 e3d4
+22:52:35 testTest> bestmove b1c1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1
+22:52:35 testTest< go wtime 311870 btime 311880 winc 1000 binc 1000 movestogo 28
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string received: go wtime 311870 btime 311880 winc 1000 binc 1000 movestogo 28
+22:52:35 testTest> info string movetime=0 wtime=311870 btime=311880 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: d4d3 d4c3 d4e3 f6g8 f6d7 f6d5 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8c7 d8b6 d8a5 d8e7 e8d7 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 h8g8
+22:52:35 testTest> bestmove d4d3
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3
+22:52:35 testTest< go wtime 312870 btime 311870 winc 1000 binc 1000 movestogo 27
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string received: go wtime 312870 btime 311870 winc 1000 binc 1000 movestogo 27
+22:52:35 testTest> info string movetime=0 wtime=312870 btime=311870 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: c1b1 c1a1 d1d2 d1d3 d1e2 d1f3 d1g4 d1h5 e1d2 f1e2 f1d3 h1g1 b2b3 b2b4 c2d3 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3b1 c3e2 e3f4 e3g5 e3h6 e3d2 e3d4 e3c5 e3b6 e3a7
+22:52:35 testTest> bestmove c1b1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1
+22:52:35 testTest< go wtime 312860 btime 312870 winc 1000 binc 1000 movestogo 27
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string received: go wtime 312860 btime 312870 winc 1000 binc 1000 movestogo 27
+22:52:35 testTest> info string movetime=0 wtime=312860 btime=312870 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: d3d2 d3c2 f6g8 f6d7 f6d5 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8c7 d8b6 d8a5 d8e7 e8d7 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 h8g8
+22:52:35 testTest> bestmove d3d2
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2
+22:52:35 testTest< go wtime 313860 btime 312860 winc 1000 binc 1000 movestogo 26
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string received: go wtime 313860 btime 312860 winc 1000 binc 1000 movestogo 26
+22:52:35 testTest> info string movetime=0 wtime=313860 btime=312860 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: d1d2 e1e2 e3d2
+22:52:35 testTest> bestmove d1d2
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2
+22:52:35 testTest< go wtime 313850 btime 313860 winc 1000 binc 1000 movestogo 26
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string received: go wtime 313850 btime 313860 winc 1000 binc 1000 movestogo 26
+22:52:35 testTest> info string movetime=0 wtime=313850 btime=313860 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: f6g8 f6d7 f6d5 f6g4 f6h5 b7b6 b7b5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8d3 d8d2 d8c7 d8b6 d8a5 d8e7 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 h8g8
+22:52:35 testTest> bestmove f6g8
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8
+22:52:35 testTest< go wtime 314850 btime 313850 winc 1000 binc 1000 movestogo 25
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string received: go wtime 314850 btime 313850 winc 1000 binc 1000 movestogo 25
+22:52:35 testTest> info string movetime=0 wtime=314850 btime=313850 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b1c1 b1d1 b1a1 e1d1 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 d2e2 d2d3 d2d4 d2d5 d2d6 d2d7 d2d8 d2d1 d2c1 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3d1 c3e2 e3f4 e3g5 e3h6 e3d4 e3c5 e3b6 e3a7
+22:52:35 testTest> bestmove b1c1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1
+22:52:35 testTest< go wtime 314840 btime 314850 winc 1000 binc 1000 movestogo 25
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string received: go wtime 314840 btime 314850 winc 1000 binc 1000 movestogo 25
+22:52:35 testTest> info string movetime=0 wtime=314840 btime=314850 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b7b6 b7b5 f7f6 f7f5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8d3 d8d2 d8c7 d8b6 d8a5 d8e7 d8f6 d8g5 d8h4 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 g8e7 g8f6 g8h6
+22:52:35 testTest> bestmove b7b6
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6
+22:52:35 testTest< go wtime 315840 btime 314840 winc 1000 binc 1000 movestogo 24
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string received: go wtime 315840 btime 314840 winc 1000 binc 1000 movestogo 24
+22:52:35 testTest> info string movetime=0 wtime=315840 btime=314840 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: c1d1 c1b1 c1a1 e1d1 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 d2e2 d2d3 d2d4 d2d5 d2d6 d2d7 d2d8 d2d1 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3b1 c3d1 c3e2 e3f4 e3g5 e3h6 e3d4 e3c5 e3b6
+22:52:35 testTest> bestmove c1d1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1
+22:52:35 testTest< go wtime 315830 btime 315840 winc 1000 binc 1000 movestogo 24
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string received: go wtime 315830 btime 315840 winc 1000 binc 1000 movestogo 24
+22:52:35 testTest> info string movetime=0 wtime=315830 btime=315840 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b6b5 f7f6 f7f5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8b7 c8a6 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8d3 d8d2 d8c7 d8e7 d8f6 d8g5 d8h4 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 g8e7 g8f6 g8h6
+22:52:35 testTest> bestmove b6b5
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5
+22:52:35 testTest< go wtime 316830 btime 315830 winc 1000 binc 1000 movestogo 23
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string received: go wtime 316830 btime 315830 winc 1000 binc 1000 movestogo 23
+22:52:35 testTest> info string movetime=0 wtime=316830 btime=315830 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: d1c1 d1b1 d1a1 e1e2 f1e2 f1d3 f1c4 f1b5 h1g1 b2b3 b2b4 d2e2 d2d3 d2d4 d2d5 d2d6 d2d7 d2d8 d2c1 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3b1 c3e2 e3f4 e3g5 e3h6 e3d4 e3c5 e3b6 e3a7
+22:52:35 testTest> bestmove d1c1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1
+22:52:35 testTest< go wtime 316820 btime 316830 winc 1000 binc 1000 movestogo 23
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 18
+22:52:35 testTest> info string received: go wtime 316820 btime 316830 winc 1000 binc 1000 movestogo 23
+22:52:35 testTest> info string movetime=0 wtime=316820 btime=316830 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b5b4 f7f6 f7f5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8b7 c8a6 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8d3 d8d2 d8c7 d8b6 d8a5 d8e7 d8f6 d8g5 d8h4 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 g8e7 g8f6 g8h6
+22:52:35 testTest> bestmove b5b4
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4
+22:52:35 testTest< go wtime 317820 btime 316820 winc 1000 binc 1000 movestogo 22
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 18
+22:52:35 testTest> info string applying move: b5b4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 19
+22:52:35 testTest> info string received: go wtime 317820 btime 316820 winc 1000 binc 1000 movestogo 22
+22:52:35 testTest> info string movetime=0 wtime=317820 btime=316820 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: c1d1 c1b1 c1a1 e1d1 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 d2e2 d2d3 d2d4 d2d5 d2d6 d2d7 d2d8 d2d1 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 a3b4 c3e4 c3d5 c3b5 c3a4 c3a2 c3b1 c3d1 c3e2 e3f4 e3g5 e3h6 e3d4 e3c5 e3b6 e3a7
+22:52:35 testTest> bestmove c1d1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1
+22:52:35 testTest< go wtime 317810 btime 317820 winc 1000 binc 1000 movestogo 22
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 18
+22:52:35 testTest> info string applying move: b5b4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 19
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 19
+22:52:35 testTest> info string received: go wtime 317810 btime 317820 winc 1000 binc 1000 movestogo 22
+22:52:35 testTest> info string movetime=0 wtime=317810 btime=317820 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b4b3 b4a3 b4c3 f7f6 f7f5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8b7 c8a6 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8d3 d8d2 d8c7 d8b6 d8a5 d8e7 d8f6 d8g5 d8h4 e8e7 f8e7 f8d6 f8c5 g8e7 g8f6 g8h6
+22:52:35 testTest> bestmove b4b3
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3
+22:52:35 testTest< go wtime 318810 btime 317810 winc 1000 binc 1000 movestogo 21
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 18
+22:52:35 testTest> info string applying move: b5b4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 19
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 19
+22:52:35 testTest> info string applying move: b4b3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/PpN1B3/1PPQ1PPP/3RKB1R w Kkq - 0 20
+22:52:35 testTest> info string received: go wtime 318810 btime 317810 winc 1000 binc 1000 movestogo 21
+22:52:35 testTest> info string movetime=0 wtime=318810 btime=317810 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: d1c1 d1b1 d1a1 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 c2b3 d2e2 d2d3 d2d4 d2d5 d2d6 d2d7 d2d8 d2c1 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3b1 c3e2 e3f4 e3g5 e3h6 e3d4 e3c5 e3b6 e3a7
+22:52:35 testTest> bestmove d1c1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3 d1c1
+22:52:35 testTest< go wtime 318800 btime 318810 winc 1000 binc 1000 movestogo 21
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3 d1c1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 18
+22:52:35 testTest> info string applying move: b5b4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 19
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 19
+22:52:35 testTest> info string applying move: b4b3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/PpN1B3/1PPQ1PPP/3RKB1R w Kkq - 0 20
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/PpN1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 20
+22:52:35 testTest> info string received: go wtime 318800 btime 318810 winc 1000 binc 1000 movestogo 21
+22:52:35 testTest> info string movetime=0 wtime=318800 btime=318810 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: b3c2 f7f6 f7f5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8b7 c8a6 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8d3 d8d2 d8c7 d8b6 d8a5 d8e7 d8f6 d8g5 d8h4 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 g8e7 g8f6 g8h6
+22:52:35 testTest> bestmove b3c2
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3 d1c1 b3c2
+22:52:35 testTest< go wtime 319800 btime 318800 winc 1000 binc 1000 movestogo 20
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3 d1c1 b3c2
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 18
+22:52:35 testTest> info string applying move: b5b4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 19
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 19
+22:52:35 testTest> info string applying move: b4b3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/PpN1B3/1PPQ1PPP/3RKB1R w Kkq - 0 20
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/PpN1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 20
+22:52:35 testTest> info string applying move: b3c2
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/P1N1B3/1PpQ1PPP/2R1KB1R w Kkq - 0 21
+22:52:35 testTest> info string received: go wtime 319800 btime 318800 winc 1000 binc 1000 movestogo 20
+22:52:35 testTest> info string movetime=0 wtime=319800 btime=318800 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: c1d1 c1b1 c1a1 c1c2 e1e2 f1e2 f1d3 f1c4 f1b5 f1a6 h1g1 b2b3 b2b4 d2e2 d2c2 d2d3 d2d4 d2d5 d2d6 d2d7 d2d8 d2d1 f2f3 f2f4 g2g3 g2g4 h2h3 h2h4 c3e4 c3d5 c3b5 c3a4 c3a2 c3b1 c3d1 c3e2 e3f4 e3g5 e3h6 e3d4 e3c5 e3b6 e3a7
+22:52:35 testTest> bestmove c1d1
+22:52:35 testTest< position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3 d1c1 b3c2 c1d1
+22:52:35 testTest< go wtime 319790 btime 319800 winc 1000 binc 1000 movestogo 20
+22:52:35 testTest> info string received: position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e6 a2a3 a6a5 a1b1 a5a4 b1c1 d6d5 c1b1 d5e4 b1c1 e6e5 c1b1 e5d4 b1c1 d4d3 c1b1 d3d2 d1d2 f6g8 b1c1 b7b6 c1d1 b6b5 d1c1 b5b4 c1d1 b4b3 d1c1 b3c2 c1d1
+22:52:35 testTest> info string applying move: e2e4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+22:52:35 testTest> info string applying move: c7c5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
+22:52:35 testTest> info string applying move: g1f3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+22:52:35 testTest> info string applying move: d7d6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3
+22:52:35 testTest> info string applying move: d2d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3
+22:52:35 testTest> info string applying move: c5d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4
+22:52:35 testTest> info string applying move: f3d4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4
+22:52:35 testTest> info string applying move: g8f6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5
+22:52:35 testTest> info string applying move: b1c3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5
+22:52:35 testTest> info string applying move: a7a6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6
+22:52:35 testTest> info string applying move: c1e3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6
+22:52:35 testTest> info string applying move: e7e6
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7
+22:52:35 testTest> info string applying move: a2a3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/P1N1B3/1PP2PPP/R2QKB1R b KQkq - 0 7
+22:52:35 testTest> info string applying move: a6a5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/R2QKB1R w KQkq - 0 8
+22:52:35 testTest> info string applying move: a1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/p7/3NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 8
+22:52:35 testTest> info string applying move: a5a4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 9
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/3ppn2/8/p2NP3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 9
+22:52:35 testTest> info string applying move: d6d5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 10
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/3p4/p2NP3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 10
+22:52:35 testTest> info string applying move: d5e4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 11
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/4pn2/8/p2Np3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 11
+22:52:35 testTest> info string applying move: e6e5
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/2RQKB1R w Kkq - 0 12
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/4p3/p2Np3/P1N1B3/1PP2PPP/1R1QKB1R b Kkq - 1 12
+22:52:35 testTest> info string applying move: e5d4
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/1R1QKB1R w Kkq - 0 13
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p2pp3/P1N1B3/1PP2PPP/2RQKB1R b Kkq - 1 13
+22:52:35 testTest> info string applying move: d4d3
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/2RQKB1R w Kkq - 0 14
+22:52:35 testTest> info string applying move: c1b1
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1NpB3/1PP2PPP/1R1QKB1R b Kkq - 1 14
+22:52:35 testTest> info string applying move: d3d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPp1PPP/1R1QKB1R w Kkq - 0 15
+22:52:35 testTest> info string applying move: d1d2
+22:52:35 testTest> info string FEN after move: rnbqkb1r/1p3ppp/5n2/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R b Kkq - 0 15
+22:52:35 testTest> info string applying move: f6g8
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/1R2KB1R w Kkq - 1 16
+22:52:35 testTest> info string applying move: b1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/1p3ppp/8/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 2 16
+22:52:35 testTest> info string applying move: b7b6
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 17
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/1p6/8/p3p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 17
+22:52:35 testTest> info string applying move: b6b5
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/3RKB1R w Kkq - 0 18
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/1p6/p3p3/P1N1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 18
+22:52:35 testTest> info string applying move: b5b4
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/2R1KB1R w Kkq - 0 19
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/pp2p3/P1N1B3/1PPQ1PPP/3RKB1R b Kkq - 1 19
+22:52:35 testTest> info string applying move: b4b3
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/PpN1B3/1PPQ1PPP/3RKB1R w Kkq - 0 20
+22:52:35 testTest> info string applying move: d1c1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/PpN1B3/1PPQ1PPP/2R1KB1R b Kkq - 1 20
+22:52:35 testTest> info string applying move: b3c2
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/P1N1B3/1PpQ1PPP/2R1KB1R w Kkq - 0 21
+22:52:35 testTest> info string applying move: c1d1
+22:52:35 testTest> info string FEN after move: rnbqkbnr/5ppp/8/8/p3p3/P1N1B3/1PpQ1PPP/3RKB1R b Kkq - 1 21
+22:52:35 testTest> info string received: go wtime 319790 btime 319800 winc 1000 binc 1000 movestogo 20
+22:52:35 testTest> info string movetime=0 wtime=319790 btime=319800 winc=1000 binc=1000
+22:52:35 testTest> info string legal moves: c2c1  c2c1q c2c1r c2c1b c2d1  c2d1q c2d1r c2d1b f7f6 f7f5 g7g6 g7g5 h7h6 h7h5 a8a7 a8a6 a8a5 b8a6 b8c6 b8d7 c8b7 c8a6 c8d7 c8e6 c8f5 c8g4 c8h3 d8d7 d8d6 d8d5 d8d4 d8d3 d8d2 d8c7 d8b6 d8a5 d8e7 d8f6 d8g5 d8h4 e8e7 f8e7 f8d6 f8c5 f8b4 f8a3 g8e7 g8f6 g8h6
+22:52:35 testTest> bestmove c2c1
+22:52:35 BanksiaGUI> Illegal move c2c1 from testTest
+22:53:31 testTest< quit
+22:53:31 testTest< quit
+22:53:31 testTest< uci
+22:53:31 testTest> info string received: uci
+22:53:31 testTest> id name c-chess-engine
+22:53:31 testTest> id author YourName
+22:53:31 testTest> uciok
+22:53:31 testTest< isready
+22:53:31 testTest> info string received: isready
+22:53:31 testTest> readyok
+22:53:31 testTest< uci
+22:53:31 testTest> info string received: uci
+22:53:31 testTest> id name c-chess-engine
+22:53:31 testTest> id author YourName
+22:53:31 testTest> uciok
+22:53:31 testTest< isready
+22:53:31 testTest> info string received: isready
+22:53:31 testTest> readyok
+22:53:31 testTest< ucinewgame
+22:53:31 testTest< ucinewgame
+22:53:31 testTest> info string received: ucinewgame
+22:53:31 testTest> info string received: ucinewgame
+22:53:49 testTest< quit
+22:53:49 testTest< quit
