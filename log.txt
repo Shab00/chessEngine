@@ -5392,3 +5392,11 @@
 22:24:06 new> info string received: isready
 22:24:06 new> readyok
 22:24:06 new> readyok
+22:25:06 new< isready
+22:25:06 new< isready
+22:25:06 new> info string received: isready
+22:25:06 new> info string received: isready
+22:25:06 new> readyok
+22:25:06 new> readyok
+22:25:30 new< quit
+22:25:30 new< quit
