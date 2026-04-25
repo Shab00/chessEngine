@@ -340,17 +340,21 @@ int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_
                 if (ff < 0 || ff > 7 || rr < 0 || rr > 7) continue;
                 int tsq = SQ_INDEX(ff, rr);
                 int8_t target = pos->board[tsq];
+                int is_promo_rank = (color == COLOR_WHITE && rr == 7) ||
+                                    (color == COLOR_BLACK && rr == 0);
                 if (target != PIECE_EMPTY && ((target > 0) != (v > 0))) {
-                    if ((color == COLOR_WHITE && rr == 7) || (color == COLOR_BLACK && rr == 0)) {
+                    if (is_promo_rank) {
                         int promos[4] = { PIECE_QUEEN, PIECE_ROOK, PIECE_BISHOP, PIECE_KNIGHT };
                         for (int pi = 0; pi < 4; ++pi)
                             if (n < capacity) { from_out[n]=sq; to_out[n]=tsq; promo_out[n]=promos[pi]; n++; }
                     } else {
                         if (n < capacity) { from_out[n]=sq; to_out[n]=tsq; promo_out[n]=0; n++; }
                     }
-                }
-                if (pos->en_passant != POS_NO_SQUARE && tsq == pos->en_passant)
+                } else if (pos->en_passant != POS_NO_SQUARE &&
+                           tsq == pos->en_passant &&
+                           !is_promo_rank) {
                     if (n < capacity) { from_out[n]=sq; to_out[n]=tsq; promo_out[n]=0; n++; }
+                }
             }
 
         } else if (abs_v == PIECE_KNIGHT) {
@@ -458,11 +462,25 @@ int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_
             }
         }
     }
+    int out = 0;
+    for (int i = 0; i < n; ++i) {
+        int8_t p  = pos->board[from_out[i]];
+        int to_r  = rank_of(to_out[i]);
+        int back  = (to_r == 0 || to_r == 7);
+        if (piece_abs(p) == PIECE_PAWN && back && promo_out[i] == 0)
+            continue;
+        from_out[out] = from_out[i];
+        to_out[out]   = to_out[i];
+        promo_out[out] = promo_out[i];
+        out++;
+    }
+    n = out;
+
     return n;
 }
 int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *promotions, int capacity)
 {
-    int tmp_cap = 512;
+    int tmp_cap = 1024;
     int *from = malloc(sizeof(int) * tmp_cap);
     int *to   = malloc(sizeof(int) * tmp_cap);
     int *prom = malloc(sizeof(int) * tmp_cap);
@@ -488,6 +506,12 @@ int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *pro
 
         unmake_move_raw(pos, &undo);
 
+        int to_rank   = rank_of(to[i]);
+        int is_pawn   = piece_abs(pos->board[from[i]]) == PIECE_PAWN;
+        int back_rank = (to_rank == 0 || to_rank == 7);
+        if (is_pawn && back_rank && prom[i] == 0)
+            continue;
+
         if (!is_illegal && nlegal < capacity) {
             moves_from[nlegal] = from[i];
             moves_to[nlegal]   = to[i];
@@ -503,7 +527,7 @@ int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *pro
 uint64_t perft(Position *pos, int depth)
 {
     if (depth == 0) return 1ULL;
-    int max_moves = 512;
+    int max_moves = 1024;
     int *from = malloc(sizeof(int) * max_moves);
     int *to   = malloc(sizeof(int) * max_moves);
     int *prom = malloc(sizeof(int) * max_moves);
@@ -544,7 +568,6 @@ void make_null_move(Position *pos, MoveUndo *undo)
     undo->en_passant   = pos->en_passant;
     undo->prev_hash    = pos->hash;
 
-    /* Update hash: XOR out old EP, flip side, XOR in nothing (no new EP) */
     uint64_t h = pos->hash;
     if (pos->en_passant != POS_NO_SQUARE)
         zobrist_xor_ep(&h, pos->en_passant);
@@ -561,4 +584,3 @@ void unmake_null_move(Position *pos, const MoveUndo *undo)
     pos->en_passant   = undo->en_passant;
     pos->hash         = undo->prev_hash;
 }
-

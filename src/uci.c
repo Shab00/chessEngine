@@ -5,6 +5,7 @@
 #include "uci.h"
 #include "position.h"
 #include "movegen.h"
+#include "search.h"
 
 static Position g_position;
 
@@ -14,7 +15,17 @@ static int promo_from_char(char c) {
         case 'r': return PIECE_ROOK;
         case 'b': return PIECE_BISHOP;
         case 'n': return PIECE_KNIGHT;
-        default: return PIECE_EMPTY;
+        default:  return PIECE_EMPTY;
+    }
+}
+
+static char promo_char(int promo) {
+    switch (promo) {
+        case PIECE_KNIGHT: return 'n';
+        case PIECE_BISHOP: return 'b';
+        case PIECE_ROOK:   return 'r';
+        case PIECE_QUEEN:  return 'q';
+        default:           return 0;
     }
 }
 
@@ -42,37 +53,21 @@ void make_move_from_uci(const char* move_str) {
     make_move(&g_position, from, to, promo, &mv_undo);
 }
 
-void search_for_bestmove(char* move_out) {
-    int moves_from[256], moves_to[256], promotions[256];
-    int num = generate_legal_moves(&g_position, moves_from, moves_to, promotions, 256);
-
-    printf("info string legal moves:");
-    for (int i = 0; i < num; ++i) {
-        char fbuf[3], tbuf[3];
-        position_square_to_coords(moves_from[i], fbuf, sizeof(fbuf));
-        position_square_to_coords(moves_to[i], tbuf, sizeof(tbuf));
-        if (promotions[i] != PIECE_EMPTY) {
-            printf(" %s%s%c", fbuf, tbuf, " nbrq"[promotions[i]]);
-        } else {
-            printf(" %s%s", fbuf, tbuf);
-        }
-    }
-    printf("\n");
-    fflush(stdout);
-
-    if (num > 0) {
-        int from = moves_from[0], to = moves_to[0], promo = promotions[0];
-        char fbuf[3], tbuf[3];
-        position_square_to_coords(from, fbuf, sizeof(fbuf));
-        position_square_to_coords(to, tbuf, sizeof(tbuf));
-        if (promo != PIECE_EMPTY) {
-            snprintf(move_out, 8, "%s%s%c", fbuf, tbuf, " nbrq"[promo]);
-        } else {
-            snprintf(move_out, 8, "%s%s", fbuf, tbuf);
-        }
+static void format_move(int from, int to, int promo, char *buf, int bufsz) {
+    char fbuf[3], tbuf[3];
+    position_square_to_coords(from, fbuf, sizeof(fbuf));
+    position_square_to_coords(to,   tbuf, sizeof(tbuf));
+    char pc = promo_char(promo);
+    if (pc) {
+        snprintf(buf, bufsz, "%s%s%c", fbuf, tbuf, pc);
     } else {
-        strcpy(move_out, "0000");
+        snprintf(buf, bufsz, "%s%s", fbuf, tbuf);
     }
+}
+
+static int is_bare_promotion(int to, int promo) {
+    int to_rank = to / 8;
+    return (to_rank == 0 || to_rank == 7) && (promo == 0);
 }
 
 void uci_loop(void) {
@@ -165,12 +160,35 @@ void uci_loop(void) {
                     token = strtok(NULL, " ");
                 }
             }
-            printf("info string movetime=%d wtime=%d btime=%d winc=%d binc=%d\n", movetime, wtime, btime, winc, binc);
+            printf("info string movetime=%d wtime=%d btime=%d winc=%d binc=%d\n",
+                   movetime, wtime, btime, winc, binc);
 
-            char bestmove[8] = "0000";
-            search_for_bestmove(bestmove);
-            printf("bestmove %s\n", bestmove);
+            // ------------------ DEBUG PRINT: squares a1, b1, c1 ------------------
+            printf("info string squares: a1=%d b1=%d c1=%d\n",
+                g_position.board[SQ_INDEX(0,0)],
+                g_position.board[SQ_INDEX(1,0)],
+                g_position.board[SQ_INDEX(2,0)]);
             fflush(stdout);
+            // ---------------------------------------------------------------------
+
+            int depth = 4;
+            int best_from = -1, best_to = -1, best_promo = 0;
+
+            if (search_root(&g_position, depth, &best_from, &best_to, &best_promo, NULL) > 0 && best_from >= 0) {
+                char bestmove[8];
+                format_move(best_from, best_to, best_promo, bestmove, sizeof(bestmove));
+                // Also print what squares (from/to indices) and their algebraic names
+                char frombuf[3], tobuf[3];
+                position_square_to_coords(best_from, frombuf, 3);
+                position_square_to_coords(best_to, tobuf, 3);
+                printf("info string engine selects: %s (from %d [%s] to %d [%s] promo %d)\n",
+                    bestmove, best_from, frombuf, best_to, tobuf, best_promo);
+                printf("bestmove %s\n", bestmove);
+                fflush(stdout);
+            } else {
+                printf("bestmove 0000\n");
+                fflush(stdout);
+            }
 
         } else if (strncmp(buffer, "setoption ", 10) == 0) {
             printf("info string setoption received: %s\n", buffer + 10);
