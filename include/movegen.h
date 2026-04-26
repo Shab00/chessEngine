@@ -15,9 +15,13 @@ typedef struct {
     uint32_t prev_fullmove;
     int ep_capture_sq;
     uint64_t prev_hash;
+} MoveUndo;
+
+typedef struct {
     int side_to_move;
     int en_passant;
-} MoveUndo;
+    uint64_t prev_hash;
+} NullMoveUndo;
 
 uint64_t perft(Position *pos, int depth);
 
@@ -28,8 +32,8 @@ int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_
 void make_move(Position *pos, int from, int to, int promotion, MoveUndo *undo);
 void unmake_move(Position *pos, const MoveUndo *undo);
 
-void make_null_move(Position *pos, MoveUndo *undo);
-void unmake_null_move(Position *pos, const MoveUndo *undo);
+void make_null_move(Position *pos, NullMoveUndo *undo);
+void unmake_null_move(Position *pos, const NullMoveUndo *undo);
 
 bool position_king_in_check(const Position *pos, int color);
 bool position_is_square_attacked(const Position *pos, int sq, int attacker_color);

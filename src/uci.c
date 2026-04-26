@@ -8,6 +8,7 @@
 #include "search.h"
 
 static Position g_position;
+static int last_a1 = -999;
 
 static int promo_from_char(char c) {
     switch (tolower((unsigned char)c)) {
@@ -49,8 +50,38 @@ void make_move_from_uci(const char* move_str) {
     int to   = position_square_from_coords(move_str[2], move_str[3]);
     int promo = PIECE_EMPTY;
     if (strlen(move_str) >= 5) promo = promo_from_char(move_str[4]);
+    // --------- DEBUG: show move string, from/to indices, promo ---------
+//    printf("DEBUG: move_str=%s from=%d to=%d promo=%d\n", move_str, from, to, promo);
+//    fflush(stdout);
+    printf("DEBUG UCI: %s from=%d to=%d\n", move_str, from, to);
+    fflush(stdout);
+    // -------------------------------------------------------------------
     MoveUndo mv_undo;
     make_move(&g_position, from, to, promo, &mv_undo);
+
+    // --------- BEGIN: SUPER DEBUGGING AFTER EACH MOVE ---------
+    // Print board ASCII
+    printf("info string BOARD after move %s:\n", move_str);
+    position_print_ascii(&g_position, stdout);
+    fflush(stdout);
+
+    // Print FEN and a1/b1/c1
+    char fen_str[128];
+    position_to_fen(&g_position, fen_str, sizeof(fen_str));
+    printf("info string FEN after move: %s\n", fen_str);
+    int a1 = g_position.board[SQ_INDEX(0,0)];
+    int b1 = g_position.board[SQ_INDEX(1,0)];
+    int c1 = g_position.board[SQ_INDEX(2,0)];
+    printf("info string a1=%d b1=%d c1=%d\n", a1, b1, c1);
+    fflush(stdout);
+
+    // Print alert for unexpected changes on a1
+    if (a1 != last_a1) {
+        printf("!!! ALERT a1 changed: old=%d new=%d\n", last_a1, a1);
+        fflush(stdout);
+        last_a1 = a1;
+    }
+    // --------- END: SUPER DEBUGGING AFTER EACH MOVE ---------
 }
 
 static void format_move(int from, int to, int promo, char *buf, int bufsz) {
@@ -122,11 +153,6 @@ void uci_loop(void) {
                         fflush(stdout);
 
                         make_move_from_uci(move_str);
-
-                        char fen_str[128];
-                        position_to_fen(&g_position, fen_str, sizeof(fen_str));
-                        printf("info string FEN after move: %s\n", fen_str);
-                        fflush(stdout);
                     }
                     moves = strchr(moves, ' ');
                     if (!moves) break;
@@ -163,13 +189,11 @@ void uci_loop(void) {
             printf("info string movetime=%d wtime=%d btime=%d winc=%d binc=%d\n",
                    movetime, wtime, btime, winc, binc);
 
-            // ------------------ DEBUG PRINT: squares a1, b1, c1 ------------------
             printf("info string squares: a1=%d b1=%d c1=%d\n",
                 g_position.board[SQ_INDEX(0,0)],
                 g_position.board[SQ_INDEX(1,0)],
                 g_position.board[SQ_INDEX(2,0)]);
             fflush(stdout);
-            // ---------------------------------------------------------------------
 
             int depth = 4;
             int best_from = -1, best_to = -1, best_promo = 0;

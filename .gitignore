@@ -4,3 +4,5 @@ tests/perft_tests_errors.txt
 tests/perft_tests_new_lines.txt
 build/
 out*.txt
+log.txt
+log.txt

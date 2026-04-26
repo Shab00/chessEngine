@@ -94,22 +94,8 @@ static int find_king_sq(const Position *pos, int color)
     return POS_NO_SQUARE;
 }
 
-typedef struct {
-    int from, to;
-    int8_t  moved_piece;
-    int8_t  captured_piece;
-    uint8_t prev_castling;
-    int8_t  prev_en_passant;
-    uint16_t prev_halfmove;
-    uint32_t prev_fullmove;
-    int ep_capture_sq;
-    uint64_t prev_hash;
-} Undo;
-
-static void make_move_raw(Position *pos, int from, int to, int promotion, Undo *undo)
+static void make_move_raw(Position *pos, int from, int to, int promotion, MoveUndo *undo)
 {
-    assert(from >= 0 && from < 64 && to >= 0 && to < 64);
-
     undo->from            = from;
     undo->to              = to;
     undo->moved_piece     = pos->board[from];
@@ -251,7 +237,7 @@ static void make_move_raw(Position *pos, int from, int to, int promotion, Undo *
 #endif
 }
 
-static void unmake_move_raw(Position *pos, const Undo *undo)
+static void unmake_move_raw(Position *pos, const MoveUndo *undo)
 {
     pos->side_to_move    = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
     pos->fullmove_number = undo->prev_fullmove;
@@ -295,7 +281,6 @@ static void unmake_move_raw(Position *pos, const Undo *undo)
     }
 #endif
 }
-
 
 int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_out, int capacity)
 {
@@ -478,6 +463,7 @@ int generate_pseudo_moves(Position *pos, int *from_out, int *to_out, int *promo_
 
     return n;
 }
+
 int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *promotions, int capacity)
 {
     int tmp_cap = 1024;
@@ -488,7 +474,7 @@ int generate_legal_moves(Position *pos, int *moves_from, int *moves_to, int *pro
 
     int cnt = generate_pseudo_moves(pos, from, to, prom, tmp_cap);
     int nlegal = 0;
-    Undo undo;
+    MoveUndo undo;
 
     for (int i = 0; i < cnt; ++i) {
         make_move_raw(pos, from[i], to[i], prom[i], &undo);
@@ -541,7 +527,7 @@ uint64_t perft(Position *pos, int depth)
     }
 
     uint64_t nodes = 0;
-    Undo undo;
+    MoveUndo undo;
     for (int i = 0; i < n; ++i) {
         make_move_raw(pos, from[i], to[i], prom[i], &undo);
         nodes += perft(pos, depth - 1);
@@ -554,15 +540,15 @@ uint64_t perft(Position *pos, int depth)
 
 void make_move(Position *pos, int from, int to, int promotion, MoveUndo *undo)
 {
-    make_move_raw(pos, from, to, promotion, (Undo *)undo);
+    make_move_raw(pos, from, to, promotion, undo);
 }
 
 void unmake_move(Position *pos, const MoveUndo *undo)
 {
-    unmake_move_raw(pos, (const Undo *)undo);
+    unmake_move_raw(pos, undo);
 }
 
-void make_null_move(Position *pos, MoveUndo *undo)
+void make_null_move(Position *pos, NullMoveUndo *undo)
 {
     undo->side_to_move = pos->side_to_move;
     undo->en_passant   = pos->en_passant;
@@ -578,7 +564,7 @@ void make_null_move(Position *pos, MoveUndo *undo)
     pos->hash          = h;
 }
 
-void unmake_null_move(Position *pos, const MoveUndo *undo)
+void unmake_null_move(Position *pos, const NullMoveUndo *undo)
 {
     pos->side_to_move = undo->side_to_move;
     pos->en_passant   = undo->en_passant;
