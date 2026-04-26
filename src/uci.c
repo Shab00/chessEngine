@@ -48,6 +48,11 @@ void make_move_from_uci(const char* move_str) {
     if (!move_str || strlen(move_str) < 4) return;
     int from = position_square_from_coords(move_str[0], move_str[1]);
     int to   = position_square_from_coords(move_str[2], move_str[3]);
+    if (from == POS_NO_SQUARE || to == POS_NO_SQUARE) {
+        printf("ALERT: Could not parse move %s (from=%d to=%d)\n", move_str, from, to);
+        fflush(stdout);
+        return;
+    }
     int promo = PIECE_EMPTY;
     if (strlen(move_str) >= 5) promo = promo_from_char(move_str[4]);
     // --------- DEBUG: show move string, from/to indices, promo ---------
@@ -146,17 +151,40 @@ void uci_loop(void) {
             if (moves) {
                 moves += 5;
                 while (*moves == ' ') moves++;
+
                 while (*moves) {
-                    char move_str[8];
-                    if (sscanf(moves, "%7s", move_str) == 1) {
+                    // Accept only tokens of length 4 or 5 (promotion)
+                    char move_str[8] = {0};
+                    int n = 0;
+
+                    // Copy chars until a space or end, up to 7 chars for safety
+                    while (n < 7 && moves[n] && !isspace((unsigned char)moves[n])) n++;
+                    if (n == 4 || n == 5) {
+                        memcpy(move_str, moves, n);
+                        move_str[n] = '\0';
+
                         printf("info string applying move: %s\n", move_str);
                         fflush(stdout);
 
                         make_move_from_uci(move_str);
+
+                        // Print FEN & side after each move
+                        char fenbuf[128];
+                        position_to_fen(&g_position, fenbuf, sizeof(fenbuf));
+                        printf("debug: after applying move %s -> FEN: %s\n", move_str, fenbuf);
+                        printf("debug: after applying move %s -> side: %s\n",
+                                move_str, g_position.side_to_move == COLOR_WHITE ? "w" : "b");
+                        fflush(stdout);
+                    } else if (n > 0) {
+                        // If it's an unexpected length, print alert and skip
+                        char bad_move[8] = {0};
+                        memcpy(bad_move, moves, (n < 7 ? n : 7));
+                        printf("ALERT: Ignoring invalid move token: '%s'\n", bad_move);
+                        fflush(stdout);
                     }
-                    moves = strchr(moves, ' ');
-                    if (!moves) break;
-                    while (moves && *moves == ' ') moves++;
+
+                    moves += n;
+                    while (*moves == ' ') moves++; // skip trailing spaces
                 }
             }
 
@@ -207,6 +235,13 @@ void uci_loop(void) {
                 position_square_to_coords(best_to, tobuf, 3);
                 printf("info string engine selects: %s (from %d [%s] to %d [%s] promo %d)\n",
                     bestmove, best_from, frombuf, best_to, tobuf, best_promo);
+                // === more debug ===
+                char fenbuf[128];
+                position_to_fen(&g_position, fenbuf, sizeof(fenbuf));
+                printf("info string ENGINE FEN before bestmove: %s\n", fenbuf);
+                printf("info string ENGINE side to move: %s\n",
+                        g_position.side_to_move == COLOR_WHITE ? "w" : "b");
+                // ======================
                 printf("bestmove %s\n", bestmove);
                 fflush(stdout);
             } else {

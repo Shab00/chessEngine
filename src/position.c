@@ -211,13 +211,12 @@ bool position_is_square_attacked(const Position *pos, int sq, int attacker_color
 
     // Pawn attacks
     if (attacker_color == COLOR_WHITE) {
-        if (sf > 0 && sr < 7 && pos->board[sq+7] == their_pawn) return true;
-        if (sf < 7 && sr < 7 && pos->board[sq+9] == their_pawn) return true;
+        if (sf > 0 && sr > 0 && pos->board[sq - 9] == their_pawn) return true; // down-left
+        if (sf < 7 && sr > 0 && pos->board[sq - 7] == their_pawn) return true; // down-right
     } else {
-        if (sf > 0 && sr > 0 && pos->board[sq-9] == their_pawn) return true;
-        if (sf < 7 && sr > 0 && pos->board[sq-7] == their_pawn) return true;
+        if (sf > 0 && sr < 7 && pos->board[sq + 7] == their_pawn) return true; // up-left
+        if (sf < 7 && sr < 7 && pos->board[sq + 9] == their_pawn) return true; // up-right
     }
-
     // Knight attacks
     for (int i = 0; i < 8; ++i) {
         int to = sq + knight_moves[i];

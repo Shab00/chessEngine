@@ -72,16 +72,31 @@ static void reorder_moves(int *froms, int *tos, int *promos, int n,
     free(scores);
 }
 
+/* ------------------------------------------------------------------
+ * promote_tt_move_to_front
+ *
+ * Only promotes the TT move if it actually exists in the legal move
+ * list. This prevents hash collisions from causing illegal moves to
+ * be played — a stale TT entry from a different position with the
+ * same Zobrist key would otherwise bypass legality filtering.
+ * ------------------------------------------------------------------ */
 static void promote_tt_move_to_front(int *froms, int *tos, int *promos,
                                       int n, int tt_from, int tt_to,
                                       int tt_promo)
 {
+    /* FIX: verify the TT move is actually in the generated legal move
+       list before promoting it. Without this check a hash collision
+       can produce a move from an empty square or into an illegal
+       square — exactly the "piece disappeared" symptom. */
     for (int i = 1; i < n; ++i) {
         if (froms[i] == tt_from && tos[i] == tt_to && promos[i] == tt_promo) {
             int tf = froms[0], tt2 = tos[0], tp = promos[0];
             froms[0] = froms[i]; tos[0] = tos[i]; promos[0] = promos[i];
             froms[i] = tf;       tos[i] = tt2;    promos[i] = tp;
             break;
+            /* Note: if the TT move is NOT found in the list we simply
+               do nothing — the list stays in its reordered state and
+               the stale TT move is silently ignored. */
         }
     }
 }
@@ -111,13 +126,13 @@ static int quiescence(Position *pos, int alpha, int beta, SearchContext *ctx)
         free(froms); free(tos); free(promos);
         int king_sq = find_king(pos, pos->side_to_move);
         if (king_sq == POS_NO_SQUARE) {
-            return -MATE_SCORE;  /* king captured = checkmated */
+            return -MATE_SCORE;
         }
         int opp = (pos->side_to_move == COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE;
         if (position_is_square_attacked(pos, king_sq, opp)) {
-            return -MATE_SCORE;  /* checkmated */
+            return -MATE_SCORE;
         }
-        return 0;  /* stalemate */
+        return 0;
     }
 
     int stand_pat = evaluate_for_stm(pos);
@@ -152,6 +167,7 @@ static int quiescence(Position *pos, int alpha, int beta, SearchContext *ctx)
     free(froms); free(tos); free(promos);
     return alpha;
 }
+
 /* ------------------------------------------------------------------
  * search_ab
  * ------------------------------------------------------------------ */
@@ -167,7 +183,7 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
 
     /* TT probe */
     uint64_t key = pos->hash;
-    int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
+    int tt_from = -1, tt_to = -1, tt_promo = 0, tt_val = 0;
     if (tt_probe(key, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo))
         return tt_val;
 
@@ -179,9 +195,13 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
         in_check = is_square_attacked(pos, king_sq, opp);
     }
 
-    /* Null-move pruning */
+    /* Null-move pruning.
+       FIX: use NullMoveUndo — the correct type for make/unmake_null_move.
+       Previously MoveUndo was used here which is a different struct and
+       caused undefined behaviour when unmake_null_move read back fields
+       at the wrong offsets. */
     if (!in_check && depth >= 3 && position_material(pos) > 16) {
-        MoveUndo null_undo;
+        NullMoveUndo null_undo;                  /* FIX: was MoveUndo */
         make_null_move(pos, &null_undo);
         int R = 2;
         int null_val = -search_ab(pos, depth - 1 - R, ply + 1,
@@ -203,6 +223,10 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
 
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
     reorder_moves(froms, tos, promos, n, pos, ply);
+
+    /* FIX: promote_tt_move_to_front now only promotes if the TT move
+       exists in the legal list, so the tt_from >= 0 guard here is the
+       only extra safety needed — no separate loop required. */
     if (tt_from >= 0 && n > 0)
         promote_tt_move_to_front(froms, tos, promos, n, tt_from, tt_to, tt_promo);
 
@@ -223,7 +247,7 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
         MoveUndo undo;
         make_move(pos, froms[i], tos[i], promos[i], &undo);
 
-        /* Check extension: does this move give check to the opponent? */
+        /* Check extension */
         int gives_check = 0;
         {
             int opp_king_sq = find_king(pos, pos->side_to_move);
@@ -234,7 +258,7 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
             }
         }
         int extension = (gives_check && ply < 64) ? 1 : 0;
-        /* Late move reduction — never reduce checks or when in check */
+
         int is_capture = (undo.captured_piece != PIECE_EMPTY);
         int is_promo   = (promos[i] != 0);
         int reduction  = 0;
@@ -276,7 +300,6 @@ static int search_ab(Position *pos, int depth, int ply, int alpha, int beta,
         }
     }
 
-    /* Only store in TT if search completed without abort */
     if (!search_context_should_stop(ctx)) {
         tt_flag_t flag = TT_FLAG_EXACT;
         if      (best_value <= alpha_orig) flag = TT_FLAG_UPPER;
@@ -309,9 +332,10 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
     int n = generate_legal_moves(pos, froms, tos, promos, capacity);
     reorder_moves(froms, tos, promos, n, pos, 0);
 
-    int tt_from = 0, tt_to = 0, tt_promo = 0, tt_val = 0;
+    int tt_from = -1, tt_to = -1, tt_promo = 0, tt_val = 0;
     tt_probe(pos->hash, depth, alpha, beta, &tt_val, &tt_from, &tt_to, &tt_promo);
-    if (n > 0)
+
+    if (tt_from >= 0 && n > 0)
         promote_tt_move_to_front(froms, tos, promos, n, tt_from, tt_to, tt_promo);
 
     if (n == 0) {
@@ -371,11 +395,7 @@ static int search_root_once(Position *pos, int depth, int alpha, int beta,
 
 /* ------------------------------------------------------------------
  * search_root  — iterative deepening + aspiration windows
- *
- * ctx may be NULL — a local context is used in that case so existing
- * callers that don't pass a ctx continue to work unchanged.
  * ------------------------------------------------------------------ */
-
 int search_root(Position *pos, int depth, int *out_from, int *out_to,
                 int *out_promotion, SearchContext *ctx)
 {
@@ -393,7 +413,6 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to,
     int prev_score = 0;
     const int ASP_WINDOW = 50;
 
-    // We'll store the best move for the final (full) depth for debug
     int print_root_debug = 0;
     if (DEBUG_ROOT_MOVES) print_root_debug = 1;
 
@@ -422,37 +441,40 @@ int search_root(Position *pos, int depth, int *out_from, int *out_to,
             final_promo = tmp_promo;
         }
 
-        // After the final depth, print root move scores if debugging enabled:
         if (print_root_debug && d == depth) {
             printf("\n[Debug] Root moves and scores at depth %d:\n", depth);
 
-            int capacity = 256, n;
-            int froms[256], tos[256], promos[256];
-            n = generate_legal_moves(pos, froms, tos, promos, capacity);
-            for (int j = 0; j < n; ++j) {
-                MoveUndo undo;
-                make_move(pos, froms[j], tos[j], promos[j], &undo);
-                int val = -search_ab(pos, depth - 1, 1, -INF, INF, ctx);
-                unmake_move(pos, &undo);
+            int cap = 1024, n;
+            int *froms  = malloc(sizeof(int) * cap);
+            int *tos    = malloc(sizeof(int) * cap);
+            int *promos = malloc(sizeof(int) * cap);
+            if (froms && tos && promos) {
+                n = generate_legal_moves(pos, froms, tos, promos, cap);
+                for (int j = 0; j < n; ++j) {
+                    MoveUndo undo;
+                    make_move(pos, froms[j], tos[j], promos[j], &undo);
+                    int val = -search_ab(pos, depth - 1, 1, -INF, INF, ctx);
+                    unmake_move(pos, &undo);
 
-                char src[3], dst[3];
-                src[0] = 'a' + (froms[j] % 8); src[1] = '1' + (froms[j] / 8); src[2] = 0;
-                dst[0] = 'a' + (tos[j] % 8);   dst[1] = '1' + (tos[j] / 8);   dst[2] = 0;
+                    char src[3], dst[3];
+                    src[0] = 'a' + (froms[j] % 8); src[1] = '1' + (froms[j] / 8); src[2] = 0;
+                    dst[0] = 'a' + (tos[j]   % 8); dst[1] = '1' + (tos[j]   / 8); dst[2] = 0;
 
-                printf("    %s%s", src, dst);
-                if (promos[j]) printf("(prom=%d)", promos[j]);
-                printf("  score: %d", val);
-                if (froms[j] == final_from && tos[j] == final_to) printf("  <== engine move");
-                printf("\n");
+                    printf("    %s%s", src, dst);
+                    if (promos[j]) printf("(prom=%d)", promos[j]);
+                    printf("  score: %d", val);
+                    if (froms[j] == final_from && tos[j] == final_to)
+                        printf("  <== engine move");
+                    printf("\n");
+                }
+                printf("[Debug] End root move list.\n\n");
             }
-            printf("[Debug] End root move list.\n\n");
-            // Optionally, set print_root_debug = 0; // So it only prints once
+            free(froms); free(tos); free(promos);
         }
     }
 
     order_free();
 
-    /* Fall back to best move seen so far if aborted mid-iteration */
     if (final_from < 0 && ctx->best_from >= 0) {
         final_from  = ctx->best_from;
         final_to    = ctx->best_to;
