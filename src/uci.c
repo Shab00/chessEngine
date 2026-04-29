@@ -7,6 +7,16 @@
 #include "movegen.h"
 #include "search.h"
 
+/* -----------------------------------------------------------------------
+ * UCI input buffer size.
+ *
+ * A "position ... moves ..." line in a 400-move game is roughly
+ *   len("position startpos moves ") + 400 * 5  ~= 2024 bytes.
+ * Use 65536 (64 KB) to be completely safe for any realistic game length,
+ * including FEN-based positions with very long move lists.
+ * ----------------------------------------------------------------------- */
+#define UCI_BUF_SIZE 65536
+
 static Position g_position;
 static int last_a1 = -999;
 
@@ -55,22 +65,18 @@ void make_move_from_uci(const char* move_str) {
     }
     int promo = PIECE_EMPTY;
     if (strlen(move_str) >= 5) promo = promo_from_char(move_str[4]);
-    // --------- DEBUG: show move string, from/to indices, promo ---------
-//    printf("DEBUG: move_str=%s from=%d to=%d promo=%d\n", move_str, from, to, promo);
-//    fflush(stdout);
+
     printf("DEBUG UCI: %s from=%d to=%d\n", move_str, from, to);
     fflush(stdout);
-    // -------------------------------------------------------------------
+
     MoveUndo mv_undo;
     make_move(&g_position, from, to, promo, &mv_undo);
 
-    // --------- BEGIN: SUPER DEBUGGING AFTER EACH MOVE ---------
-    // Print board ASCII
+    /* ---- post-move debug ---- */
     printf("info string BOARD after move %s:\n", move_str);
     position_print_ascii(&g_position, stdout);
     fflush(stdout);
 
-    // Print FEN and a1/b1/c1
     char fen_str[128];
     position_to_fen(&g_position, fen_str, sizeof(fen_str));
     printf("info string FEN after move: %s\n", fen_str);
@@ -80,13 +86,11 @@ void make_move_from_uci(const char* move_str) {
     printf("info string a1=%d b1=%d c1=%d\n", a1, b1, c1);
     fflush(stdout);
 
-    // Print alert for unexpected changes on a1
     if (a1 != last_a1) {
         printf("!!! ALERT a1 changed: old=%d new=%d\n", last_a1, a1);
         fflush(stdout);
         last_a1 = a1;
     }
-    // --------- END: SUPER DEBUGGING AFTER EACH MOVE ---------
 }
 
 static void format_move(int from, int to, int promo, char *buf, int bufsz) {
@@ -106,14 +110,44 @@ static int is_bare_promotion(int to, int promo) {
     return (to_rank == 0 || to_rank == 7) && (promo == 0);
 }
 
+static int validate_move_token(const char *s, int n) {
+    if (n != 4 && n != 5) return 0;
+    /* from-file, from-rank, to-file, to-rank */
+    if (s[0] < 'a' || s[0] > 'h') return 0;
+    if (s[1] < '1' || s[1] > '8') return 0;
+    if (s[2] < 'a' || s[2] > 'h') return 0;
+    if (s[3] < '1' || s[3] > '8') return 0;
+    if (n == 5) {
+        char p = (char)tolower((unsigned char)s[4]);
+        if (p != 'q' && p != 'r' && p != 'b' && p != 'n') return 0;
+    }
+    return 1;
+}
+
 void uci_loop(void) {
-    char buffer[256];
+    char buffer[UCI_BUF_SIZE];
 
     while (fgets(buffer, sizeof(buffer), stdin)) {
-        buffer[strcspn(buffer, "\r\n")] = 0;
+
+        size_t len = strlen(buffer);
+        if (len == sizeof(buffer) - 1 && buffer[len - 1] != '\n') {
+            fprintf(stderr,
+                "info string WARNING: UCI input line exceeded %d bytes — "
+                "draining and skipping.\n", UCI_BUF_SIZE - 1);
+            fflush(stderr);
+            int c;
+            while ((c = fgetc(stdin)) != '\n' && c != EOF) { /* drain */ }
+            continue;
+        }
+
+        buffer[strcspn(buffer, "\r\n")] = '\0';
 
         printf("info string received: %s\n", buffer);
         fflush(stdout);
+
+        /* ================================================================
+         * Command dispatch
+         * ================================================================ */
 
         if (strcmp(buffer, "uci") == 0) {
             printf("id name c-chess-engine\n");
@@ -129,37 +163,42 @@ void uci_loop(void) {
 
         } else if (strncmp(buffer, "position ", 9) == 0) {
             char *ptr = buffer + 9;
+
+            /* --- Load base position --- */
             if (strncmp(ptr, "startpos", 8) == 0) {
                 load_startpos();
                 ptr += 8;
             } else if (strncmp(ptr, "fen ", 4) == 0) {
                 ptr += 4;
                 char fen[128] = {0};
-                const char* moves_kw = strstr(ptr, " moves");
+                const char *moves_kw = strstr(ptr, " moves");
                 if (moves_kw) {
-                    strncpy(fen, ptr, moves_kw - ptr);
-                    fen[moves_kw - ptr] = '\0';
+                    size_t flen = (size_t)(moves_kw - ptr);
+                    if (flen >= sizeof(fen)) flen = sizeof(fen) - 1;
+                    strncpy(fen, ptr, flen);
+                    fen[flen] = '\0';
                 } else {
-                    strncpy(fen, ptr, 127);
-                    fen[127] = '\0';
+                    strncpy(fen, ptr, sizeof(fen) - 1);
+                    fen[sizeof(fen) - 1] = '\0';
                 }
                 load_fen(fen);
-                ptr = (char*)moves_kw;
+                ptr = (char *)moves_kw;
             }
+
+            if (ptr == NULL) goto position_done; 
 
             char *moves = strstr(ptr, "moves");
             if (moves) {
-                moves += 5;
+                moves += 5;   /* skip "moves" */
                 while (*moves == ' ') moves++;
 
-                while (*moves) {
-                    // Accept only tokens of length 4 or 5 (promotion)
-                    char move_str[8] = {0};
+                while (*moves != '\0') {
                     int n = 0;
+                    while (n < 6 && moves[n] != '\0' && !isspace((unsigned char)moves[n]))
+                        n++;
 
-                    // Copy chars until a space or end, up to 7 chars for safety
-                    while (n < 7 && moves[n] && !isspace((unsigned char)moves[n])) n++;
-                    if (n == 4 || n == 5) {
+                    if (validate_move_token(moves, n)) {
+                        char move_str[8] = {0};
                         memcpy(move_str, moves, n);
                         move_str[n] = '\0';
 
@@ -168,80 +207,84 @@ void uci_loop(void) {
 
                         make_move_from_uci(move_str);
 
-                        // Print FEN & side after each move
                         char fenbuf[128];
                         position_to_fen(&g_position, fenbuf, sizeof(fenbuf));
                         printf("debug: after applying move %s -> FEN: %s\n", move_str, fenbuf);
                         printf("debug: after applying move %s -> side: %s\n",
-                                move_str, g_position.side_to_move == COLOR_WHITE ? "w" : "b");
+                               move_str,
+                               g_position.side_to_move == COLOR_WHITE ? "w" : "b");
                         fflush(stdout);
+
                     } else if (n > 0) {
-                        // If it's an unexpected length, print alert and skip
-                        char bad_move[8] = {0};
-                        memcpy(bad_move, moves, (n < 7 ? n : 7));
-                        printf("ALERT: Ignoring invalid move token: '%s'\n", bad_move);
-                        fflush(stdout);
+                        /* Bad token — could be a partial token caused by a
+                         * truncated line that somehow slipped through, or
+                         * just garbage from the GUI.  Stop processing moves
+                         * for this command; do NOT print a noisy ALERT
+                         * because partial tokens from truncated lines would
+                         * spam the log.  We already guard against truncation
+                         * above, so reaching here is genuinely unexpected —
+                         * log it quietly to stderr only. */
+                        char bad[8] = {0};
+                        memcpy(bad, moves, (n < 7 ? n : 7));
+                        fprintf(stderr,
+                            "info string WARNING: unexpected move token '%s' "
+                            "(len=%d) — stopping move replay.\n", bad, n);
+                        fflush(stderr);
+                        break;
                     }
 
                     moves += n;
-                    while (*moves == ' ') moves++; // skip trailing spaces
+                    while (*moves == ' ') moves++;
                 }
             }
+            position_done:;
 
         } else if (strncmp(buffer, "go", 2) == 0) {
             int movetime = 0, wtime = 0, btime = 0, winc = 0, binc = 0;
-            char params[256];
-            strncpy(params, buffer + 2, 255);
-            params[255] = '\0';
-            char* token = strtok(params, " ");
+
+            char params[UCI_BUF_SIZE];
+            strncpy(params, buffer + 2, sizeof(params) - 1);
+            params[sizeof(params) - 1] = '\0';
+
+            char *token = strtok(params, " ");
             while (token) {
-                if (strcmp(token, "movetime") == 0) {
-                    token = strtok(NULL, " ");
-                    if (token) movetime = atoi(token);
-                } else if (strcmp(token, "wtime") == 0) {
-                    token = strtok(NULL, " ");
-                    if (token) wtime = atoi(token);
-                } else if (strcmp(token, "btime") == 0) {
-                    token = strtok(NULL, " ");
-                    if (token) btime = atoi(token);
-                } else if (strcmp(token, "winc") == 0) {
-                    token = strtok(NULL, " ");
-                    if (token) winc = atoi(token);
-                } else if (strcmp(token, "binc") == 0) {
-                    token = strtok(NULL, " ");
-                    if (token) binc = atoi(token);
-                } else {
-                    token = strtok(NULL, " ");
-                }
+                if      (strcmp(token, "movetime") == 0) { token = strtok(NULL, " "); if (token) movetime = atoi(token); }
+                else if (strcmp(token, "wtime")    == 0) { token = strtok(NULL, " "); if (token) wtime    = atoi(token); }
+                else if (strcmp(token, "btime")    == 0) { token = strtok(NULL, " "); if (token) btime    = atoi(token); }
+                else if (strcmp(token, "winc")     == 0) { token = strtok(NULL, " "); if (token) winc     = atoi(token); }
+                else if (strcmp(token, "binc")     == 0) { token = strtok(NULL, " "); if (token) binc     = atoi(token); }
+                else { token = strtok(NULL, " "); }
             }
+
             printf("info string movetime=%d wtime=%d btime=%d winc=%d binc=%d\n",
                    movetime, wtime, btime, winc, binc);
-
             printf("info string squares: a1=%d b1=%d c1=%d\n",
-                g_position.board[SQ_INDEX(0,0)],
-                g_position.board[SQ_INDEX(1,0)],
-                g_position.board[SQ_INDEX(2,0)]);
+                   g_position.board[SQ_INDEX(0,0)],
+                   g_position.board[SQ_INDEX(1,0)],
+                   g_position.board[SQ_INDEX(2,0)]);
             fflush(stdout);
 
             int depth = 4;
             int best_from = -1, best_to = -1, best_promo = 0;
 
-            if (search_root(&g_position, depth, &best_from, &best_to, &best_promo, NULL) > 0 && best_from >= 0) {
+            if (search_root(&g_position, depth, &best_from, &best_to, &best_promo, NULL) > 0
+                    && best_from >= 0) {
                 char bestmove[8];
                 format_move(best_from, best_to, best_promo, bestmove, sizeof(bestmove));
-                // Also print what squares (from/to indices) and their algebraic names
+
                 char frombuf[3], tobuf[3];
                 position_square_to_coords(best_from, frombuf, 3);
-                position_square_to_coords(best_to, tobuf, 3);
-                printf("info string engine selects: %s (from %d [%s] to %d [%s] promo %d)\n",
-                    bestmove, best_from, frombuf, best_to, tobuf, best_promo);
-                // === more debug ===
+                position_square_to_coords(best_to,   tobuf,   3);
+                printf("info string engine selects: %s "
+                       "(from %d [%s] to %d [%s] promo %d)\n",
+                       bestmove, best_from, frombuf, best_to, tobuf, best_promo);
+
                 char fenbuf[128];
                 position_to_fen(&g_position, fenbuf, sizeof(fenbuf));
                 printf("info string ENGINE FEN before bestmove: %s\n", fenbuf);
                 printf("info string ENGINE side to move: %s\n",
-                        g_position.side_to_move == COLOR_WHITE ? "w" : "b");
-                // ======================
+                       g_position.side_to_move == COLOR_WHITE ? "w" : "b");
+
                 printf("bestmove %s\n", bestmove);
                 fflush(stdout);
             } else {
