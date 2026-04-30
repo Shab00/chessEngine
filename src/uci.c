@@ -20,6 +20,24 @@
 static Position g_position;
 static int last_a1 = -999;
 
+int compute_material(const Position *pos, int color) {
+    int total = 0;
+    for (int i = 0; i < 64; ++i) {
+        int p = pos->board[i];
+        if ((color == COLOR_WHITE && p > 0) || (color == COLOR_BLACK && p < 0)) {
+            int abs_p = abs(p);
+            switch (abs_p) {
+                case PIECE_PAWN:   total += 1; break;
+                case PIECE_KNIGHT: total += 3; break;
+                case PIECE_BISHOP: total += 3; break;
+                case PIECE_ROOK:   total += 5; break;
+                case PIECE_QUEEN:  total += 9; break;
+            }
+        }
+    }
+    return total;
+}
+
 static int promo_from_char(char c) {
     switch (tolower((unsigned char)c)) {
         case 'q': return PIECE_QUEEN;
@@ -264,7 +282,21 @@ void uci_loop(void) {
                    g_position.board[SQ_INDEX(2,0)]);
             fflush(stdout);
 
-            int depth = 4;
+            int engine_color = g_position.side_to_move;
+            int material = compute_material(&g_position, engine_color);
+
+            int depth;
+            if (material > 20)
+                depth = 2;
+            else if (material > 12)
+                depth = 3;
+            else if (material > 8)
+                depth = 4;
+            else
+                depth = 6;
+
+            printf("info string material=%d, search depth set to %d\n", material, depth);
+
             int best_from = -1, best_to = -1, best_promo = 0;
 
             if (search_root(&g_position, depth, &best_from, &best_to, &best_promo, NULL) > 0
