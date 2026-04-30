@@ -1,0 +1,22 @@
+name: UCI Smoke Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build engine
+        run: |
+          make engine
+
+      - name: Run UCI smoke test
+        run: |
+          echo -e "uci\nisready\nposition startpos moves e2e4 e7e5\ngo depth 1\nquit" | ./build/engine >engine.log
+          grep -q uciok engine.log
+          grep -q readyok engine.log
+          grep -q bestmove engine.log
