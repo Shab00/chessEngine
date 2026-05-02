@@ -302,6 +302,21 @@ void uci_loop(void) {
             
             int depth = compute_fun_depth(&g_position, engine_color);
             printf("info string adaptive depth set to %d\n", depth);
+            int knight_count = 0, bishop_count = 0, rook_count = 0, queen_count = 0;
+            for (int i = 0; i < 64; ++i) {
+                int p = g_position.board[i];
+                int abs_p = abs(p);
+                if ((engine_color == COLOR_WHITE && p > 0) || (engine_color == COLOR_BLACK && p < 0)) {
+                    switch (abs_p) {
+                        case PIECE_KNIGHT: knight_count++; break;
+                        case PIECE_BISHOP: bishop_count++; break;
+                        case PIECE_ROOK:   rook_count++; break;
+                        case PIECE_QUEEN:  queen_count++; break;
+                    }
+                }
+            }
+            printf("info string pieces left: N=%d B=%d R=%d Q=%d | depth=%d\n",
+                    knight_count, bishop_count, rook_count, queen_count, depth);
 
             int best_from = -1, best_to = -1, best_promo = 0;
 
