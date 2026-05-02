@@ -20,22 +20,38 @@
 static Position g_position;
 static int last_a1 = -999;
 
-int compute_material(const Position *pos, int color) {
-    int total = 0;
+int compute_fun_depth(const Position *pos, int color) {
+    int base_depth = 2;
+    int knight_count = 0, bishop_count = 0, rook_count = 0, queen_count = 0;
+
     for (int i = 0; i < 64; ++i) {
         int p = pos->board[i];
+        int abs_p = abs(p);
         if ((color == COLOR_WHITE && p > 0) || (color == COLOR_BLACK && p < 0)) {
-            int abs_p = abs(p);
             switch (abs_p) {
-                case PIECE_PAWN:   total += 1; break;
-                case PIECE_KNIGHT: total += 3; break;
-                case PIECE_BISHOP: total += 3; break;
-                case PIECE_ROOK:   total += 5; break;
-                case PIECE_QUEEN:  total += 9; break;
+                case PIECE_KNIGHT: knight_count++; break;
+                case PIECE_BISHOP: bishop_count++; break;
+                case PIECE_ROOK:   rook_count++; break;
+                case PIECE_QUEEN:  queen_count++; break;
             }
         }
     }
-    return total;
+
+    int missing_knights  = 2 - knight_count;
+    int missing_bishops  = 2 - bishop_count;
+    int missing_rooks    = 2 - rook_count;
+    int missing_queens   = 1 - queen_count;
+
+    int depth = base_depth
+        + (missing_knights  * 1)
+        + (missing_bishops  * 1)
+        + (missing_rooks    * 2)
+        + (missing_queens   * 3);
+
+    if (depth < 2) depth = 2;
+    if (depth > 8) depth = 8;
+
+    return depth;
 }
 
 static int promo_from_char(char c) {
@@ -283,19 +299,9 @@ void uci_loop(void) {
             fflush(stdout);
 
             int engine_color = g_position.side_to_move;
-            int material = compute_material(&g_position, engine_color);
-
-            int depth;
-            if (material > 20)
-                depth = 2;
-            else if (material > 12)
-                depth = 3;
-            else if (material > 8)
-                depth = 4;
-            else
-                depth = 6;
-
-            printf("info string material=%d, search depth set to %d\n", material, depth);
+            
+            int depth = compute_fun_depth(&g_position, engine_color);
+            printf("info string adaptive depth set to %d\n", depth);
 
             int best_from = -1, best_to = -1, best_promo = 0;
 
