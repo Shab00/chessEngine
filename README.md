@@ -59,6 +59,14 @@ A small, well-tested chess engine written in C — designed as a correctness-fir
 
 ---
 
+## Related Project
+
+This engine also powers a companion browser/WebAssembly project:
+
+- **Chess Engine WASM Demo:** [Shab00/chess-engine-wasm](https://github.com/Shab00/chess-engine-wasm)
+
+That repository focuses on compiling the C engine to WebAssembly and connecting it to a browser chessboard UI for local and future GitHub Pages play.
+
 ## Features/Highlights
 
 - **Movegen & FEN:**  
