@@ -2,97 +2,114 @@
 
 [![Perft tests](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml/badge.svg)](https://github.com/Shab00/chessEngine/actions/workflows/perft-tests.yml)
 
-A small, well-tested chess engine written in C — designed as a correctness-first learning project with a clear path toward a playable, UCI‑compatible engine.
+A correctness-first chess engine written in C, built as a low-level learning project with strong testing, clear debugging workflows, and a path toward a stronger playable UCI engine.
 
 ---
 
-## Tactics & CI Status
+## Current Status
 
-> **Note:** Our CI-integrated tactics harness currently runs and passes 9 out of 11 classic tactical test positions (WAC/Kaufman) by default.  
-> The two deepest cases are commented out for CI stability and can be enabled locally for advanced testing or engine tuning.  
-> See `tests/tactics_test.c` for details, and help us reach 100% coverage!
+This project is currently in a **well-tested engine foundation** stage.
 
----
+It already includes:
 
-## Debug Flow & Lessons Learned
-
-- **Debugging & test-driven:**  
-  Tactical regression harness (`tests/tactics_test.c`) is integrated into CI. Each test prints both the expected and engine moves, making failures easy to track.
-- **Root move scoring:**  
-  For difficult positions, full root move + score lists can be printed. This exposes when a tactical idea is considered but undervalued vs. not seen at all.
-- **CI is honest and stable:**  
-  Challenging or deep tests are commented—never deleted. This way, CI always “goes green,” yet the roadmap for improvement is clear and open to contributors.
-- **Iterative solving:**  
-  Most missed tactics are a matter of depth or evaluation improvement. When failures occur, increasing search depth or enhancing eval typically brings the correct move to the top.
-
-**Pro tip:** When a test fails, dump root move scores at increasing depths. If the best move climbs the ranks, you're just a search/eval tweak away!
-
----
-
-## Recent Improvements
-
-- **Stack-overflow fix (check extension ply cap):**  
-  Check extensions in `search_ab` are now capped (`ply < 64`), preventing infinite recursion/perpetual check disasters.
-- **Transposition table clearing between searches (`tt_clear()`):**  
-  Ensures tactical tests are isolated—no cross-contamination from previous positions.
-- **New tactics test suite:**  
-  WAC/Kaufman FEN-driven tactical regression replaces hand-written tests. Suite is CI-integrated.
-- **Timing-budget test harness:**  
-  Verifies search routine respects wall-clock limits; robust for time manager debugging.
-- **Perft divide, refactored perft tests, and roundtrip tools:**  
-  Canonical perft coverage, node count matching, and FEN roundtrip verification.
-- **Improved search:**  
-  Pure negamax alpha-beta, full quiescence search at leaf nodes, refined move ordering (ply, killers/history, MVV-LVA), aspiration windows, and a robust TT design.
-- **Sanitizer and regression clean:**  
-  Engine passes CPW perft, runs clean under ASan/UBSan, and structure is validated for all run modes.
-- **Professional git workflow:**  
-  All upgrades are PR-reviewed/merged, keeping history clear and CI observable.
+- legal move generation and board state handling
+- perft-tested correctness
+- tactical regression coverage
+- alpha-beta search with quiescence
+- transposition table support
+- UCI protocol support for GUI play and testing
+- a companion WebAssembly/browser demo powered by this engine
 
 ---
 
 ## Why This Project?
 
-- Learn and teach low-level C through a real system.
-- Build a chess core that's easy to audit and extend.
-- Practice professional testing/debugging with perft and tactical regression.
-- Incrementally add performance and search improvements, prioritizing reproducibility and clarity.
+- Learn and practice low-level C through a real system.
+- Build a chess engine core that is easy to inspect, test, and extend.
+- Develop professional debugging habits through perft, tactics, CI, and regression testing.
+- Incrementally improve search and evaluation while keeping correctness and reproducibility central.
 
 ---
 
-## Related Project
+## Related Projects
 
 This engine also powers a companion browser/WebAssembly project:
 
-- **Chess Engine WASM Demo:** [Shab00/chess-engine-wasm](https://github.com/Shab00/chess-engine-wasm)
+- **Chess Engine WASM Demo Repo:** [Shab00/chess-engine-wasm](https://github.com/Shab00/chess-engine-wasm)
+- **Live Browser Demo:** [shab00.github.io/chess](https://shab00.github.io/chess/)
 
-That repository focuses on compiling the C engine to WebAssembly and connecting it to a browser chessboard UI for local and future GitHub Pages play.
+That project focuses on compiling the engine to WebAssembly and connecting it to a browser-based chessboard UI for local and GitHub Pages play.
 
-## Features/Highlights
+---
 
-- **Movegen & FEN:**  
-  Board, FEN I/O, ASCII print, and canonical position logic.
-- **Perft-validated:**  
-  Full movegen passes all established node-count test positions.
-- **Static eval:**  
-  Material and piece-square tables.
-- **Search:**  
-  Pure minimax/negamax AB, iterative deepening, move ordering, quiescence, aspiration windows.
-- **Transposition Tables (TT):**  
-  Depth/hashing with safe storage and probe. Clean clearing between searches.
-- **Zobrist Hash:**  
-  Full recompute, incremental planned.
-- **Testing & Tools:**  
-  Perft tests, FEN roundtrips, timing harness, and tactical regression—all as standalone tools.
-- **Determinism:**  
-  Engine is deterministic for fixed seed/time settings; suitable for interviews, CI, and benchmarking.
+## Features / Highlights
+
+- **Move generation and FEN support**  
+  Board representation, FEN parsing/serialization, ASCII board printing, and canonical position handling.
+- **Perft-validated correctness**  
+  Move generation passes established node-count test positions.
+- **Static evaluation**  
+  Material scoring and piece-square tables.
+- **Search**  
+  Negamax / alpha-beta search, iterative deepening, move ordering, quiescence search, and aspiration windows.
+- **Transposition tables**  
+  Depth-aware hashing with safe probing and clearing between searches.
+- **Zobrist hashing**  
+  Full recomputation support, with room for future incremental improvements.
+- **Testing and tooling**  
+  Perft tests, tactical regression, timing harnesses, and FEN roundtrip verification.
+- **Determinism**  
+  Suitable for CI, debugging, interviews, and repeatable benchmarking.
+
+---
+
+## Tactics & CI Status
+
+> **Note:** The CI-integrated tactics harness currently runs and passes 9 out of 11 classic tactical test positions (WAC/Kaufman) by default.  
+> The two deepest cases are commented out for CI stability and can be enabled locally for advanced testing or engine tuning.  
+> See `tests/tactics_test.c` for details.
+
+---
+
+## Debugging Workflow & Lessons Learned
+
+- **Test-driven debugging**  
+  Tactical regression (`tests/tactics_test.c`) is integrated into CI, and each test prints both the expected and engine moves to make failures easier to inspect.
+- **Root move scoring**  
+  Difficult positions can be debugged by printing root move + score lists, which helps distinguish between “not seen” and “seen but undervalued.”
+- **Stable CI with visible roadmap**  
+  Challenging tests are commented rather than removed, keeping CI reliable while preserving future improvement targets.
+- **Iterative improvement loop**  
+  Many missed tactics are the result of depth or evaluation limitations, so failures often become useful guidance for the next search or eval upgrade.
+
+When a tactical test fails, printing root move scores at increasing depths is often the fastest way to understand whether the engine is close or missing the idea entirely.
+
+---
+
+## Recent Improvements
+
+- **Stack-overflow fix for check extensions**  
+  Check extensions in `search_ab` are capped (`ply < 64`) to prevent runaway recursion in perpetual-check-style positions.
+- **Transposition table clearing between searches (`tt_clear()`)**  
+  Keeps tactical tests isolated and avoids cross-position contamination.
+- **Tactical regression harness**  
+  WAC/Kaufman FEN-driven tactical testing replaced hand-written tests and is now CI-integrated.
+- **Timing-budget harness**  
+  Search timing behavior can be tested directly for time-manager debugging.
+- **Perft divide and roundtrip tooling**  
+  Supports node-count verification and FEN roundtrip validation.
+- **Search improvements**  
+  Negamax alpha-beta, full quiescence search, refined move ordering, aspiration windows, and a stronger TT structure.
+- **Sanitizer and regression cleanliness**  
+  The engine passes CPW perft and runs cleanly under ASan/UBSan in supported workflows.
 
 ---
 
 ## Project Structure
 
-- `include/` — Core headers; positions, search, hash, TT.
-- `src/` — Engine routines: movegen, search, eval, hashing, TT.
-- `tests/` — Perft, engine_search, tactics_test, timing_test and scripts.
+- `include/` — Core headers for positions, search, hashing, and transposition tables
+- `src/` — Engine implementation: move generation, search, eval, hashing, TT, UCI, and helpers
+- `tests/` — Perft, tactics, timing, engine search, and supporting test scripts
 
 ---
 
@@ -117,16 +134,16 @@ FEN='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
 ---
 
-## ♞ UCI Protocol & BanksiaGUI
+## UCI Protocol & GUI Support
 
-The engine now supports the **UCI protocol**, allowing use in any modern chess GUI such as BanksiaGUI, Arena, CuteChess, etc.
+The engine supports the **UCI protocol**, so it can be used in chess GUIs such as BanksiaGUI, Arena, and CuteChess.
 
 ### UCI Features
 
 - **Handshake:** `uci`, `isready`, `ucinewgame`, `quit`
 - **Position setup:** `position startpos ...` or `position fen ... [moves ...]`
-- **Apply moves from UCI sequence:** `position ... moves e2e4 e7e5 ...`
-- **On `go` command:** replies with a legal move (search-based or random legal move if search is not enabled)
+- **Move replay from UCI sequences:** `position ... moves e2e4 e7e5 ...`
+- **Search trigger:** `go` returns a legal move, using search when available
 
 ### Command-Line Quick Test
 
@@ -135,7 +152,7 @@ printf "uci\nisready\nposition startpos moves e2e4 e7e5\ngo depth 1\nquit\n" | .
 ```
 
 **Example output:**
-```
+```text
 id name c-chess-engine
 id author YourName
 uciok
@@ -145,82 +162,96 @@ bestmove b1c3
 
 ### GUI Usage
 
-- In BanksiaGUI (or Arena, CuteChess, etc), add `./build/engine` as a "UCI engine".
-- The engine should handshake, accept move sequences, and produce a legal move on demand.
+- In BanksiaGUI, Arena, CuteChess, or similar tools, add `./build/engine` as a UCI engine.
+- The engine should handshake, accept move sequences, and return a legal `bestmove`.
 
 ---
 
-## ⚠️ Troubleshooting & Lessons Learned (Ghost Moves, Parsing, and Buffer Fixes)
+## Troubleshooting: UCI Parsing, Ghost Moves, and Buffer Fixes
 
-#### UCI Parsing: "Ghost" or "Illegal" Moves
+### UCI Parsing: “Ghost” or Illegal Moves
 
-**The Problem:**  
-In long games, some GUIs generate `"position ... moves ..."` commands that exceed the default input buffer, resulting in truncated input and out-of-sync or "ghost" moves.
+**Problem**  
+In long games, some GUIs send `"position ... moves ..."` commands that exceed the default input buffer, which can cause truncated input and desynchronized move replay.
 
-**Diagnosis:**  
-- Added debug output to show every incoming line and move parsing step.
-- Noticed illegal or partial moves being fed to the engine’s internal state.
+**Diagnosis**
+- Added debug output for incoming UCI lines and parsed move tokens
+- Observed partial or illegal moves entering internal state during long command sequences
 
-**Solution:**  
-- **Increased buffer (UCI_BUF_SIZE) to 64KB,** enough for even the longest move lists.
-- Explicit truncation guard: skips lines longer than the buffer (with a log warning), preventing out-of-sync fun.
-- Strict move token validation (must be 4/5 chars, legal UCI).
+**Solution**
+- Increased `UCI_BUF_SIZE` to 64 KB
+- Added a truncation guard that skips overlong lines with a warning
+- Enforced strict move token validation (4/5 chars, legal UCI move format)
 
-**How to spot:**  
-If you see  
-```
+**How to spot it**
+If you see:
+
+```text
 info string WARNING: UCI input line exceeded ...
 ```
-— increase the buffer, rebuild, and restart your GUI.
 
-**Result:**  
-No more desyncs or ghost moves. Move replay is robust and logs are easy to inspect!
+increase the buffer, rebuild, and restart your GUI.
 
----
-
-### Special Moves: Castling, Promotion, En Passant
-
-- All standard chess rules, including castling both sides, all promotions, and en passant, are implemented and tested.  
-- Promotion and castling are verified by logs and FEN changes.
-- **En passant tip:** Use a test FEN such as `8/3p4/8/4P3/8/8/8/8 b - - 0 1`  
-  (load, play d5, then exd6) to trigger and inspect en passant in databases or the GUI.
+**Result**  
+Move replay is now far more robust and easier to debug.
 
 ---
 
-## 🤖 Continuous Integration (CI)
+## Special Moves
 
-- **UCI smoke test workflow:**  
-  On every push/PR, CI builds the engine and pipes a basic UCI sequence, checking for `uciok`, `readyok`, and `bestmove`.
-- Perft and tactical tests are run for every PR.
-- See [`.github/workflows/uci-smoke.yml`](.github/workflows/uci-smoke.yml) for UCI CI configuration.
+- Castling on both sides is implemented and tested
+- Promotions are implemented and verified through logs and FEN changes
+- En passant is implemented and testable through controlled positions
+
+Example en passant test FEN:
+
+```text
+8/3p4/8/4P3/8/8/8/8 b - - 0 1
+```
+
+From there, play `d5` and then `exd6` to inspect en passant handling.
+
+---
+
+## Continuous Integration
+
+- **UCI smoke test workflow**  
+  On every push and pull request, CI builds the engine and checks a basic UCI interaction for `uciok`, `readyok`, and `bestmove`.
+- **Perft and tactics coverage**  
+  Perft and tactical tests run in CI for regression protection.
+- See [`.github/workflows/uci-smoke.yml`](.github/workflows/uci-smoke.yml) for the UCI smoke-test configuration.
 
 ---
 
 ## Development & Debugging Tips
 
-- Use GCC/Clang sanitizers:
+- Use sanitizers when debugging locally:
+
   ```sh
   gcc -Iinclude -std=c11 -g -O0 -fsanitize=address,undefined src/*.c tests/*.c -o build/test_sanitized
   ```
-- After every move, check both the board print and FEN for correctness.
-- For hard bug tracing, enable root move list/score printing, especially when search fails to find the best move.
+
+- After every suspicious move sequence, verify both board print output and FEN.
+- For difficult search bugs, print root move lists and scores before changing evaluation or pruning behavior.
 
 ---
 
-## What’s Next / Roadmap
+## Roadmap
 
-- Incremental Zobrist hashing.
-- Smarter transposition tables.
-- Deeper evaluation (passed pawns, king safety, mobility).
-- UCI `setoption` extensions.
-- Broader tactical and regression test sets.
+Possible future improvements include:
+
+- incremental Zobrist hashing
+- smarter transposition table policies
+- deeper evaluation terms such as passed pawns, king safety, and mobility
+- additional UCI `setoption` support
+- broader tactical and regression coverage
 
 ---
 
-## 📢 Getting Help
+## Getting Help
 
-- For discussion, bug reports, or improvement ideas, open a GitHub issue or PR.
-- Want to try the hardest puzzles or extend UCI? Discussion and contributions welcome!
+- Open an issue or pull request for bug reports, suggestions, or ideas
+- Contributions are welcome, especially around testing, evaluation, and search improvements
 
 ---
 
